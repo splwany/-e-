@@ -29,6 +29,8 @@
 |    |--- icons                     // 图标
 |--- templates                      // 模板
 |    |--- formItems.axml
+|--- utils                          // 公用文件
+|    |--- util.js                   // 公用函数
 |--- app.acss                       // 小程序全局样式
 |--- app.js                         // 小程序全局交互
 |--- app.json                       // 小程序全局配置

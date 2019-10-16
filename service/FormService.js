@@ -10,10 +10,17 @@ export default {
    * @param {表单提交的数据} formData 
    */
   submit (formName, formData) {
-    FormModel.submit(formName, formData).then((res) => {
-      if(res) {
-        // TaskService.run();
-        console.log(res);
+    // FormModel.submit(formName, formData).then((res) => {
+    //   if(res) {
+    //     // TaskService.run();
+    //     console.log(res);
+    //   }
+    // });
+    FormModel.submit(formName, formData, (success)=>{
+      if(success) {
+        TaskService.run();
+      } else {
+        
       }
     });
   },

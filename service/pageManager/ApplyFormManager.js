@@ -1,72 +1,5 @@
 import FormService from "/service/FormService";
-
-
-function formatData (fromValues) {   //表单数据格式化为可用格式
-
-  let baseInfo = [];
-  for(let item of fromValues.baseInfo) {
-    baseInfo.push({
-      name: item.name,
-      value: item.value
-    });
-  }
-  let usePower = [];
-  for(let item of fromValues.usePower) {
-    usePower.push({
-      name: item.name,
-      value: item.value
-    });
-  }
-  let applyCapa = [];
-  for(let item of fromValues.applyCapa) {
-    applyCapa.push({
-      name: item.name,
-      value: item.value
-    });
-  }
-  let equipment = [];
-  for(let item of fromValues.equipment) {
-    let list = [];
-    for(let element of item.value) {
-      let tmp = {};
-      for(let i of element) {
-        tmp[i.name] = i.value;
-      }
-      list.push(tmp);
-    }
-    equipment.push({
-      userNo: baseInfo[0].value,
-      name: item.name,
-      value: list
-    });
-  }
-  let images = [];
-  for(let item of fromValues.images) {
-    images.push({
-      name: item.name,
-      value: item.value
-    });
-  }
-  let note = [];
-  for(let item of fromValues.note) {
-    note.push({
-      name: item.name,
-      value: item.value
-    });
-  }
-
-  const toValues = {
-    baseInfo: baseInfo,
-    usePower: usePower,
-    applyCapa: applyCapa,
-    equipment: equipment,
-    images: images,
-    note: note
-  };
-
-  return toValues;
-
-}
+import util from "/utils/util";
 
 
 class ApplyFormManager {
@@ -103,6 +36,13 @@ class ApplyFormManager {
 
     this.formStructure = {   //每个section的表单信息集合
       baseInfo: [   //基本信息
+        {
+          type: 'input',
+          name: 'applyNo',
+          title: '申请编号',
+          value: util.makeApplyNo(),
+          disabled: true
+        },
         {
           type: 'input',
           name: 'userNo',
@@ -269,6 +209,74 @@ class ApplyFormManager {
     const formName = 'applyForm';
     FormService.submit(formName, submitValues);
   }
+}
+
+
+function formatData (fromValues) {   //表单数据格式化为可用格式
+
+  let baseInfo = [];
+  for(let item of fromValues.baseInfo) {
+    baseInfo.push({
+      name: item.name,
+      value: item.value
+    });
+  }
+  let usePower = [];
+  for(let item of fromValues.usePower) {
+    usePower.push({
+      name: item.name,
+      value: item.value
+    });
+  }
+  let applyCapa = [];
+  for(let item of fromValues.applyCapa) {
+    applyCapa.push({
+      name: item.name,
+      value: item.value
+    });
+  }
+  let equipment = [];
+  for(let item of fromValues.equipment) {
+    let list = [];
+    for(let element of item.value) {
+      let tmp = {};
+      for(let i of element) {
+        tmp[i.name] = i.value;
+      }
+      list.push(tmp);
+    }
+    equipment.push({
+      applyNo: baseInfo[0].value,
+      name: item.name,
+      value: list
+    });
+  }
+  let images = [];
+  for(let item of fromValues.images) {
+    images.push({
+      name: item.name,
+      value: item.value
+    });
+  }
+  let note = [];
+  for(let item of fromValues.note) {
+    note.push({
+      name: item.name,
+      value: item.value
+    });
+  }
+
+  const toValues = {
+    baseInfo: baseInfo,
+    usePower: usePower,
+    applyCapa: applyCapa,
+    equipment: equipment,
+    images: images,
+    note: note
+  };
+
+  return toValues;
+
 }
 
 
