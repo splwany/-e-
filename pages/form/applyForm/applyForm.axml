@@ -1,0 +1,91 @@
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="btn switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="btn tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['baseInfo'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn next-btn" data-nextSection="usePower" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 用电信息 -->
+  <view class="section flex-column" a:if="{{curSection==='usePower'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.usePower}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['usePower'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn next-btn" data-nextSection="applyCapa" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 申请容量 -->
+  <view class="section flex-column" a:if="{{curSection==='applyCapa'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.applyCapa}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['applyCapa'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn next-btn" data-nextSection="equipment" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+  
+  <!-- 用电设备 -->
+  <view class="section flex-column" a:if="{{curSection==='equipment'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.equipment}}" a:key="{{index}}">      
+        <template is="{{item.type}}" data="{{...item, itemPath:`['equipment'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 相关照片 -->
+  <view class="section flex-column" a:if="{{curSection==='images'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.images}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['images'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn next-btn" data-nextSection="note" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="section flex-column" a:if="{{curSection==='note'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.note}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['note'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="btn reset-btn" onTap="onReset">重置</button>
+      <button class="btn submit-btn" onTap="onSubmit">提交</button>
+    </view>
+  </view>
+
+</view>

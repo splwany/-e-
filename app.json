@@ -1,0 +1,22 @@
+{
+  "pages": [
+    "pages/form/applyForm/applyForm"
+  ],
+  "window": {
+    "defaultTitle": "喀左业扩报装e处理平台",
+    "titleBarColor": "#00706b"
+  },
+  "tabBar": {
+    "textColor": "#bbbbbb",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "items": [
+      {
+        "pagePath": "pages/work/work",
+        "name": "工单",
+        "icon": "statics/images/work_line_64px.png",
+        "activeIcon": "image/work_fill_64px.png"
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+:root {
+  --mainThemeColor: #00706b;   /* 国家电网主题色 */
+}
+
+page {
+  background-color: #f6f6f6;
+}
+
+.shadow {
+  box-shadow: 0 5rpx 10rpx rgba(0,0,0,0.4);
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: unset;
+  border-radius: 0;
+  background-color: transparent;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  color: white;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}

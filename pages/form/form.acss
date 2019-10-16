@@ -1,0 +1,217 @@
+/* 页面主框架 */
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 顶部标题标签区域 */
+.head-tag {
+  position: relative;
+  width: 100%;
+  height: 100rpx;
+  color: white;
+  background-color: var(--mainThemeColor);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* 顶部标题栏 */
+.head-tag .head-title {
+  position: relative;
+  width: 100%;
+  height: 100rpx;
+  font-weight: bold;
+  background-color: var(--mainThemeColor);
+  z-index: 1;
+}
+
+/* 顶部标题栏标题 */
+.head-tag .head-title .section-name {
+  flex: 1;
+  line-height: 100rpx;
+  margin-left: 30rpx;
+}
+.head-tag .head-title .switch-btn {
+  width: 100rpx;
+  height: 100rpx;
+}
+.head-tag .head-title .switch-btn image {
+  transform: scale(0.7);
+}
+
+/* 顶部折叠标签区域 */
+.head-tag .tags-area {
+  position: absolute;
+  top: 50rpx;
+  left: 0;
+  width: 100%;
+  max-height: 500rpx;
+  opacity: 100;
+}
+
+/* 顶部标签按钮 */
+.head-tag .tags-area .tag-btn {
+  width: 177.5rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  font-size: unset;
+  background-color: rgba(25, 31, 37, 0.2);
+  border-radius: 10rpx;
+  margin: 5rpx;
+}
+
+/* 小节页面 */
+.section {
+  flex: 1;
+  width: 100%;
+}
+
+/* 小节页面滚动区 */
+.container {
+  flex: 1;
+  width: 100%;
+}
+
+/* input及picker样式 */
+.inpicker {
+  width: 100%;
+  height: 100rpx;
+  margin: 20rpx 0;
+  background-color: white;
+}
+.inpicker .title {
+  line-height: 100rpx;
+  margin: 0 20rpx;
+}
+.inpicker .content {
+  flex: 1;
+  width: calc(100% - 20rpx);
+  height: 100%;
+  text-align: right;
+  padding: 0 20rpx;
+  background-color: transparent;
+}
+.inpicker .right {
+  height: 100%;
+  line-height: 100rpx;
+  margin-right: 20rpx;
+}
+.inpicker .right.btn {
+  width: 100rpx;
+  margin-right: 0;
+}
+.inpicker .right.btn image {
+  transform: scale(0.7);
+}
+
+/* 用电设备样式 */
+.elec-equipment {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: transparent;
+}
+.elec-equipment .item {
+  margin-bottom: 20rpx;
+}
+.elec-equipment .item .inpicker {
+  margin: 0;
+}
+
+/* 删除按钮样式 */
+.delete-btn {
+  width: 100%;
+  height: 100rpx;
+  background-color: #f25643;
+}
+
+/* 添加按钮样式 */
+.add-btn {
+  width: 100%;
+  height: 100rpx;
+  color: black;
+  background-color: rgba(0,0,0,0.12);
+}
+
+/* 照片上传样式 */
+.add-image {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: white;
+}
+.add-image .head {
+  width: 100%;
+  height: 100rpx;
+}
+.add-image .head .title {
+  flex: 1;
+  margin: 0 20rpx;
+  line-height: 100rpx;
+}
+.add-image .head .add-img-btn {
+  width: 100rpx;
+  height: 100%;
+}
+.add-image .head .add-img-btn image {
+  transform: scale(0.5);
+}
+.add-image .prev-image {
+  display: inline-block;
+  width: 300rpx;
+  height: 300rpx;
+  margin: 0 10rpx;
+}
+
+/* 备注样式 */
+.note-area {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: white;
+}
+.note-area .title {
+  width: 100%;
+  line-height: 100rpx;
+  margin: 0 20rpx;
+}
+.note-area .content {
+  margin: 0 20rpx 20rpx;
+  box-shadow: inset 0 0rpx 20rpx rgba(0,0,0,0.4);
+}
+
+/* 横向滚动区外框 */
+.row-scroll-view-box {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 横向滚动区 */
+.row-scroll-view-box scroll-view {
+  padding: 0 10rpx;
+}
+
+/* 底部按钮组 */
+.foot-btn-group {
+  width: 100%;
+  height: 100rpx;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* 底部按钮 */
+.next-btn, .submit-btn, .reset-btn {
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 40rpx;
+  line-height: 100rpx;
+  background-color: var(--mainThemeColor);
+}
+
+/* 重置按钮 */
+.reset-btn {
+  color: rgba(25, 31, 37, 0.56);
+  background-color: rgba(25, 31, 37, 0.15);
+}
