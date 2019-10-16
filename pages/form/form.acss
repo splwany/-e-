@@ -83,7 +83,6 @@
 .inpicker .title {
   line-height: 100rpx;
   margin: 0 20rpx;
-  font-weight: bold;
 }
 .inpicker .content {
   flex: 1;

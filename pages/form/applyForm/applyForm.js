@@ -147,6 +147,7 @@ Page({
    */
   onReset () {
     dd.confirm({
+      title: '警告',
       content: '确定重置表单吗？',
       confirmButtonText: '是',
       cancelButtonText: '点错了',
