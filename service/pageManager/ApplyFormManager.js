@@ -44,6 +44,12 @@ class ApplyFormManager {
           disabled: true
         },
         {
+          type: 'time-picker',
+          name: 'applyDate',
+          title: '申请时间',
+          value: util.getToday()
+        },
+        {
           type: 'input',
           name: 'userNo',
           title: '用户编号',

@@ -93,6 +93,23 @@ Page({
   },
 
   /**
+   * 日期选择
+   */
+  onDatePick (e) {
+    const currentDate = e.target.dataset.currentDate;
+    const itemPath = e.target.dataset.itemPath;
+    dd.datePicker({
+      format: 'yyyy-MM-dd',
+      currentDate: currentDate,
+      success: res => {
+        this.setData({
+          [`submitValues${itemPath}.value`]: res.date
+        });
+      }
+    });
+  },
+
+  /**
    * 点击添加用电设备时触发
    */
   addNewElecEquipment () {

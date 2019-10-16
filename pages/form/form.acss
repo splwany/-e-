@@ -106,6 +106,34 @@
   transform: scale(0.7);
 }
 
+/* 日期选择样式 */
+.time-picker {
+  width: 100%;
+  height: 100rpx;
+  margin: 20rpx 0;
+  background-color: white;
+}
+.time-picker .title {
+  line-height: 100rpx;
+  margin: 0 20rpx;
+}
+.time-picker .content {
+  flex: 1;
+  width: calc(100% - 20rpx);
+  height: 100%;
+  text-align: right;
+  padding: 0 20rpx;
+  color: var(--mainThemeColor);
+  background-color: transparent;
+}
+.time-picker .right {
+  width: 100rpx;
+  height: 100%;
+}
+.time-picker .right image {
+  transform: scale(0.7);
+}
+
 /* 用电设备样式 */
 .elec-equipment {
   width: 100%;

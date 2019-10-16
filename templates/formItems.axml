@@ -21,10 +21,21 @@
     <view class="title">{{title}}</view>
     <input class="content" placeholder="请选择" value="{{value}}" data-itemPath="{{itemPath}}" onInput="bindKeyInput" />
     <picker value="{{index}}" range="{{array}}" data-itemPath="{{itemPath}}" data-array="{{array}}" onChange="bindPickerChange">
-      <button class="right btn">
+      <button class="btn right">
         <image class="icon" mode="scaleToFill" src="/statics/icons/picker_btn_gray.png"/>
       </button>
     </picker>
+  </view>
+</template>
+
+<!-- 时间选择模板 -->
+<template name="time-picker">
+  <view class="time-picker flex-row">
+    <view class="title">{{title}}</view>
+    <input class="content" disabled="true" placeholder="请选择日期" value="{{value}}" data-itemPath="{{itemPath}}" onInput="bindKeyInput" />
+    <button class="btn right" data-currentDate="{{value}}" data-itemPath="{{itemPath}}" onTap="onDatePick">
+      <image class="icon" mode="scaleToFill" src="/statics/icons/picker_btn_gray.png"/>
+    </button>
   </view>
 </template>
 

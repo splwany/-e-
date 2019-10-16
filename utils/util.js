@@ -1,6 +1,19 @@
 export default {
 
   /**
+   * 获取当前日期
+   */
+  getToday () {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const todayDate = [year, month, day].map(this.formatTimeNumber).join('-');
+    return todayDate;
+  },
+
+  /**
    * 自动生成申请编号
    */
   makeApplyNo () {
