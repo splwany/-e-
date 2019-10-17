@@ -1,14 +1,10 @@
 export default {
 
-  saveFirstTask () {
+  addTask () {
 
   },
 
-  addNextTask () {
-
-  },
-
-  addTaskTimeLimit () {
+  setTaskTimeLimit (taskID, timeLimit) {
 
   }
   

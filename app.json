@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/form/applyForm/applyForm"
+    "pages/form/applyForm/applyForm",
+    "pages/form/highReplyForm/highReplyForm"
   ],
   "window": {
     "defaultTitle": "喀左业扩报装e处理平台",

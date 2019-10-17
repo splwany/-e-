@@ -15,8 +15,4 @@ export default {
 
   },
 
-  run () {
-    console.log('已进入TaskService的run()');
-  }
-
 }

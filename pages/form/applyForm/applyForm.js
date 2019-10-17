@@ -1,4 +1,6 @@
-import {manager} from "/service/pageManager/ApplyFormManager";
+import {curSection, sections, formStructure} from "./config";
+import Form from "../form";
+import manager from "/service/pageManager/ApplyFormManager";
 
 
 Page({
@@ -10,103 +12,62 @@ Page({
     isTagsShow: false,    //顶部标题是否展开状态
     switchIcon: '/statics/icons/switch_arrow_down.png',    //顶部标题箭头按钮
     headTitle: '小节名称',    //标题显示的小节名称
-    sections: manager.sections,    //section列表
-    curSection: manager.curSection,    //当前section
-    originValues: manager.formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: manager.formStructure    //页面填写的数据
+    sections: sections,    //section列表信息
+    curSection: curSection,    //当前section
+    originValues: formStructure,   //页面数据初始值，给重置功能使用
+    submitValues: formStructure,    //页面填写的数据
   },
 
   /**
-   * 页面加载完成
+   * 页面加载完成，当从缓存打开时，导入缓存信息
    */
-  onLoad() {
-    this.updateHeadTitle();    //更新小节标题为当前section
-    this.animation = dd.createAnimation({    //创建动画对象
-      duration: 300,
-      timeFunction: 'ease-in-out'
-    });
+  onLoad(query) {
+    Form.formPageInit(this);
+    if(query.openType == 1) {
+      console.log('正在从缓存读取数据');
+    }
   },
 
   /**
-   * 更新headTitle文字
+   * 页面关闭，缓存信息
    */
-  updateHeadTitle () {
-    this.setData({
-      headTitle: this.data.sections[this.data.curSection].name
-    });
+  onUnload() {
+
   },
   
   /**
    * 头部标签展开/折叠
    */
   switchTags () {
-    let headTagAnimation, headTagsAreaAnimation, switchIcon;
-    if(this.data.isTagsShow) {
-      headTagAnimation = this.animation.height('100rpx').step().export();
-      headTagsAreaAnimation = this.animation.opacity(0).translateY('0rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_down.png';
-    } else {
-      headTagAnimation = this.animation.height('265rpx').step().export();
-      headTagsAreaAnimation = this.animation.opacity(100).translateY('50rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_up.png';
-    }
-    this.setData({
-      headTagAnimation: headTagAnimation,
-      headTagsAreaAnimation: headTagsAreaAnimation,
-      switchIcon: switchIcon,
-      isTagsShow: !this.data.isTagsShow
-    });
+    Form.switchTags(this);
   },
 
   /**
    * 切换section页面
    */
   changeSection (e) {
-    this.setData({
-      curSection: e.target.dataset.nextSection
-    }, () => {
-      this.updateHeadTitle();
-    });
+    Form.changeSection(this, e);
   },
 
   /**
    * 输入框输入文字时触发
    */
   bindKeyInput (e) {
-    const itemPath = e.target.dataset.itemPath;
-    this.setData({
-      [`submitValues${itemPath}.value`]:e.detail.value
-    });
+    Form.bindKeyInput(this, e);
   },
 
   /**
    * 选项改变时触发
    */
   bindPickerChange (e) {
-    const itemPath = e.target.dataset.itemPath;
-    const array = e.target.dataset.array;
-    const index = e.detail.value;
-    this.setData({
-      [`submitValues${itemPath}.index`]: index,
-      [`submitValues${itemPath}.value`]: array[index]
-    });
+    Form.bindPickerChange(this, e);
   },
 
   /**
    * 日期选择
    */
   onDatePick (e) {
-    const currentDate = e.target.dataset.currentDate;
-    const itemPath = e.target.dataset.itemPath;
-    dd.datePicker({
-      format: 'yyyy-MM-dd',
-      currentDate: currentDate,
-      success: res => {
-        this.setData({
-          [`submitValues${itemPath}.value`]: res.date
-        });
-      }
-    });
+    Form.onDatePick(this, e);
   },
 
   /**
@@ -132,56 +93,86 @@ Page({
    * 点击图片添加按钮时触发
    */
   addImage (e) {
-    dd.chooseImage({
-      count: e.target.dataset.max,
-      sourceType: ['camera', 'album'],
-      success: (res) => {
-        const itemPath = e.target.dataset.itemPath;
-        const filePaths = res.filePaths;
-        this.setData({
-          [`submitValues${itemPath}.value`]: filePaths
-        });
-      },
-      fail: (res) => {
-        console.log(res.error);
-      },
-      complete: () => {
-
-      }
-    });
+    Form.addImage(this, e);
   },
   
   /**
    * 点击提交按钮触发
    */
   onSubmit () {
-    const submitValues = this.data.submitValues;
+    const submitValues = this._formatData(this.data.submitValues);
     manager.submit(submitValues);
+  },
+  _formatData (fromValues) {    //格式化提交数据
+    let baseInfo = [];
+    for(let item of fromValues.baseInfo) {
+      baseInfo.push({
+        name: item.name,
+        value: item.value
+      });
+    }
+    let usePower = [];
+    for(let item of fromValues.usePower) {
+      usePower.push({
+        name: item.name,
+        value: item.value
+      });
+    }
+    let applyCapa = [];
+    for(let item of fromValues.applyCapa) {
+      applyCapa.push({
+        name: item.name,
+        value: item.value
+      });
+    }
+    let equipment = [];
+    for(let item of fromValues.equipment) {
+      let list = [];
+      for(let element of item.value) {
+        let tmp = {};
+        for(let i of element) {
+          tmp[i.name] = i.value;
+        }
+        list.push(tmp);
+      }
+      equipment.push({
+        applyNo: baseInfo[0].value,
+        name: item.name,
+        value: list
+      });
+    }
+    let images = [];
+    for(let item of fromValues.images) {
+      images.push({
+        name: item.name,
+        value: item.value
+      });
+    }
+    let note = [];
+    for(let item of fromValues.note) {
+      note.push({
+        name: item.name,
+        value: item.value
+      });
+    }
+
+    const toValues = {
+      baseInfo: baseInfo,
+      usePower: usePower,
+      applyCapa: applyCapa,
+      equipment: equipment,
+      images: images,
+      note: note
+    };
+
+    return toValues;
   },
 
   /**
    * 点击重置按钮触发
    */
   onReset () {
-    dd.confirm({
-      title: '警告',
-      content: '确定重置表单吗？',
-      confirmButtonText: '是',
-      cancelButtonText: '点错了',
-      success: res => {
-        if(res.confirm) {
-          this.setData({
-            submitValues: this.data.originValues
-          }, ()=>{
-            dd.showToast({
-              type: 'success',
-              content: '重置成功'
-            });
-          });
-        }
-      }
-    });
-    
+    Form.onReset(this);    
   }
 
 });

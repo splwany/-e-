@@ -12,7 +12,7 @@ export default {
   submit (formName, formData) {
     FormModel.submit(formName, formData, (success)=>{
       if(success) {
-        TaskService.run();
+        TaskService.saveFirstTask();
       } else {
         
       }

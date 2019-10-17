@@ -6,12 +6,12 @@
   <view class="head-tag shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
-      <button class="btn switch-btn" hover-class="none">
+      <button class="button switch-btn" hover-class="none">
         <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
       </button>
     </view>
     <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
-      <view class="btn tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
     </view>
   </view>
 
@@ -23,7 +23,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn next-btn" data-nextSection="usePower" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="usePower" onTap="changeSection">下一步</button>
     </view>
   </view>
 
@@ -35,7 +35,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn next-btn" data-nextSection="applyCapa" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="applyCapa" onTap="changeSection">下一步</button>
     </view>
   </view>
 
@@ -47,7 +47,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn next-btn" data-nextSection="equipment" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="equipment" onTap="changeSection">下一步</button>
     </view>
   </view>
   
@@ -59,7 +59,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
     </view>
   </view>
 
@@ -71,7 +71,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn next-btn" data-nextSection="note" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="note" onTap="changeSection">下一步</button>
     </view>
   </view>
 
@@ -83,8 +83,8 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="btn reset-btn" onTap="onReset">重置</button>
-      <button class="btn submit-btn" onTap="onSubmit">提交</button>
+      <button class="button reset-btn" onTap="onReset">重置</button>
+      <button class="button submit-btn" onTap="onSubmit">提交</button>
     </view>
   </view>
 

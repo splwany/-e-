@@ -8,7 +8,8 @@ export default {
    * @param {提交的表单内容} submitValues 
    */
   submit (submitValues) {
-    const formName = 'applyForm';
+    const formName = 'highReplyForm';
+    console.log(submitValues);
     FormService.submit(formName, submitValues);
   },
 

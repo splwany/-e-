@@ -24,7 +24,7 @@ page {
   flex-wrap: wrap;
 }
 
-.btn {
+.button {
   border: unset;
   border-radius: 0;
   background-color: transparent;
