@@ -33,4 +33,5 @@ function ApplyFormModel(){
   ));
 }
 
+Object.assign(ApplyFormModel,staticMethods);
 export default ApplyFormModel;
