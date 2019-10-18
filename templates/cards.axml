@@ -1,5 +1,5 @@
 <template name="work-list-card">
-  <view class="work-list-card flex-column shadow">
+  <view class="work-list-card flex-column shadow" data-formNo="{{formNo}}" data-formType="{{formType}}" onTap="openForm">
     <view class="project-name">{{projectName}}</view>
     <view class="form-name">{{formName}}</view>
     <view class="date">{{date}}</view>
