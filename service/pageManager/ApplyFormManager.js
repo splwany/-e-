@@ -1,4 +1,4 @@
-import FormService from "/service/FormService";
+import ApplyFormService from "/service/ApplyFormService";
 
 
 export default {
@@ -8,8 +8,7 @@ export default {
    * @param {提交的表单内容} submitValues 
    */
   submit (submitValues) {
-    const formName = 'applyForm';
-    FormService.submit(formName, submitValues);
+    return ApplyFormService.submitApplyForm(submitValues);
   },
 
 }

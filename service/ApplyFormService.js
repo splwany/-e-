@@ -1,3 +1,5 @@
+import ApplyFormModel from "/model/ApplyFormModel";
+
 export default {
 
   /**
@@ -14,6 +16,18 @@ export default {
    */
   updateApplyForm (applyForm) {
 
+  },
+
+    /**
+   * 提交申请单内容
+   * @param {表单内容} applyFormModel 
+   */
+  submitApplyForm(applyFormModel){
+    ApplyFormModel.addApplyFromModel(applyFormModel).then(result=>{
+      console.log(添加成功);
+    }).catch(result=>{
+      console.log(异常);
+    });
   }
 
 }
