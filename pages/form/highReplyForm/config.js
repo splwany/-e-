@@ -48,13 +48,8 @@ export const formStructure = {   //每个section的表单信息集合
       type: 'input',
       name: 'custumNo',
       title: '客户编号',
-      value: ''
-    },
-    {
-      type: 'input',
-      name: 'accountName',
-      title: '户名',
-      value: ''
+      value: '',
+      disabled: true
     },
     {
       type: 'input',
@@ -73,13 +68,15 @@ export const formStructure = {   //每个section的表单信息集合
       type: 'input',
       name: 'usePerson',
       title: '用电方联系人',
-      value: ''
+      value: '',
+      disabled: true
     },
     {
       type: 'input',
       name: 'useTel',
       title: '用电方联系电话',
-      value: ''
+      value: '',
+      disabled: true
     },
     {
       type: 'input',
@@ -97,13 +94,14 @@ export const formStructure = {   //每个section的表单信息集合
       type: 'time-picker',
       name: 'applyDate',
       title: '申请日期',
-      value: ''
+      value: '',
+      disabled: true
     },
     {
       type: 'time-picker',
       name: 'replyDate',
       title: '答复日期',
-      value: ''
+      value: '',
     }
   ]
 };

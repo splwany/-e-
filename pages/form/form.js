@@ -14,20 +14,24 @@ export default {//这次改了weixin分支并提交
 
   switchTags ($page) {
     let headTagAnimation, headTagsAreaAnimation, switchIcon;
-    if($page.data.isTagsShow) {
-      headTagAnimation = $page.animation.height('100rpx').step().export();
-      headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_down.png';
-    } else {
-      headTagAnimation = $page.animation.height('265rpx').step().export();
-      headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_up.png';
-    }
-    $page.setData({
-      headTagAnimation: headTagAnimation,
-      headTagsAreaAnimation: headTagsAreaAnimation,
-      switchIcon: switchIcon,
-      isTagsShow: !$page.data.isTagsShow
+    dd.createSelectorQuery($page).select('.tags-area').boundingClientRect().exec(ret=>{
+      const height = ret[0].height;
+      if($page.data.isTagsShow) {
+        headTagAnimation = $page.animation.height('100rpx').step().export();
+        headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
+        switchIcon = '/statics/icons/switch_arrow_down.png';
+      } else {
+        console.log(height);
+        headTagAnimation = $page.animation.height(`calc(105rpx + ${height}px)`).step().export();
+        headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
+        switchIcon = '/statics/icons/switch_arrow_up.png';
+      }
+      $page.setData({
+        headTagAnimation: headTagAnimation,
+        headTagsAreaAnimation: headTagsAreaAnimation,
+        switchIcon: switchIcon,
+        isTagsShow: !$page.data.isTagsShow
+      });
     });
   },
 
