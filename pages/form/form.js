@@ -1,4 +1,4 @@
-export default {
+export default {//分支测试
 
   /**
    * 页面启动初始化
