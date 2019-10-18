@@ -1,4 +1,4 @@
-export default {//这是master
+export default {//这次改了weixin分支并提交
 
   /**
    * 页面启动初始化
