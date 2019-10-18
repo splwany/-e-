@@ -5,10 +5,10 @@ export default {
 
   /**
    * 表单提交
-   * @param {提交的表单内容} submitValues 
+   * @param {提交的表单内容} applyFormModel 
    */
-  submit (submitValues) {
-    return ApplyFormService.submitApplyForm(submitValues);
+  submit (applyFormModel) {
+    return ApplyFormService.submitApplyForm(applyFormModel);
   },
 
 }

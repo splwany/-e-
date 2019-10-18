@@ -23,10 +23,12 @@ export default {
    * @param {表单内容} applyFormModel 
    */
   submitApplyForm(applyFormModel){
-    ApplyFormModel.addApplyFromModel(applyFormModel).then(result=>{
-      console.log(添加成功);
+    ApplyFormModel.addApplyFromModel(applyFormModel).then(result => {
+      console.log('添加申请表单信息成功');
+      return true;
     }).catch(result=>{
-      console.log(异常);
+      console.log('异常');
+      return false;
     });
   }
 
