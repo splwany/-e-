@@ -8,7 +8,7 @@ let applyFormModel = {
 
 // 行为方法
 class applyFormModelImpl{
-
+  
 }
 
 // 静态方法
