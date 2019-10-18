@@ -1,0 +1,32 @@
+.work-list-card {
+  position: relative;
+  width: calc(100% - 40rpx);
+  margin: 20rpx 20rpx 0;
+  border-radius: 10rpx;
+  background-color: white;
+}
+
+.work-list-card .project-name {
+  line-height: 100rpx;
+  font-size: 50rpx;
+  font-weight: bold;
+  margin: 0 20rpx;
+}
+
+.work-list-card .form-name {
+  font-size: 45rpx;
+  margin: 0 20rpx;
+}
+
+.work-list-card .date {
+  line-height: 100rpx;
+  color: gray;
+  margin: 0 20rpx;
+}
+
+.work-list-card .step {
+  position: absolute;
+  right: 20rpx;
+  bottom: 0;
+  font-size: 80rpx;
+}

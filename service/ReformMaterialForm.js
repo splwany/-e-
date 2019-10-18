@@ -10,9 +10,9 @@ export default {
 
   /**
    * 提交配网改造物料申请单
-   * @param {配网改造物料申请单} reformMaterialForm 
+   * @param {配网改造物料申请单} submitValues
    */
-  submit (reformMaterialForm) {
+  submit (submitValues) {
 
   }
 

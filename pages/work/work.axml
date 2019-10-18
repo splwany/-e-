@@ -1,0 +1,7 @@
+<import src="/templates/cards"/>
+
+<view class="main flex-column">
+
+  <template is="work-list-card" a:for="{{workList}}" a:key="{{index}}" data="{{...item}}"/>
+
+</view>

@@ -6,24 +6,35 @@ page {
   background-color: #f6f6f6;
 }
 
+/* 页面主框架 */
+.main {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 外框阴影 */
 .shadow {
   box-shadow: 0 5rpx 10rpx rgba(0,0,0,0.4);
 }
 
+/* flex纵向布局 */
 .flex-column {
   display: flex;
   flex-direction: column;
 }
 
+/* flex横向布局 */
 .flex-row {
   display: flex;
   flex-direction: row;
 }
 
+/* flex自动换行 */
 .flex-wrap {
   flex-wrap: wrap;
 }
 
+/* 按钮 */
 .button {
   border: unset;
   border-radius: 0;

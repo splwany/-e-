@@ -12,6 +12,16 @@ export default {
     });
   },
 
+  setFormNo ($page, formNo) {
+    $page.setData({
+      formNo: formNo
+    });
+  },
+
+  /**
+   * 顶部折叠切换
+   * @param {调用此函数的页面对象} $page 
+   */
   switchTags ($page) {
     let headTagAnimation, headTagsAreaAnimation, switchIcon;
     if($page.data.isTagsShow) {
@@ -143,6 +153,15 @@ export default {
             });
           });
         }
+      }
+    });
+  },
+
+  clearStorage (key) {
+    dd.removeStorage({
+      key: key,
+      success: () => {
+        console.log('缓存已清除');
       }
     });
   },

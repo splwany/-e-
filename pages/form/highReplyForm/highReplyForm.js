@@ -23,16 +23,36 @@ Page({
    */
   onLoad(query) {
     Form.formPageInit(this);
-    if(query.openType == 1) {
-      console.log('正在从缓存读取数据');
-    }
+    //先从缓存读取，如果没有再从服务器读取
+    dd.getStorage({
+      key: `highReplyForm_${this.data.formNo}`,
+      success: (res) => {
+        if (res.data) {
+          console.log('从缓存读取数据');
+          this.setData({
+            originValues: res.data,
+            submitValues: res.data
+          });
+        } else {    //从服务器获得数据
+          console.log('从服务器获取数据');
+        }
+      }
+    });
   },
 
   /**
    * 页面关闭，缓存信息
    */
   onUnload() {
-
+    if (!this.isSubmitting) {
+      dd.setStorage({
+        key: `applyForm_${this.data.formNo}`,
+        data: this.data.submitValues,
+        success: () => {
+          console.log('缓存成功');
+        }
+      });
+    }
   },
   
   /**
@@ -81,8 +101,12 @@ Page({
    * 点击提交按钮触发
    */
   onSubmit () {
+    //要询问是否确定提交
+    this.isSubmitting = true;
     const submitValues = this._formatData(this.data.submitValues);
     manager.submit(submitValues);
+    dd.navigateBack();
+    Form.clearStorage(`highReplyForm_${this.data.formNo}`);
   },
   _formatData (fromValues) {   //表单数据格式化为可用格式
 
