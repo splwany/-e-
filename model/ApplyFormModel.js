@@ -20,12 +20,7 @@ let staticMethods = {
 
   // 添加申请表单
   addApplyFromModel: function(applyFromModel){
-    return HelperUtil.httpReq(RequestUrls.APPLYFORM_CRUD,applyFormModel).then(result =>{
-      if (result.data.result) {
-      }else{
-        return HelperUtil.returnPromiseRejectObj(result);
-      }
-    });
+    return HelperUtil.httpReq(RequestUrls.APPLYFORM_CRUD,applyFormModel);
   }
 };
 
