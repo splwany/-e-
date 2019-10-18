@@ -1,0 +1,8 @@
+<template name="work-list-card">
+  <view class="work-list-card flex-column shadow">
+    <view class="project-name">{{projectName}}</view>
+    <view class="form-name">{{formName}}</view>
+    <view class="date">{{date}}</view>
+    <view class="step">{{step}}</view>
+  </view>
+</template>

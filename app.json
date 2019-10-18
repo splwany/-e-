@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/work/work",
     "pages/form/applyForm/applyForm",
     "pages/form/highReplyForm/highReplyForm"
   ],
