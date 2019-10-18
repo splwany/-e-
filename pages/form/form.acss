@@ -93,11 +93,11 @@
   line-height: 100rpx;
   margin-right: 20rpx;
 }
-.inpicker .right.btn {
+.inpicker .right.button {
   width: 100rpx;
   margin-right: 0;
 }
-.inpicker .right.btn image {
+.inpicker .right.button image {
   transform: scale(0.7);
 }
 

@@ -19,7 +19,7 @@
 <template name="picker">
   <view class="inpicker flex-row">
     <view class="title">{{title}}</view>
-    <input class="content" placeholder="请选择" value="{{value}}" data-itemPath="{{itemPath}}" onInput="bindKeyInput" />
+    <input class="content" placeholder="{{placeholder||'请选择'}}" value="{{value}}" disabled="{{disabled}}" data-itemPath="{{itemPath}}" onInput="bindKeyInput" />
     <picker value="{{index}}" range="{{array}}" data-itemPath="{{itemPath}}" data-array="{{array}}" onChange="bindPickerChange">
       <button class="button right">
         <image class="icon" mode="scaleToFill" src="/statics/icons/picker_btn_gray.png"/>
