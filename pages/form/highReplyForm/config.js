@@ -66,7 +66,7 @@ export const formStructure = {   //每个section的表单信息集合
       type: 'picker',
       name: 'regCate',
       title: '业务类型',
-      array: ['高压新装', '高压增容', '高压装表临时用电', '小区新装'],          
+      array: ['高压新装', '高压增容', '高压装表临时用电', '小区新装'],
       index: -1
     },
     {
@@ -105,5 +105,32 @@ export const formStructure = {   //每个section的表单信息集合
       title: '答复日期',
       value: ''
     }
+  ],
+  powerCapa: [
+    {
+      type: 'input-unit',
+      name: 'newInstall',
+      title: '新装',
+      value: '',
+      placeholder: '0',
+      unit: 'kVA'
+    },
+    {
+      type: 'input-unit',
+      name: 'total',
+      title: '合计',
+      value: '',
+      placeholder: '0',
+      unit: 'kVA'
+    }
+  ],
+  connectionInfo:[
+    {
+      type: 'picker',
+      name: 'isGarden',
+      title: '供电方式：',
+      array: ['单电源', '双电源','多电源'],
+      index: -1
+    },
   ]
 };
