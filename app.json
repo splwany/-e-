@@ -2,7 +2,10 @@
   "pages": [
     "pages/work/work",
     "pages/form/applyForm/applyForm",
-    "pages/form/highReplyForm/highReplyForm"
+    "pages/form/highReplyForm/highReplyForm",
+    "pages/file/file",
+    "pages/search/search",
+    "pages/profile/profile"
   ],
   "window": {
     "defaultTitle": "喀左业扩报装e处理平台",
@@ -16,8 +19,26 @@
       {
         "pagePath": "pages/work/work",
         "name": "工单",
-        "icon": "statics/images/work_line_64px.png",
-        "activeIcon": "image/work_fill_64px.png"
+        "icon": "/statics/icons/work_line_48px.png",
+        "activeIcon": "/statics/icons/work_fill_48px.png"
+      },
+      {
+        "pagePath": "pages/file/file",
+        "name": "归档",
+        "icon": "/statics/icons/file_line_48px.png",
+        "activeIcon": "/statics/icons/file_fill_48px.png"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "name": "检索",
+        "icon": "/statics/icons/search_line_48px.png",
+        "activeIcon": "/statics/icons/search_fill_48px.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "name": "个人",
+        "icon": "/statics/icons/profile_line_48px.png",
+        "activeIcon": "/statics/icons/profile_fill_48px.png"
       }
     ]
   }
