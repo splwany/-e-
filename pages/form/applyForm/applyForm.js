@@ -23,9 +23,8 @@ Page({
    */
   onLoad(query) {
     Form.formPageInit(this);
-    if(query.openType == 1) {
-      console.log('正在从缓存读取数据');
-    }
+    //从服务器读取表单数据
+   
   },
 
   /**
@@ -100,8 +99,11 @@ Page({
    * 点击提交按钮触发
    */
   onSubmit () {
-    const submitValues = this._formatData(this.data.submitValues);
-    manager.submit(submitValues);
+    Form.onSubmit(this, () => {
+      const submitValues = this._formatData(this.data.submitValues);
+      const success = manager.submit(submitValues);
+      return success;
+    });
   },
   _formatData (fromValues) {    //格式化提交数据
     let baseInfo = [];

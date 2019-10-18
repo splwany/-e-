@@ -123,7 +123,38 @@ export default {
   },
 
   /**
-   * 
+   * 表单提交
+   * @param {调用此函数的页面对象} $page 
+   */
+  onSubmit ($page, submit) {
+    dd.confirm({
+      title: '提示',
+      content: '确定提交吗？',
+      confirmButtonText: '是',
+      cancelButtonText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          dd.showLoading({
+            content: '提交中'
+          });
+          const success = submit();
+          if (success) {
+            dd.showToast({
+              content: '提交成功',
+              duration: 1000,
+              type: 'success',
+              success: () => {
+                dd.navigateBack();
+              }
+            });
+          }
+        }
+      }
+    });
+  },
+
+  /**
+   * 表单重置
    * @param {调用此函数的页面对象} $page 
    */
   onReset ($page) {

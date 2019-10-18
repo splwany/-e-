@@ -23,16 +23,15 @@ Page({
    */
   onLoad(query) {
     Form.formPageInit(this);
-    if(query.openType == 1) {
-      console.log('正在从缓存读取数据');
-    }
+    //从服务器读取表单数据
+    
   },
 
   /**
    * 页面关闭，缓存信息
    */
   onUnload() {
-
+    
   },
   
   /**
@@ -81,8 +80,10 @@ Page({
    * 点击提交按钮触发
    */
   onSubmit () {
+    //要询问是否确定提交
     const submitValues = this._formatData(this.data.submitValues);
     manager.submit(submitValues);
+    dd.navigateBack();
   },
   _formatData (fromValues) {   //表单数据格式化为可用格式
 
