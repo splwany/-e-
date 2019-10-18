@@ -127,10 +127,46 @@ export const formStructure = {   //每个section的表单信息集合
   connectionInfo:[
     {
       type: 'picker',
-      name: 'isGarden',
-      title: '供电方式：',
+      name: 'supplyWay',
+      title: '供电方式',
       array: ['单电源', '双电源','多电源'],
       index: -1
     },
+    {
+      type: 'picker',
+      name: 'powerType',
+      title: '电源性质',
+      array: ['主供', '备用'],
+      index: -1
+    },
+  ],
+  POC:[//待完善
+
+  ],
+  PDP:[//待完善
+
+  ],
+  IOLine: [
+  ],
+  powerScheme: [
+    {
+      type:'picker',
+      name:'poweredPointBuild',
+      title:'受电点建设类型',
+      array:['双杆式配电变压器台','箱变','变电站','高压计量柜','环网柜'],
+      index:-1  
+    },
+    {
+      type:'picker',
+      name:'poweredPointProtect',
+      title:'受电点保护方案',
+      array:['10kV跌落式熔断器','10kV真空断路器','10kV刀闸保护'],
+      index:-1
+    }
+
+  ],
+  metering: [
+
   ]
+
 };
