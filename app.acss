@@ -14,7 +14,7 @@ page {
 
 /* 外框阴影 */
 .shadow {
-  box-shadow: 0 5rpx 10rpx rgba(0,0,0,0.4);
+  box-shadow: 0 5rpx 12rpx rgba(0,0,0,0.3);
 }
 
 /* flex纵向布局 */

@@ -3,5 +3,5 @@
 <view class="main flex-column">
 
   <template is="work-list-card" a:for="{{workList}}" a:key="{{index}}" data="{{...item}}"/>
-
+  <button class="button add-btn shadow" hover-class="add-btn-hover" onTap="addApplyForm"></button>
 </view>

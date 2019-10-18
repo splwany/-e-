@@ -23,8 +23,10 @@ Page({
    */
   onLoad(query) {
     Form.formPageInit(this);
-    //从服务器读取表单数据
-   
+    if (query.formNo) {
+      //从服务器读取表单数据
+      console.log(`表单编号为：${query.formNo}`);
+    }
   },
 
   /**

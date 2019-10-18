@@ -11,6 +11,13 @@ Page({
    * 页面加载完毕后运行
    */
   onShow() {
+    this.onPullDownRefresh();
+  },
+
+  /**
+   * 下拉刷新时触发
+   */
+  onPullDownRefresh () {
     console.log('刷新');
     this.getWorkList();
   },
@@ -42,4 +49,14 @@ Page({
       url: `/pages/form/${formType}/${formType}?formNo=${formNo}`
     });
   },
+
+  /**
+   * 点击新建按钮，打开新建申请单
+   */
+  addApplyForm () {
+    dd.navigateTo({
+      url: '/pages/form/applyForm/applyForm'
+    });
+  },
+
 });

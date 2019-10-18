@@ -30,3 +30,21 @@
   bottom: 0;
   font-size: 80rpx;
 }
+
+.add-btn {
+  position: fixed;
+  width: 106rpx;
+  height: 106rpx;
+  bottom: 8%;
+  right: 5%;
+  border-radius: 50%;
+  background-color: var(--mainThemeColor);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 45rpx 45rpx;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIdSURBVHhe7dvRTkIxEEVR8P//WTnxjmAEvG2n7bSz1wv6YBz2UUw0XgAAAAAAAMa5Ho84fN4cb/643hxvumOAB8/im14jMMDhXXzTYwQGuDkT33iPkH6AkvjGc4TUA9TEN14jpB2gJb7xGCHlAB7xTesI6QbwjG9aRvg4HtGgZVQGcFI7Aj8DnJW+HKUcQKKMsPVLkCLL8e4vpV+pvWw7wGP4yCNsOcCz4FFH2G6AV6El4gghXge9vIv/6FXwsx//TumY2wxQGq/HCKXxZYsBaqN5jlATX5YfoDa+8RihNr4sPUBrfNMyQkt8WXYAr/imZoTW+LLkAN7xTckIHvFluQF6xTdnRvCKL0sN0Du+8Qz8n2UGGBXfjBphiQFGxzcjRgg/wKz4pvcIoX8ZNzv+CGG/AyLET/sSlCW+hBsgU3wJNUC2+BJmgIzxJcQAWePL9AEyx5epA2SPL9M+OfG/TTmA+HfDjyD+b0MPIf5fw44h/nNDDiL+a92PIv57XQ8j/v+6HUf8c7ocSPzz3I8kfhnXQ4lfzu1Y4tdxOZj49ZqPJn6bpsOJ3676eOL7qHoCxPdT/CSI76voiRDf31L/Kb9bfFlmgB3jyxID7Bpfwg+wc3wJPcDu8SXsABniS8gBssSXcANkii+hBsgWX8IMkDG+hBgga3yZPkDm+DJ1gOzxZdoAxP82ZQDi3xWHaP2bAPEBAAAAAAAmuVy+ABC5HJBJFOHyAAAAAElFTkSuQmCC");
+}
+
+.add-btn-hover {
+  background-color: #003635;
+}
