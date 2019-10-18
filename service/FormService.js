@@ -9,8 +9,8 @@ export default {
    * @param {表单名称} formName 
    * @param {表单提交的数据} formData 
    */
-  submit (formName, formData) {
-    FormModel.submit(formName, formData, (success)=>{
+  submit (formType, formData) {
+    FormModel.submit(formType, formData, (success)=>{
       if(success) {
         TaskService.saveFirstTask();
       } else {
