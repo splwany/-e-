@@ -19,7 +19,7 @@ let staticMethods = {
   },
 
   // 添加任务
-  addApplyFromModel: function(taskModel){
+  addTaskModel: function(taskModel){
     return HelperUtil.httpReq(RequestUrls.TASK_CRUD,taskModel);
   }
 };

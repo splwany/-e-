@@ -19,7 +19,7 @@ let staticMethods = {
   },
 
   // 添加申请表单
-  addApplyFromModel: function(applyFormModel){
+  addApplyFormModel: function(applyFormModel){
     return HelperUtil.httpReq(RequestUrls.APPLYFORM_CRUD,applyFormModel);
   }
 };
