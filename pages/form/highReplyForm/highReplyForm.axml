@@ -1,7 +1,5 @@
 <import src="/templates/formItems"/>
-
 <view class="main flex-column">
-
   <!-- 顶部折叠栏 -->
   <view class="head-tag shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
@@ -14,7 +12,6 @@
       <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
     </view>
   </view>
-
   <!-- 基本信息 -->
   <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
     <scroll-view class="container" scroll-y>
@@ -26,7 +23,6 @@
       <button class="button next-btn" data-nextSection="powerCapa" onTap="changeSection">下一步</button>
     </view>
   </view>
-
   <!-- 供电容量 -->
   <view class="section flex-column" a:if="{{curSection==='powerCapa'}}">
     <scroll-view class="container" scroll-y>
@@ -38,7 +34,6 @@
       <button class="button next-btn" data-nextSection="connectionInfo" onTap="changeSection">下一步</button>
     </view>
   </view>
-
   <!-- 接入信息 -->
   <view class="section flex-column" a:if="{{curSection==='connectionInfo'}}">
     <scroll-view class="container" scroll-y>
@@ -47,24 +42,63 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button next-btn" data-nextSection="powerCapa" onTap="changeSection">下一步</button>
+      <button class="button next-btn" data-nextSection="POC" onTap="changeSection">下一步</button>
     </view>
   </view>
-  
   <!-- 接电点 -->
-
-
+  <view class="section flex-column" a:if="{{curSection==='POC'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.POC}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['POC'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="PDP" onTap="changeSection">下一步</button>
+    </view>
+  </view>
   <!-- 分界点 -->
-
-
+  <view class="section flex-column" a:if="{{curSection==='PDP'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.PDP}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['PDP'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="IOLine" onTap="changeSection">下一步</button>
+    </view>
+  </view>
   <!-- 进出线路 -->
-
-
+  <view class="section flex-column" a:if="{{curSection==='IOLine'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.IOLine}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['IOLine'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="powerScheme" onTap="changeSection">下一步</button>
+    </view>
+  </view>
   <!-- 受电方案 -->
-
-
+  <view class="section flex-column" a:if="{{curSection==='powerScheme'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.powerScheme}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['powerScheme'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="metering" onTap="changeSection">下一步</button>
+    </view>
+  </view>
   <!-- 计量计费 -->
-
-
-
+  <view class="section flex-column" a:if="{{curSection==='metering'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.metering}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`['metering'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button reset-btn" onTap="onReset">重置</button>
+      <button class="button submit-btn" onTap="onSubmit">提交</button>
+    </view>
+  </view>
 </view>
