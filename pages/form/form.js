@@ -1,4 +1,4 @@
-export default {
+export default {//这次改了weixin分支并提交
 
   /**
    * 页面启动初始化
@@ -12,32 +12,26 @@ export default {
     });
   },
 
-  setFormNo ($page, formNo) {
-    $page.setData({
-      formNo: formNo
-    });
-  },
-
-  /**
-   * 顶部折叠切换
-   * @param {调用此函数的页面对象} $page 
-   */
   switchTags ($page) {
     let headTagAnimation, headTagsAreaAnimation, switchIcon;
-    if($page.data.isTagsShow) {
-      headTagAnimation = $page.animation.height('100rpx').step().export();
-      headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_down.png';
-    } else {
-      headTagAnimation = $page.animation.height('265rpx').step().export();
-      headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
-      switchIcon = '/statics/icons/switch_arrow_up.png';
-    }
-    $page.setData({
-      headTagAnimation: headTagAnimation,
-      headTagsAreaAnimation: headTagsAreaAnimation,
-      switchIcon: switchIcon,
-      isTagsShow: !$page.data.isTagsShow
+    dd.createSelectorQuery($page).select('.tags-area').boundingClientRect().exec(ret=>{
+      const height = ret[0].height;
+      if($page.data.isTagsShow) {
+        headTagAnimation = $page.animation.height('100rpx').step().export();
+        headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
+        switchIcon = '/statics/icons/switch_arrow_down.png';
+      } else {
+        console.log(height);
+        headTagAnimation = $page.animation.height(`calc(105rpx + ${height}px)`).step().export();
+        headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
+        switchIcon = '/statics/icons/switch_arrow_up.png';
+      }
+      $page.setData({
+        headTagAnimation: headTagAnimation,
+        headTagsAreaAnimation: headTagsAreaAnimation,
+        switchIcon: switchIcon,
+        isTagsShow: !$page.data.isTagsShow
+      });
     });
   },
 
@@ -133,7 +127,38 @@ export default {
   },
 
   /**
-   * 
+   * 表单提交
+   * @param {调用此函数的页面对象} $page 
+   */
+  onSubmit ($page, submit) {
+    dd.confirm({
+      title: '提示',
+      content: '确定提交吗？',
+      confirmButtonText: '是',
+      cancelButtonText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          dd.showLoading({
+            content: '提交中'
+          });
+          const success = submit();
+          if (success) {
+            dd.showToast({
+              content: '提交成功',
+              duration: 1000,
+              type: 'success',
+              success: () => {
+                dd.navigateBack();
+              }
+            });
+          }
+        }
+      }
+    });
+  },
+
+  /**
+   * 表单重置
    * @param {调用此函数的页面对象} $page 
    */
   onReset ($page) {
@@ -153,15 +178,6 @@ export default {
             });
           });
         }
-      }
-    });
-  },
-
-  clearStorage (key) {
-    dd.removeStorage({
-      key: key,
-      success: () => {
-        console.log('缓存已清除');
       }
     });
   },

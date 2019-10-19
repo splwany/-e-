@@ -12,9 +12,9 @@ export default {
 
   /**
    * 下载文件
-   * @param {文件列表} fileUrls
+   * @param {文件列表} filePaths 
    */
-  downloadFiles (fileUrls) {
+  downloadFiles (filePaths) {
 
   },
 

@@ -56,7 +56,7 @@ export const formStructure = {   //每个section的表单信息集合
       name: 'regCate',
       title: '登记类别',
       array: ['高压新装', '高压增容', '高压装表临时用电', '小区新装', '低压居民新装', '低压非居民新装', '低压装表临时用电'],          
-      index: -1
+      index: -1,
     },
     {
       type: 'picker',

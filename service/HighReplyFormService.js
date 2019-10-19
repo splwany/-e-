@@ -47,9 +47,17 @@ export default {
 
   /**
    * 生成方案草图
-   * @param {方案对象} plan 
+   * @param {方案对象} scheme 
    */
-  generatePlanScheme (plan) {
+  generatePlanScheme (scheme) {
+
+  },
+
+  /**
+   * 生成预算清单
+   * @param {物资方案对象} scheme 
+   */
+  generatePlanBudget (scheme) {
 
   },
 
@@ -60,5 +68,13 @@ export default {
   generateDoc (highReplyForm) {
 
   },
+
+  /**
+   * 打印文档
+   * @param {文档文件} doc 
+   */
+  printDoc (doc) {
+
+  }
 
 }

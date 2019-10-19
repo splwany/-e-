@@ -3,11 +3,11 @@ import TaskModel from "/model/TaskModel";
 
 export default {
 
-  saveFirstTask (formID) {
+  saveFirstTask () {
 
   },
 
-  addNextTask (nextUserID, formID) {
+  addNextTask () {
 
   },
 
