@@ -149,7 +149,7 @@ export const formStructure = {   //每个section的表单信息集合
   ],
   equipment: [   //用电设备
     {
-      type: 'elec-equipment',
+      type: 'add-delete',
       name: 'equipment',
       data: [
         {

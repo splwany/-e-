@@ -105,6 +105,33 @@ export default {//这次改了weixin分支并提交
   },
 
   /**
+   * 点击添加按钮
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数} e 
+   */
+  onAdd ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const length = e.target.dataset.length;
+    const defaultData = e.target.dataset.defaultData;
+    $page.$spliceData({
+      [`submitValues${itemPath}.value`]: [length, 0, defaultData]
+    });
+  },
+
+  /**
+   * 点击删除按钮
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数} e 
+   */
+  onDelete ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const index = e.target.dataset.index;
+    $page.$spliceData({
+      [`submitValues${itemPath}.value`]: [index, 1]
+    });
+  },
+
+  /**
    * 添加图片
    * @param {调用此函数的页面对象} $page 
    * @param {模板传递的事件参数} e 

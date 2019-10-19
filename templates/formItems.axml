@@ -39,16 +39,16 @@
   </view>
 </template>
 
-<!-- 用电设备模板 -->
-<template name="elec-equipment">
-  <view class="elec-equipment flex-column">
+<!-- 可增可删模板 -->
+<template name="add-delete">
+  <view class="add-delete flex-column">
     <view class="item" a:for="{{value}}" a:key="{{index}}">
-      <template is="{{item[0].type}}" data="{{...item[0], itemPath:`${itemPath}['value'][${index}][0]`}}"></template>
-      <template is="{{item[1].type}}" data="{{...item[1], itemPath:`${itemPath}['value'][${index}][1]`}}"></template>
-      <template is="{{item[2].type}}" data="{{...item[2], itemPath:`${itemPath}['value'][${index}][2]`}}"></template>
-      <button class="button delete-btn" data-index="{{index}}" onTap="deleteElecEquipment">删除</button>
+      <block a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex">
+        <template is="{{subItem.type}}" a:key="sub_{{subIndex}}" data="{{...subItem, itemPath:`${itemPath}['value'][${index}][${subIndex}]`}}"></template>
+      </block>
+      <button class="button delete-btn" data-itemPath="{{itemPath}}" data-defaultData="{{defaultData}}" data-length="{{length}}" data-index="{{index}}" onTap="onDelete">删除</button>
     </view>
-    <button class="button add-btn shadow" onTap="addNewElecEquipment">添加</button>
+    <button class="button add-btn shadow" data-itemPath="{{itemPath}}" data-defaultData="{{data}}" data-length="{{value.length}}" onTap="onAdd">添加</button>
   </view>
 </template>
 

@@ -72,22 +72,17 @@ Page({
   },
 
   /**
-   * 点击添加用电设备时触发
+   * 点击添加按钮时触发
    */
-  addNewElecEquipment () {
-    this.$spliceData({
-      [`submitValues.equipment[0].value`]: [this.data.submitValues.equipment[0].value.length, 0, this.data.submitValues.equipment[0].data]
-    });
+  onAdd (e) {
+    Form.onAdd(this, e);
   },
 
   /**
-   * 点击删除用电设备时触发
+   * 点击删除按钮时触发
    */
-  deleteElecEquipment (e) {
-    const index = e.target.dataset.index;
-    this.$spliceData({
-      [`submitValues.equipment[0].value`]: [index, 1]
-    });
+  onDelete (e) {
+    Form.onDelete(this, e);
   },
 
   /**
