@@ -1,3 +1,6 @@
+import service from "/service/ApplyFormService";
+
+
 export default {//这次改了weixin分支并提交
 
   /**
@@ -66,7 +69,7 @@ export default {//这次改了weixin分支并提交
   bindKeyInput ($page, e) {
     const itemPath = e.target.dataset.itemPath;
     $page.setData({
-      [`submitValues${itemPath}.value`]:e.detail.value
+      [`${itemPath}.value`]:e.detail.value
     });
   },
 
@@ -83,7 +86,7 @@ export default {//这次改了weixin分支并提交
       currentDate: currentDate,
       success: res => {
         $page.setData({
-          [`submitValues${itemPath}.value`]: res.date
+          [`${itemPath}.value`]: res.date
         });
       }
     });
@@ -99,8 +102,8 @@ export default {//这次改了weixin分支并提交
     const array = e.target.dataset.array;
     const index = e.detail.value;
     $page.setData({
-      [`submitValues${itemPath}.index`]: index,
-      [`submitValues${itemPath}.value`]: array[index]
+      [`${itemPath}.index`]: index,
+      [`${itemPath}.value`]: array[index]
     });
   },
 
@@ -114,7 +117,7 @@ export default {//这次改了weixin分支并提交
     const length = e.target.dataset.length;
     const defaultData = e.target.dataset.defaultData;
     $page.$spliceData({
-      [`submitValues${itemPath}.value`]: [length, 0, defaultData]
+      [`${itemPath}.value`]: [length, 0, defaultData]
     });
   },
 
@@ -127,7 +130,7 @@ export default {//这次改了weixin分支并提交
     const itemPath = e.target.dataset.itemPath;
     const index = e.target.dataset.index;
     $page.$spliceData({
-      [`submitValues${itemPath}.value`]: [index, 1]
+      [`${itemPath}.value`]: [index, 1]
     });
   },
 
@@ -144,7 +147,7 @@ export default {//这次改了weixin分支并提交
         const itemPath = e.target.dataset.itemPath;
         const filePaths = res.filePaths;
         $page.setData({
-          [`submitValues${itemPath}.value`]: filePaths
+          [`${itemPath}.value`]: filePaths
         });
       },
       fail: (res) => {
@@ -157,7 +160,7 @@ export default {//这次改了weixin分支并提交
    * 表单提交
    * @param {调用此函数的页面对象} $page 
    */
-  onSubmit ($page, submit) {
+  onSubmit ($page, formValues) {
     dd.confirm({
       title: '提示',
       content: '确定提交吗？',
@@ -168,7 +171,7 @@ export default {//这次改了weixin分支并提交
           dd.showLoading({
             content: '提交中'
           });
-          const success = submit();
+          const success = service.submitApplyForm(formValues);
           if (success) {
             dd.showToast({
               content: '提交成功',

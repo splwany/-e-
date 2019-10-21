@@ -39,19 +39,6 @@
   </view>
 </template>
 
-<!-- 可增可删模板 -->
-<template name="add-delete">
-  <view class="add-delete flex-column">
-    <view class="item" a:for="{{value}}" a:key="{{index}}">
-      <block a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex">
-        <template is="{{subItem.type}}" a:key="sub_{{subIndex}}" data="{{...subItem, itemPath:`${itemPath}['value'][${index}][${subIndex}]`}}"></template>
-      </block>
-      <button class="button delete-btn" data-itemPath="{{itemPath}}" data-defaultData="{{defaultData}}" data-length="{{length}}" data-index="{{index}}" onTap="onDelete">删除</button>
-    </view>
-    <button class="button add-btn shadow" data-itemPath="{{itemPath}}" data-defaultData="{{data}}" data-length="{{value.length}}" onTap="onAdd">添加</button>
-  </view>
-</template>
-
 <!-- 添加图片模板 -->
 <template name="add-image">
   <view class="add-image flex-column">

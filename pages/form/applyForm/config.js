@@ -30,7 +30,7 @@ export const sections = {   //section列表信息
   }
 };
 
-export const formStructure = {   //每个section的表单信息集合
+export const baseFormStructure = {   //每个section的表单信息集合
   baseInfo: [   //基本信息
     {
       type: 'input',
@@ -147,36 +147,6 @@ export const formStructure = {   //每个section的表单信息集合
       unit: 'kVA'
     }
   ],
-  equipment: [   //用电设备
-    {
-      type: 'add-delete',
-      name: 'equipment',
-      data: [
-        {
-          type: 'picker',
-          name: 'equipmentName',
-          title: '设备名称',
-          array: ['变压器', '高压电机'],
-          index: -1
-        },
-        {
-          type: 'picker',
-          name: 'perCapa',
-          title: '单台容量',
-          array: ['10', '20', '30', '50', '80', '100', '160', '200', '250', '315', '400', '500', '630', '800', '1000', '1250', '1600', '2000', '2500', '3150', '4000', '5000', '6300', '8000', '10000'],              
-          index: -1
-        },
-        {
-          type: 'input-unit',
-          name: 'count',
-          title: '数量',
-          value: '1',
-          unit: '台'
-        }
-      ],
-      value: []
-    }
-  ],
   images: [   //相关照片
     {
       type: 'add-image',
@@ -204,3 +174,31 @@ export const formStructure = {   //每个section的表单信息集合
     }
   ]
 };
+
+export const equipmentStructure = {   //用电设备
+  name: 'equipment',
+  data: [
+    {
+      type: 'picker',
+      name: 'equipmentName',
+      title: '设备名称',
+      array: ['变压器', '高压电机'],
+      index: -1
+    },
+    {
+      type: 'picker',
+      name: 'perCapa',
+      title: '单台容量',
+      array: ['10', '20', '30', '50', '80', '100', '160', '200', '250', '315', '400', '500', '630', '800', '1000', '1250', '1600', '2000', '2500', '3150', '4000', '5000', '6300', '8000', '10000'],              
+      index: -1
+    },
+    {
+      type: 'input-unit',
+      name: 'count',
+      title: '数量',
+      value: '1',
+      unit: '台'
+    }
+  ],
+  value: []
+}

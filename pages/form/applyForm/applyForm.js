@@ -1,6 +1,5 @@
-import {curSection, sections, formStructure} from "./config";
+import {curSection, sections, baseFormStructure, equipmentStructure} from "./config";
 import Form from "../form";
-import manager from "/service/pageManager/ApplyFormManager";
 
 
 Page({
@@ -14,8 +13,10 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表信息
     curSection: curSection,    //当前section
-    originValues: formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: formStructure,    //页面填写的数据
+    originBaseValues: baseFormStructure,   //页面基础数据初始值，给重置功能使用
+    originEquipmentValues: equipmentStructure,    //设备数据初始值，给重置功能用
+    submitBaseValues: baseFormStructure,    //页面填写的基础数据
+    submitEquipmentValues: equipmentStructure    //填写的设备数据
   },
 
   /**
@@ -72,20 +73,6 @@ Page({
   },
 
   /**
-   * 点击添加按钮时触发
-   */
-  onAdd (e) {
-    Form.onAdd(this, e);
-  },
-
-  /**
-   * 点击删除按钮时触发
-   */
-  onDelete (e) {
-    Form.onDelete(this, e);
-  },
-
-  /**
    * 点击图片添加按钮时触发
    */
   addImage (e) {
@@ -93,78 +80,19 @@ Page({
   },
   
   /**
+   * 从组件更新页面数据
+   */
+  updateData (bind, value) {
+    this.setData({
+      [`${bind}`]: value
+    });
+  },
+
+  /**
    * 点击提交按钮触发
    */
   onSubmit () {
-    Form.onSubmit(this, () => {
-      const submitValues = this._formatData(this.data.submitValues);
-      const success = manager.submit(submitValues);
-      return success;
-    });
-  },
-  _formatData (fromValues) {    //格式化提交数据
-    let baseInfo = [];
-    for(let item of fromValues.baseInfo) {
-      baseInfo.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let usePower = [];
-    for(let item of fromValues.usePower) {
-      usePower.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let applyCapa = [];
-    for(let item of fromValues.applyCapa) {
-      applyCapa.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let equipment = [];
-    for(let item of fromValues.equipment) {
-      let list = [];
-      for(let element of item.value) {
-        let tmp = {};
-        for(let i of element) {
-          tmp[i.name] = i.value;
-        }
-        list.push(tmp);
-      }
-      equipment.push({
-        applyNo: baseInfo[0].value,
-        name: item.name,
-        value: list
-      });
-    }
-    let images = [];
-    for(let item of fromValues.images) {
-      images.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let note = [];
-    for(let item of fromValues.note) {
-      note.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-
-    const toValues = {
-      baseInfo: baseInfo,
-      usePower: usePower,
-      applyCapa: applyCapa,
-      equipment: equipment,
-      images: images,
-      note: note
-    };
-
-    return toValues;
+    Form.onSubmit(this, [submitBaseValues, submitEquipmentValues]);
   },
 
   /**

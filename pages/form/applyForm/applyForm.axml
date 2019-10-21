@@ -18,8 +18,8 @@
   <!-- 基本信息 -->
   <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.baseInfo}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`['baseInfo'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['baseInfo'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -30,8 +30,8 @@
   <!-- 用电信息 -->
   <view class="section flex-column" a:if="{{curSection==='usePower'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.usePower}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`['usePower'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.usePower}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['usePower'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -42,21 +42,19 @@
   <!-- 申请容量 -->
   <view class="section flex-column" a:if="{{curSection==='applyCapa'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.applyCapa}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`['applyCapa'][${index}]`}}"></template>        
+      <block a:for="{{submitBaseValues.applyCapa}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['applyCapa'][${index}]`}}"></template>        
       </block>
     </scroll-view>
     <view class="foot-btn-group">
       <button class="button next-btn" data-nextSection="equipment" onTap="changeSection">下一步</button>
     </view>
   </view>
-  
+
   <!-- 用电设备 -->
   <view class="section flex-column" a:if="{{curSection==='equipment'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.equipment}}" a:key="{{index}}">      
-        <template is="{{item.type}}" data="{{...item, itemPath:`['equipment'][${index}]`}}"></template>        
-      </block>
+      <add-delete bind="submitEquipmentValues" onChange="updateData"></add-delete>        
     </scroll-view>
     <view class="foot-btn-group">
       <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
@@ -66,8 +64,8 @@
   <!-- 相关照片 -->
   <view class="section flex-column" a:if="{{curSection==='images'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.images}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`['images'][${index}]`}}"></template>        
+      <block a:for="{{submitBaseValues.images}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['images'][${index}]`}}"></template>        
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -78,8 +76,8 @@
   <!-- 备注 -->
   <view class="section flex-column" a:if="{{curSection==='note'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.note}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`['note'][${index}]`}}"></template>        
+      <block a:for="{{submitBaseValues.note}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['note'][${index}]`}}"></template>        
       </block>
     </scroll-view>
     <view class="foot-btn-group">
