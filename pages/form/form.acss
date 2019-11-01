@@ -72,7 +72,7 @@
 .inpicker {
   width: 100%;
   height: 100rpx;
-  margin: 20rpx 0;
+  margin: 20rpx 0 0;
   background-color: white;
 }
 .inpicker .title {
@@ -202,6 +202,19 @@
   box-shadow: inset 0 0rpx 20rpx rgba(0,0,0,0.4);
 }
 
+/* 任意模板集合样式 */
+.multi-item {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: transparent;
+}
+.multi-item .item {
+  margin-bottom: 20rpx;
+}
+.multi-item .item > view {
+  margin: 0;
+}
+
 /* 横向滚动区外框 */
 .row-scroll-view-box {
   width: 100%;
@@ -223,19 +236,22 @@
   flex-direction: row;
   justify-content: space-around;
 }
-
-/* 底部按钮 */
-.next-btn, .submit-btn, .reset-btn {
+/* 底部全宽按钮 */
+.next-btn, .submit-btn {
   width: 100%;
   height: 100%;
   color: white;
-  font-size: 40rpx;
-  line-height: 100rpx;
   background-color: var(--mainThemeColor);
 }
-
-/* 重置按钮 */
-.reset-btn {
-  color: rgba(25, 31, 37, 0.56);
-  background-color: rgba(25, 31, 37, 0.15);
+/* 底部半宽按钮 */
+.reject-btn, .pass-btn {
+  width: 50%;
+  height: 100%;
+  color: white;
+  background-color: var(--mainThemeColor);
+}
+/* 审核未通过按钮 */
+.reject-btn {
+  color: black;
+  background-color: var(--grayButtonColor);
 }

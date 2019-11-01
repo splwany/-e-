@@ -44,7 +44,7 @@
   <view class="add-image flex-column">
     <view class="head flex-row">
       <view class="title">{{title}}</view>
-      <button class="button add-img-btn" data-itemPath="{{itemPath}}" data-max="{{max}}" onTap="addImage">
+      <button class="button add-img-btn" disabled="{{disabled}}" data-itemPath="{{itemPath}}" data-max="{{max}}" onTap="addImage">
         <image class="icon" mode="scaleToFill" src="/statics/icons/add_image_btn.png"/>
       </button>
     </view>
@@ -63,5 +63,16 @@
       <view class="title">{{title}}</view>
     </view>
     <textarea class="content" name="{{name}}" value="{{value}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" auto-height="true" data-itemPath="{{itemPath}}" onInput="bindKeyInput"></textarea>
+  </view>
+</template>
+
+<!-- 任意模板集合 -->
+<template name="multi-item">
+  <view class="multi-item flex-column">
+    <view class="item" a:for="{{value}}" a:key="{{index}}">
+      <block a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex">
+        <template is="{{subItem.type}}" a:key="sub_{{subIndex}}" data="{{...subItem}}"></template>
+      </block>
+    </view>
   </view>
 </template>

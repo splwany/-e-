@@ -1,6 +1,5 @@
 import {curSection, sections, formStructure} from "./config";
 import Form from "../form";
-import manager from "/service/pageManager/HighReplyFormManager";
 
 
 Page({

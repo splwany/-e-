@@ -1,8 +1,8 @@
 <template name="work-list-card">
-  <view class="work-list-card flex-column shadow" data-formNo="{{formNo}}" data-formType="{{formType}}" onTap="openForm">
-    <view class="project-name">{{projectName}}</view>
-    <view class="form-name">{{formName}}</view>
-    <view class="date">{{date}}</view>
-    <view class="step">{{step}}</view>
+  <view class="work-list-card flex-column shadow" data-applyNo="{{applyNo}}" data-taskId="{{taskphaseId}}" data-staffAccount="{{staffAccount}}" data-taskType="{{taskType}}" data-taskNum="{{taskNum}}" onTap="openForm">
+    <view class="account-name">{{clientName}}</view>
+    <view class="task-name">{{taskName}}</view>
+    <view class="date">{{taskPhaseStartDate}}</view>
+    <view class="step">{{taskNum}}</view>
   </view>
 </template>

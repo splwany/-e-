@@ -1,3 +1,7 @@
+import FindPageName from "/utils/FindPageName";
+import service from "/service/TaskService";
+
+
 Page({
 
   /**
@@ -26,27 +30,43 @@ Page({
    * 从服务器获取待办工单列表
    */
   getWorkList () {
-    let workList = [];
-    //先从缓存读取新增装用电申请单的缓存列表放入workList，再从服务器读取列表
-    // const workList = WorkService.getWorkList(userID);    //从服务器读取列表
-    const workListFromWeb = [
-      {formType: 'applyForm', formNo: '201910180001', projectName: '喀左一号项目', formName: '新、增装用电申请单', date: '2019年10月18日', step: '1/8'},
-      {formType: 'highReplyForm', formNo: '201910180002', projectName: '喀左二号项目', formName: '用电答复单（高压）', date: '2019年10月18日', step: '2/8'},
+    const workList = [
+      {taskphaseId: '0', staffAccount: '0', applyNo: '201910210002', clientName: '喀左一号项目', taskName: '用电答复单（高压）', taskPhaseStartDate: '2019年10月21日', taskType: '2', taskNum: '2'},
+      {taskphaseId: '1', staffAccount: '0', applyNo: '201910210003', clientName: '配网改造一号项目', taskName: '配网改造认定审核', taskPhaseStartDate: '2019年10月21日', taskType: '0', taskNum: '2'},
+      {taskphaseId: '2', staffAccount: '0', applyNo: '201910220003', clientName: '配网改造一号项目', taskName: '配网改造项目物资领料申请表', taskPhaseStartDate: '2019年10月22日', taskType: '0', taskNum: '3'},
     ];
-    workList = workList.concat(workListFromWeb);    //workListFromWeb合并入workList
     this.setData({
       workList: workList
     });
+    // service.getAwaitTaskByUserId('YJB0001').then(res=>{
+    //   // const workListFromWeb = [
+    //   //   {taskphaseId: '0', staffAccount: '0', applyNo: '201910210002', clientName: '喀左一号项目', taskName: '用电答复单（高压）', taskPhaseStartDate: '2019年10月21日', taskType: '2', taskNum: '2'},
+    //   //   {taskphaseId: '1', staffAccount: '0', applyNo: '201910210003', clientName: '配网改造一号项目', taskName: '配网改造认定审核', taskPhaseStartDate: '2019年10月21日', taskType: '0', taskNum: '2'},
+    //   //   {taskphaseId: '2', staffAccount: '0', applyNo: '201910220003', clientName: '配网改造一号项目', taskName: '改造项目物资领料申请表', taskPhaseStartDate: '2019年10月22日', taskType: '0', taskNum: '3'},
+    //   // ];
+    //   this.setData({
+    //     workList: res,
+    //     // workList: workListFromWeb
+    //   },()=>{
+    //     console.log(this.data.workList);
+    //   });
+    // }).catch(res=>{
+
+    // });    //从服务器读取列表
   },
 
   /**
    * 点击卡片，打开工单
    */
   openForm (e) {
-    const formNo = e.target.dataset.formNo;
-    const formType = e.target.dataset.formType;
+    const taskId = e.target.dataset.taskId;
+    const applyNo = e.target.dataset.applyNo;
+    const taskType = e.target.dataset.taskType;
+    const taskNum = e.target.dataset.taskNum;
+    const staffAccount = e.target.dataset.staffAccount;
+    const pageName = FindPageName[taskType][taskNum];
     dd.navigateTo({
-      url: `/pages/form/${formType}/${formType}?formNo=${formNo}`
+      url: `/pages/form/${pageName}/${pageName}?taskId=${taskId}&applyNo=${applyNo}&taskType=${taskType}&staffAccount=${staffAccount}`
     });
   },
 

@@ -1,3 +1,5 @@
+<!-- 用电申请单 -->
+
 <import src="/templates/formItems"/>
 
 <view class="main flex-column">
@@ -54,7 +56,7 @@
   <!-- 用电设备 -->
   <view class="section flex-column" a:if="{{curSection==='equipment'}}">
     <scroll-view class="container" scroll-y>
-      <add-delete bind="submitEquipmentValues" onChange="updateData"></add-delete>        
+      <add-delete bind="submitEquipmentValues" values="{{submitEquipmentValues}}" onChange="onEquipmentChange"></add-delete>        
     </scroll-view>
     <view class="foot-btn-group">
       <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
@@ -81,8 +83,17 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button reset-btn" onTap="onReset">重置</button>
-      <button class="button submit-btn" onTap="onSubmit">提交</button>
+      <button class="button next-btn" data-nextSection="task" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 创建任务 -->
+  <view class="section flex-column" a:if="{{curSection==='task'}}">
+    <scroll-view class="container" scroll-y>
+      <choose-stuff staffList="{{staffList}}" max="1"></choose-stuff>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" disabled="{{staffList.length===0}}" onTap="onSubmit">提交</button>
     </view>
   </view>
 

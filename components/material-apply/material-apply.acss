@@ -1,0 +1,73 @@
+.material-apply {
+  width: 100%;
+  height: 100%;
+}
+
+/* 横向滚动区外框 */
+.material-apply .row-scroll-view-box {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 横向滚动区 */
+.material-apply .row-scroll-view-box > scroll-view {
+  height: calc(100% - 60rpx);
+  padding: 30rpx 20rpx;
+}
+
+.apply-item, .card-add-btn {
+  position: relative;
+  display: inline-block;
+  width: calc(100% - 70rpx);
+  height: 100%;
+  margin: 0 20rpx;
+}
+
+.apply-item > view {
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+  box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.1);
+  background-color: white;
+  overflow: auto;
+}
+
+.apply-item scroll-view {
+  height: 100%;
+  padding: 0;
+}
+
+.apply-item scroll-view > view {
+  border-bottom: 1rpx dashed rgba(0, 0, 0, 0.1);
+}
+
+.apply-item .card-delete-btn {
+  position: absolute;
+  width: 44rpx;
+  height: 44rpx;
+  padding: 0;
+  top: -20rpx;
+  right: -20rpx;
+  border-radius: 50%;
+  background-color: #f25643;
+  box-shadow: 0 5rpx 7rpx -1rpx rgba(0, 0, 0, 0.3);
+}
+
+.apply-item .card-delete-btn .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-add-btn {
+  width: calc(100% - 40rpx);
+  background-color: transparent;
+  border: 2rpx dashed rgba(0, 0, 0, 0.4);
+  box-shadow: unset;
+}
+
+.card-add-btn .icon {
+  transform: scale(0.25);
+}

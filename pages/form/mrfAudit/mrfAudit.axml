@@ -1,0 +1,89 @@
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 基本信息 -->
+  <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitBaseValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['baseInfo'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="powerSupplyPlan" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 供电方案 -->
+  <view class="section flex-column" a:if="{{curSection==='powerSupplyPlan'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitBaseValues.powerSupplyPlan}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['powerSupplyPlan'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="transformationPlan" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 改造方案 -->
+  <view class="section flex-column" a:if="{{curSection==='transformationPlan'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitBaseValues.transformationPlan}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['transformationPlan'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="materials" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 物资领料申请 -->
+  <view class="section flex-column" a:if="{{curSection==='materialsCol'}}">
+    <scroll-view class="container" scroll-y>
+      <template is="multi-item" data="{{...submitMaterialValues}}"></template>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 申请表照片 -->
+  <view class="section flex-column" a:if="{{curSection==='images'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitImageValues}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="note" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 审核 -->
+  <view class="section flex-column" a:if="{{curSection==='audit'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitBaseValues.audit}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['audit'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group flex-row">
+      <button class="button reject-btn" data-passed="false" onTap="changeSection">不通过</button>
+      <button class="button pass-btn" data-passed="true" onTap="onSubmit">通过</button>
+    </view>
+  </view>
+
+</view>

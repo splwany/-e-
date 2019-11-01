@@ -1,3 +1,6 @@
+import Form from "/pages/form/form";
+
+
 Component({
   mixins: [],
   data: {
@@ -5,13 +8,11 @@ Component({
   },
   props: {
     bind: '',
+    values: {},
     onChange: {}
   },
   didMount() {
-    this.setData({
-      structure: this.$page.data[this.props.bind].data,
-      value: this.$page.data[this.props.bind].value
-    });
+
   },
   didUpdate() {},
   didUnmount() {},
@@ -21,65 +22,41 @@ Component({
      * 点击添加按钮
      */
     onAdd () {
-      const bind = this.props.bind;    //绑定的页面属性
-      const length = this.data.value.length;
-      this.$spliceData({
-        value: [length, 0, this.data.structure]
-      },()=>{
-        this.props.onChange(`${bind}.value`, this.data.value);
+      let values = this.props.values;
+      values.value.splice(values.value.length, 0, values.data);
+      this.props.onChange({
+        detail: {
+          values: values
+        }
       });
     },
 
     /**
      * 点击删除按钮
      */
-    onDelete () {
-
+    onDelete (e) {
+      let values = this.props.values;
+      const index = e.target.dataset.index;
+      values.value.splice(index, 1);
+      this.props.onChange({
+        detail: {
+          values: values
+        }
+      });
     },
 
     /**
      * 输入框输入文字时触发
      */
     bindKeyInput (e) {
-      const itemPath = e.target.dataset.itemPath;
-      const path = itemPath.split('.')[1];
-      const value = e.detail.value;
-      this.setData({
-        [`${path}.value`]: value
-      },()=>{
-        this.props.onChange(`${itemPath}.value`, value);
-      });
+      Form.bindKeyInput(this.$page, e);
     },
 
     /**
      * 选项改变时触发
      */
     bindPickerChange (e) {
-      const itemPath = e.target.dataset.itemPath;
-      const path = itemPath.split('.')[1];
-      const array = e.target.dataset.array;
-      const index = e.detail.value;
-      this.setData({
-        [`${path}.index`]: index,
-        [`${path}.value`]: array[index]
-      },()=>{
-        this.props.onChange(`${itemPath}.index`, index);
-        this.props.onChange(`${itemPath}.value`, array[index]);
-      });
-    },
-
-    /**
-     * 日期选择
-     */
-    onDatePick (e) {
-      
-    },
-
-    /**
-     * 点击图片添加按钮时触发
-     */
-    addImage (e) {
-      
+      Form.bindPickerChange(this.$page, e);
     },
 
   },

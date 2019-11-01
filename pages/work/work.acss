@@ -6,14 +6,14 @@
   background-color: white;
 }
 
-.work-list-card .project-name {
+.work-list-card .account-name {
   line-height: 100rpx;
   font-size: 50rpx;
   font-weight: bold;
   margin: 0 20rpx;
 }
 
-.work-list-card .form-name {
+.work-list-card .task-name {
   font-size: 45rpx;
   margin: 0 20rpx;
 }

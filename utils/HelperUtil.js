@@ -2,7 +2,11 @@
 let staticMethods = {
 
   // 对httpReq 进行再次封装
-  httpReq: function(url, data,method = "POST") { 
+  httpReq: function(url, data = null,method = "GET") { 
+    let datas = null;
+    if(data !== null){
+      datas =  JSON.stringify(data);
+    }
     return new Promise(function(resolve, reject) {
       dd.httpRequest({
         headers: {
@@ -11,16 +15,54 @@ let staticMethods = {
         url: url,
         method: method,
         dataType: 'json',
-        data: JSON.stringify(data),
+        data:datas,
         success: (res) => {
+          let result = {
+            message:res.data.msg,
+            data:res.data.data
+          }
           if (res.status == 200) {
-            resolve(res);
+            resolve(result);
           } else {
-            reject(res);
+            reject(result);
           }
         },
         fail: () => {
-          reject();
+          let result = {
+            message:"服务器异常！",
+            data:null
+          }
+          reject(result);
+        }
+      });
+    });
+  },
+
+    // 对uploadFile 进行再次封装
+  uploadFile: function(url, fileName, filePath, fileType = "image") { 
+    return new Promise(function(resolve, reject) {
+      dd.uploadFile({
+        url: url,
+        fileType: fileType,
+        fileName: fileName,
+        filePath: filePath,
+        success: (res) => {
+          let result = {
+            message:res.data.msg,
+            data:res.data.data
+          }
+          if (res.status == 200) {
+            resolve(result);
+          } else {
+            reject(result);
+          }
+        },
+        fail: () => {
+          let result = {
+            message:"服务器异常！",
+            data:null
+          }
+          reject(result);
         }
       });
     });

@@ -1,7 +1,4 @@
-import service from "/service/ApplyFormService";
-
-
-export default {//这次改了weixin分支并提交
+export default {
 
   /**
    * 页面启动初始化
@@ -9,10 +6,40 @@ export default {//这次改了weixin分支并提交
    */
   formPageInit ($page) {
     this.updateHeadTitle($page);    //更新小节标题为当前section
+    this.initAnimation($page);
+  },
+
+ 
+
+  /**
+   * 更新headTitle文字为当前sectionName
+   * @param {调用此函数的页面对象} $page 
+   */
+  updateHeadTitle ($page) {
+    $page.setData({
+      headTitle: $page.data.sections[$page.data.curSection].name
+    });
+  },
+
+  /**
+   * 初始化动画
+   * @param {调用此函数的页面对象} $page 
+   */
+  initAnimation ($page) {
     $page.animation = dd.createAnimation({    //创建动画对象
       duration: 300,
       timeFunction: 'ease-in-out'
     });
+  },
+
+  /**
+   * 获取上一页面对象
+   */
+  getPrePage () {
+    const pageStack = getCurrentPages();    //获取页面栈
+    const pageCount = pageStack.length;
+    const $lastPage = pageStack[pageCount-2];    //获取上一个页面
+    return $lastPage;
   },
 
   switchTags ($page) {
@@ -24,7 +51,6 @@ export default {//这次改了weixin分支并提交
         headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
         switchIcon = '/statics/icons/switch_arrow_down.png';
       } else {
-        console.log(height);
         headTagAnimation = $page.animation.height(`calc(105rpx + ${height}px)`).step().export();
         headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
         switchIcon = '/statics/icons/switch_arrow_up.png';
@@ -48,16 +74,6 @@ export default {//这次改了weixin分支并提交
       curSection: e.target.dataset.nextSection
     }, () => {
       this.updateHeadTitle($page);
-    });
-  },
-
-  /**
-   * 更新headTitle文字为当前sectionName
-   * @param {调用此函数的页面对象} $page 
-   */
-  updateHeadTitle ($page) {
-    $page.setData({
-      headTitle: $page.data.sections[$page.data.curSection].name
     });
   },
 
@@ -108,33 +124,6 @@ export default {//这次改了weixin分支并提交
   },
 
   /**
-   * 点击添加按钮
-   * @param {调用此函数的页面对象} $page 
-   * @param {模板传递的事件参数} e 
-   */
-  onAdd ($page, e) {
-    const itemPath = e.target.dataset.itemPath;
-    const length = e.target.dataset.length;
-    const defaultData = e.target.dataset.defaultData;
-    $page.$spliceData({
-      [`${itemPath}.value`]: [length, 0, defaultData]
-    });
-  },
-
-  /**
-   * 点击删除按钮
-   * @param {调用此函数的页面对象} $page 
-   * @param {模板传递的事件参数} e 
-   */
-  onDelete ($page, e) {
-    const itemPath = e.target.dataset.itemPath;
-    const index = e.target.dataset.index;
-    $page.$spliceData({
-      [`${itemPath}.value`]: [index, 1]
-    });
-  },
-
-  /**
    * 添加图片
    * @param {调用此函数的页面对象} $page 
    * @param {模板传递的事件参数} e 
@@ -158,9 +147,10 @@ export default {//这次改了weixin分支并提交
 
   /**
    * 表单提交
-   * @param {调用此函数的页面对象} $page 
+   * @param {表单内容} formValues 
+   * @param {传过来service的接口} fun 
    */
-  onSubmit ($page, formValues) {
+  onSubmit (formValues, fun) {
     dd.confirm({
       title: '提示',
       content: '确定提交吗？',
@@ -171,42 +161,23 @@ export default {//这次改了weixin分支并提交
           dd.showLoading({
             content: '提交中'
           });
-          const success = service.submitApplyForm(formValues);
-          if (success) {
+          const success = fun(formValues);
+          if(success) {
             dd.showToast({
               content: '提交成功',
               duration: 1000,
               type: 'success',
               success: () => {
-                dd.navigateBack();
+                // dd.navigateBack();
               }
             });
-          }
-        }
-      }
-    });
-  },
-
-  /**
-   * 表单重置
-   * @param {调用此函数的页面对象} $page 
-   */
-  onReset ($page) {
-    dd.confirm({
-      title: '警告',
-      content: '确定重置表单吗？',
-      confirmButtonText: '是',
-      cancelButtonText: '点错了',
-      success: res => {
-        if(res.confirm) {
-          $page.setData({
-            submitValues: $page.data.originValues
-          }, ()=>{
+          } else {
             dd.showToast({
-              type: 'success',
-              content: '重置成功'
+              content: '提交失败',
+              duration: 1000,
+              type: 'success'
             });
-          });
+          };
         }
       }
     });

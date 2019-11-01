@@ -1,0 +1,28 @@
+<import src="/templates/componentItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="section flex-column" a:for="{{submitValues}}" a:key="{{index}}" a:if="{{curSection===index}}">
+    <scroll-view class="container" scroll-y>
+      <choose-material bind="{{`submitValues[${index}]`}}" length="{{submitValues[index].value.length}}" values="{{submitValues[index]}}" />
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" a:if="{{curSection===sections.length-1}}" onTap="onDone">确定</button>
+      <button class="button next-btn" a:else data-nextSection="{{index+1}}" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+</view>

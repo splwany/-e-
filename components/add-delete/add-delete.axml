@@ -1,11 +1,11 @@
-<import src="/templates/formItems.axml"/>
+<import src="/templates/formItems"/>
 
 <view class="add-delete flex-column">
-  <view class="item" a:for="{{value}}" a:key="{{index}}">
+  <view class="item" a:for="{{values['value']}}" a:key="{{index}}">
     <block a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex">
       <template is="{{subItem.type}}" a:key="sub_{{subIndex}}" data="{{...subItem, itemPath:`${bind}.value[${index}][${subIndex}]`}}"></template>
     </block>
-    <button class="button delete-btn" onTap="onDelete">删除</button>
+    <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">删除</button>
   </view>
   <button class="button add-btn shadow" onTap="onAdd">添加</button>
 </view>

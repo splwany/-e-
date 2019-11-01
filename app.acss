@@ -1,5 +1,7 @@
 :root {
   --mainThemeColor: #00706b;   /* 国家电网主题色 */
+  --mainThemeColorLight: #53b8b4;    /* 主偏亮的主题色 */
+  --grayButtonColor: rgba(0,0,0,0.12);    /* 灰色按钮 */
 }
 
 page {
@@ -41,7 +43,6 @@ page {
   background-color: transparent;
   line-height: 100rpx;
   font-size: 40rpx;
-  color: white;
 }
 
 .icon {

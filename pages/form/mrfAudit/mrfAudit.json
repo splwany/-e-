@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "add-delete": "/components/add-delete/add-delete"
+  },
+  "defaultTitle": "改造项目物资领料申请表审核",
+  "pullRefresh": false
+}

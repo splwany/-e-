@@ -1,0 +1,29 @@
+<!-- 输入框模板 -->
+<template name="input">
+  <view class="inpicker flex-row">
+    <view class="title">{{title}}</view>
+    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" onInput="{{bindMethod}}" />
+  </view>
+</template>
+
+<!-- 输入框（带单位）模板 -->
+<template name="input-unit">
+  <view class="inpicker flex-row">
+    <view class="title">{{title}}</view>
+    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" onInput="{{bindMethod}}" />
+    <view class="right">{{unit}}</view>
+  </view>
+</template>
+
+<!-- 选项框模板 -->
+<template name="picker">
+  <view class="inpicker flex-row">
+    <view class="title">{{title}}</view>
+    <input class="content" placeholder="{{placeholder||'请选择'}}" value="{{value}}" disabled="{{disabled||true}}" data-itemPath="{{itemPath}}" onInput="bindComponentsKeyInput" />
+    <picker value="{{index}}" range="{{array}}" range-key="{{rangeKey}}" disabled="{{pickerDisabled}}" data-itemPath="{{itemPath}}" data-array="{{array}}" data-rangeKey="{{rangeKey}}" data-index="{{itemIndex}}" onChange="{{bindMethod}}">
+      <button class="button right">
+        <image class="icon" mode="scaleToFill" src="/statics/icons/picker_btn_gray.png"/>
+      </button>
+    </picker>
+  </view>
+</template>

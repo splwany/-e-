@@ -1,0 +1,107 @@
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 基本信息 -->
+  <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitBaseValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['baseInfo'][${index}]`}}"></template>
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="powerPlan" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 供电方案 -->
+  <view class="section flex-column" a:if="{{curSection==='powerPlan'}}">
+    <scroll-view class="container" scroll-y>
+      <power-plan bind="submitPowerPlan" values="{{submitPowerPlan}}"></power-plan>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="changePlan" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 改造方案 -->
+  <view class="section flex-column" a:if="{{curSection==='changePlan'}}">
+    <scroll-view class="container" scroll-y>
+      <view class="part flex-column">
+        <view class="title">现状规模</view>
+        <choose-goods bind="submitChangePlan.now" values="{{submitChangePlan.now}}"></choose-goods>
+      </view>
+      <view class="part flex-column">
+        <view class="title">拆除规模</view>
+        <choose-goods bind="submitChangePlan.remove" values="{{submitChangePlan.remove}}"></choose-goods>
+      </view>
+      <view class="part flex-column">
+        <view class="title">新建规模</view>
+        <choose-goods bind="submitChangePlan.new" values="{{submitChangePlan.new}}"></choose-goods>
+      </view>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="materials" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 领料挑选 -->
+  <view class="section flex-column" a:if="{{curSection==='materials'}}">
+    <scroll-view class="container" scroll-y>
+      <view class="price-view flex-row" a:if="{{materialSelected}}">
+        <view class="title">物料概算：</view>
+        <view class="content">{{price}}万元</view>
+      </view>
+      <button class="button navigate-btn" onTap="navigateToSelect">挑选物料</button>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="materialsApply" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 物料申请 -->
+  <view class="section flex-column" a:if="{{curSection==='materialsApply'}}">
+    <scroll-view class="container">
+      <material-apply bind="submitPickingValues" values="{{submitPickingValues}}"></material-apply>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 表单照片 -->
+  <view class="section flex-column" a:if="{{curSection==='images'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{images}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`images[${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="task" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 创建任务 -->
+  <view class="section flex-column" a:if="{{curSection==='task'}}">
+    <scroll-view class="container" scroll-y>
+      <choose-stuff staffList="{{staffList}}" max="1"></choose-stuff>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" disabled="{{staffList.length===0}}" onTap="onSubmit">提交</button>
+    </view>
+  </view>
+
+</view>

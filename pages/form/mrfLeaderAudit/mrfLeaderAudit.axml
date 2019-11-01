@@ -1,0 +1,29 @@
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+
+  <!-- 申请表照片 -->
+  <view class="section flex-column" a:if="{{curSection==='leadersign'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitImageValues}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item}}"></template>        
+      </block>
+      <view>将使用您在系统保存的电子签名进行签字流程</view>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onSubmit">确认签字</button>
+    </view>
+  </view>
+</view>

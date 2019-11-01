@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "add-delete": "/components/add-delete/add-delete"
+    "add-delete": "/components/add-delete/add-delete",
+    "choose-stuff": "/components/choose-stuff/choose-stuff"
   },
   "defaultTitle": "新、增装用电申请单",
   "pullRefresh": false
