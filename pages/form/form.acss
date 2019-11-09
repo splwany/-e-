@@ -6,7 +6,7 @@
   color: white;
   background-color: var(--mainThemeColor);
   overflow: hidden;
-  z-index: 1;
+  z-index: 100;
 }
 
 /* 顶部标题栏 */
@@ -16,7 +16,7 @@
   height: 100rpx;
   font-weight: bold;
   background-color: var(--mainThemeColor);
-  z-index: 1;
+  z-index: 100;
 }
 
 /* 顶部标题栏标题 */
@@ -208,10 +208,7 @@
   margin: 20rpx 0;
   background-color: transparent;
 }
-.multi-item .item {
-  margin-bottom: 20rpx;
-}
-.multi-item .item > view {
+.multi-item > view {
   margin: 0;
 }
 

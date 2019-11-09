@@ -1,1 +1,14 @@
 @import "../form.acss";
+
+/* 顶部标签按钮 */
+.head-tag .tags-area .tag-btn {
+  width: calc(50% - 10rpx);
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  font-size: unset;
+  color: white;
+  background-color: rgba(25, 31, 37, 0.2);
+  border-radius: 10rpx;
+  margin: 5rpx;
+}

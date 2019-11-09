@@ -48,7 +48,7 @@ let staticMethods = {
 
   // 添加申请表单
   addApplyFormModel: function(applyFormModel,deviceList,taskList){
-    return HelperUtil.httpReq(RequestUrls.APPLYFORM_CRUD,{
+    return HelperUtil.httpReq(RequestUrls.APPLYFORM_CRUD,{ 
       "apply":applyFormModel,
       "devicedetialList":deviceList,
       "taskphaseList":taskList
@@ -61,8 +61,14 @@ let staticMethods = {
   },
 
   // 根据申请编号获取对应申请单对象信息及附属用电设备List及图片List
+  /***  */
   getApplyFormByIdModel:function(applyFormNo){
-    return HelperUtil.httpReq(RequestUrls.APPLYFORM_GET_BY_ID+applyFormNo);
+    return HelperUtil.httpReq(RequestUrls.APPLYFORM_GET_BY_ID+applyFormNo).then((result) => {
+      result.data.apply['applyDate'] = HelperUtil.dateStringFormat(result.data.apply['applyDate']);
+      return Promise.resolve(result);
+    }).catch((err) => {
+      return Promise.reject(err);
+    });
   },
 
   // 根据申请编号列表，返回对应客户名称列表，按顺序返回
@@ -74,8 +80,8 @@ let staticMethods = {
   reViewApplyFormModel:function(applyObj,taskList,taskId){
     return HelperUtil.httpReq(RequestUrls.APPLYFORM_UPDATE_ADD_TASK,{
       'applyObj':applyObj,
-      'taskList':taskList,
-      'taskId':taskId
+      'taskPhaseList':taskList,
+      'taskPhaseId':taskId
     },'POST');
   },
 

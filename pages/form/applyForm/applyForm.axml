@@ -5,7 +5,7 @@
 <view class="main flex-column">
 
   <!-- 顶部折叠栏 -->
-  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
       <button class="button switch-btn" hover-class="none">
@@ -56,7 +56,7 @@
   <!-- 用电设备 -->
   <view class="section flex-column" a:if="{{curSection==='equipment'}}">
     <scroll-view class="container" scroll-y>
-      <add-delete bind="submitEquipmentValues" values="{{submitEquipmentValues}}" onChange="onEquipmentChange"></add-delete>        
+      <add-delete bind="submitEquipmentValues" values="{{submitEquipmentValues}}"></add-delete>        
     </scroll-view>
     <view class="foot-btn-group">
       <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
@@ -66,8 +66,8 @@
   <!-- 相关照片 -->
   <view class="section flex-column" a:if="{{curSection==='images'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitBaseValues.images}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['images'][${index}]`}}"></template>        
+      <block a:for="{{images}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`images[${index}]`}}"></template>        
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -90,10 +90,10 @@
   <!-- 创建任务 -->
   <view class="section flex-column" a:if="{{curSection==='task'}}">
     <scroll-view class="container" scroll-y>
-      <choose-stuff staffList="{{staffList}}" max="1"></choose-stuff>
+      <choose-stuff bind="staffList" values="{{staffList}}"></choose-stuff>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button submit-btn" disabled="{{staffList.length===0}}" onTap="onSubmit">提交</button>
+      <button class="button submit-btn" disabled="{{staffList.value.length!==staffList.max}}" onTap="onSubmit">提交</button>
     </view>
   </view>
 

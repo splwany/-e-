@@ -42,7 +42,8 @@ Component({
   },
   props: {
     bind: '',
-    values: []
+    values: [],
+    disabled: false
   },
   didMount() {
     

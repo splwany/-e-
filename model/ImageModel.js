@@ -30,14 +30,26 @@ let staticMethods = {
   saveImageModel: function(imageModelList,imagePathList){
     var uploadImgs = [];
     for(let i = 0;i<imagePathList.length;i++){
-      var imageName = imageModelList[i].picName;
       var imagePath = imagePathList[i];
+      var imageName = imageModelList[i].picName+imagePath.substring(imagePath.indexOf("."));
       uploadImgs.push(HelperUtil.uploadFile(RequestUrls.IMAGR_UPLOAD,imageName,imagePath));
     }
     return Promise.all(uploadImgs).then(res =>{
       return Promise.resolve(res[0]);
+    }).catch(err => {
+
+      return Promise.reject(err);
     });
-  }
+  },
+
+  // 根据编号和类型获取对应图片url(前面加服务器域名，可以访问到)
+  getImageUrlModel: function(picNo, picType){
+    return HelperUtil.httpReq(RequestUrls.IMAGR_LOOK,{
+      'picNo':picNo,
+      'picType':picType
+    },'POST')
+  },
+
  
 }
 

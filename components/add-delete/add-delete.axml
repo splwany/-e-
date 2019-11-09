@@ -7,5 +7,5 @@
     </block>
     <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">删除</button>
   </view>
-  <button class="button add-btn shadow" onTap="onAdd">添加</button>
+  <button class="button add-btn drop-shadow" onTap="onAdd">添加</button>
 </view>

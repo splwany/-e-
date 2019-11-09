@@ -15,7 +15,8 @@ let taskModel = {
   "taskName": null,
   "taskphaseStartdate": null,
   "taskphaseDatelimit": null,
-  "taskphaseIsfinished": null
+  "taskphaseIsfinished": null,
+  "prestaffAccount":null
 };
 
 // 行为方法
@@ -71,6 +72,16 @@ let staticMethods = {
   achCurAndFinNewModel: function(taskPhaseId, taskPhaseList){
     return HelperUtil.httpReq(RequestUrls.TASK_FINISH_AND_ADD_NEW,{
       'taskPhaseId':taskPhaseId,
+      'taskPhaseList': taskPhaseList
+    },'POST');
+  },
+
+  // 判断applyNo第taskNum阶段未完成的数目是否大于1；
+  confirmSignModel:function(applyNo, taskNum, staffAccount, taskPhaseList){
+    return HelperUtil.httpReq(RequestUrls.TASK_CONFIRM_SIGN,{
+      'applyNo':applyNo,
+      'taskNum': taskNum,
+      'staffAccount':staffAccount,
       'taskPhaseList': taskPhaseList
     },'POST');
   }

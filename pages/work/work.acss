@@ -1,21 +1,27 @@
 .work-list-card {
   position: relative;
   width: calc(100% - 40rpx);
-  margin: 20rpx 20rpx 0;
+  margin: 20rpx;
   border-radius: 10rpx;
   background-color: white;
 }
 
-.work-list-card .account-name {
+.work-list-card .client-name {
   line-height: 100rpx;
   font-size: 50rpx;
   font-weight: bold;
   margin: 0 20rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .work-list-card .task-name {
   font-size: 45rpx;
   margin: 0 20rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .work-list-card .date {

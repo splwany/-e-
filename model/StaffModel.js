@@ -34,8 +34,13 @@ let staticMethods = {
     return HelperUtil.httpReq(RequestUrls.STAFF_DEPARTNO + departNo);
   },
 
-
-  
+  // 登录，若存在返回token，否则返回错误信息 
+  loginModel:function(staffAccount,staffPassWord){
+    return HelperUtil.httpReq(RequestUrls.STAFF_LOGIN,{
+      'staffAccount':staffAccount,
+      'staffPassword':staffPassWord
+    },'POST');
+  }
 }
 
 // 封装对象

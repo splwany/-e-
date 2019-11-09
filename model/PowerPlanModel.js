@@ -15,7 +15,11 @@ let powerPlanModel = {
   "vpowerplanLine": null,
   "vpowerplanRod": null,
   "vpowerplanSection": null,
-  "vpowerplanVoltage": null
+  "vpowerplanVoltage": null,
+  "vPowerPlanOverhead":null,
+  "vPowerPlanCable":null,
+  "vPowerPlanFrontwire":null,
+  "vPowerPlanFrontcable":null
 };
 
 // 行为方法

@@ -11,7 +11,8 @@ let dntGoodsApplyFormModel = {
   "changePlan": null,
   "goodsSelectList": null,
   "pickList": null, 
-  "powerPlan": null
+  "powerPlan": null,
+  "imagesList":null
 };
 
 // 行为方法
@@ -30,8 +31,8 @@ let staticMethods = {
   submitDntGoodsApplyFormModel: function(submitForm,taskList,taskId){
     return HelperUtil.httpReq(RequestUrls.DntGoodsApplyForm_ADD,{
       'submitForm':submitForm,
-      'taskList':taskList,
-      'taskId':taskId
+      'taskPhaseList':taskList,
+      'taskPhaseId':taskId
     },'POST');
   },
 
@@ -39,10 +40,48 @@ let staticMethods = {
   updateDntGoodsApplyFormModel:function(submitForm,taskList,taskPhaseId){
     return HelperUtil.httpReq(RequestUrls.DntGoodsApplyForm_UPDATE,{
       'submitForm':submitForm,
-      'taskList':taskList,
+      'taskPhaseList':taskList,
       'taskPhaseId':taskPhaseId
     },'POST');
+  },
+
+  // 根据申请编号返回配网有关信息：
+  /**
+    result.data={
+      'baseInfo'(小微企业物资申请表)，
+      'powerPlan'(小微供电方岸),
+      'changePlan'(小微改造方岸),
+      'goodsSelectList'(物料选择清单表）,
+      'pickList'(小微物资领料申请表)
+    },
+   */
+  getDntApplyFormByApplyNoModel: function(applyNo){
+    return HelperUtil.httpReq(RequestUrls.DntGoodsApplyForm_GET_BY_NO + applyNo)
+  },
+
+  /**
+   * 
+  1）根据applyNo将配网改造有关信息dntGoodsApplyFormModel里涉及的信息删除；
+  2）将taskPhaseId置为未完成；
+  3）根据applyNo和taskNum删除任务阶段表中对应的信息
+   */
+  deleteDntGoodsApplyFormModel: function(applyNo, taskPhaseId, taskNum){
+    return HelperUtil.httpReq(RequestUrls.DntGoodsApplyForm_DELETE,{
+      'applyNo':applyNo,
+      'taskPhaseId':taskPhaseId,
+      'taskNum':taskNum
+    },'POST')
+  },
+
+  // 根据申请编号下载领料申请单
+  downLoadDntApplyFormFile: function(applyNo){
+    // return HelperUtil.downloadFile(RequestUrls.DntGoodsApplyForm_DOWNLOAD + applyNo);
+    return Promise.resolve({
+      'data':RequestUrls.DntGoodsApplyForm_DOWNLOAD + applyNo,
+      'message':null
+      });
   }
+
   
 }
 

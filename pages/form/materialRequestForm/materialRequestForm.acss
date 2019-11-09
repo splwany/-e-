@@ -6,7 +6,6 @@
   font-size: 35rpx;
   margin-top: 20rpx;
   background-color: white;
-  box-shadow: 0 5rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 .part > .title {
   line-height: 100rpx;

@@ -2,29 +2,26 @@ export const curSection = 'baseInfo';
 
 export const sections = {   //section列表信息
   baseInfo: {
-    name: '基本信息',
-    state: false
+    name: '基本信息'
   },
-  powerSupplyPlan: {
-    name: '供电方案',
-    state: false
+  powerPlan: {
+    name: '供电方案'
   },
-  transformationPlan: {
-    name: '改造方案',
-    state: false
+  changePlan: {
+    name: '改造方案'
   },
-  materialsCol: {
-    name: '物资领料申请',
-    state: false
+  materials: {
+    name: '物料清单'
+  },
+  materialsApply: {
+    name: '领料清单'
   },
   images: {
-    name: '申请表照片',
-    state: false
+    name: '表单照片'
   },
-  audit: {
-    name: '审核',
-    state: false
-  },
+  task: {
+    name: '创建任务'
+  }
 };
 
 export const baseFormStructure = {   //每个section的表单信息集合
@@ -38,23 +35,15 @@ export const baseFormStructure = {   //每个section的表单信息集合
     },
     {
       type: 'input',
-      name: 'applyUseaddr',
-      title: '用电地址',
-      value: '',
-      disabled: true          
-    },
-    {
-      type: 'picker',
       name: 'applyReg',
       title: '用电类别',
-      array: ['低压非居民新装', '低压装表临时用电','低压居民新装'],
-      index: 1,
+      value: '',
       disabled: true
     },
     {
       type: 'input-unit',
       name: 'applySumvolumn',
-      title: '申请容量',
+      title: '用电容量',
       value: '',
       placeholder: '0',
       unit: 'kVA',
@@ -63,172 +52,210 @@ export const baseFormStructure = {   //每个section的表单信息集合
     {
       type: 'input',
       name: 'applyLinkman',
-      title: '联系人',
+      title: '客户联系人',
       value: '',
       disabled: true
     },
     {
       type: 'input',
       name: 'applyLinkphone',
-      title: '联系电话',
+      title: '客户联系电话',
       value: '',
       disabled: true
     },
     {
       type: 'input',
-      name: 'vApplyHuman',
+      name: 'vapplyAdd',
+      title: '施工地点',
+      value: ''      ,
+      disabled: true   
+    },
+    {
+      type: 'input',
+      name: 'vapplyProname',
+      title: '工程名称',
+      value: '',
+      disabled: true
+    },
+    {
+      type: 'input',
+      name: 'vapplyHuman',
       title: '方案员',
       value: '',
       disabled: true
-    },
-  ],
-  powerSupplyPlan: [   //供电方案
-    {
-      type: 'input',
-      name: 'vPowerPlanVoltage',
-      title: '变电站',
-      value: [],
-      disabled: true
-    },
-    {
-      type: 'input',
-      name: 'vPowerPlanLine',
-      title: '线',
-      value: [],
-      disabled: true
-    },
-    {
-      type: 'input',
-      name: 'vPowerPlanSection',
-      title: '分岐',
-      value: '',
-      disabled: true
-    },
-    {
-      type: 'input',
-      name: 'vPowerPlanBranch',
-      title: '分支',
-      value: '',
-      disabled: true
-    },
-    {
-      type: 'input',
-      name: 'vPowerPlanArea',
-      title: '台区(支)',
-      value: '',
-      disabled: true
-    },
-    {
-      type: 'input-unit',
-      name: 'vPowerPlanRod',
-      title: '杆',
-      value: '',
-      unit: '号',
-      disabled: true
-    },
-  ],
-  transformationPlan: [   //改造方案
-    {
-      type: 'note-area',
-      name: 'vChangNow',
-      title: '现状规模',
-      value: '',
-      maxlength: -1,
-      disabled: true,
-    },
-    {
-      type: 'note-area',
-      name: 'vChangRemove',
-      title: '拆除规模',
-      value: '',
-      maxlength: -1,
-      disabled: true,
-    },
-    {
-      type: 'note-area',
-      name: 'vChangNew',
-      title: '新建规模',
-      value: '',
-      maxlength: -1,
-      disabled: true,
-    },
-    {
-      type: 'input-unit',
-      name: 'vChangPrice',
-      title: '概率金额',
-      value: '',
-      unit: '万元',
-      disabled: true,
-    },
-  ],
-  audit: [
-    {
-      type: 'note-area',
-      name: 'failureReason',
-      value: '',
-      placeholder: '如审核未通过，请输入原因',
-      maxlength: 140,
     }
   ]
 };
 
-export const materialStructure = {   //物资领料条目
-  name: 'material',
-  data: [
-    {
-      type: 'input',
-      name: 'pickingOrder',
-      title: '采购订单号',
-      value: '',
-      disabled: true,
-    },
-    {
-      type: 'input',
-      name: 'pickingNum',
-      title: '物料编号',
-      value: '',
-      disabled: true,
-    },
-    {
-      type: 'input',
-      name: 'pickingDescribe',
-      title: '物料描述',
-      value: '',
-      disabled: true,
-    },
-    {
-      type: 'input',
-      name: 'pickingUnit',
-      title: '单位',
-      value: '',
-      disabled: true,
-    },
-    {
-      type: 'input',
-      name: 'pickingQuantity',
-      title: '数量',
-      value: '',
-      placeholder: '0',
-      disabled: true,
-    },
-    {
-      type: 'input',
-      name: 'pickingAddr',
-      title: '库存地点',
-      value: '',
-      disabled: true,
-    },
-  ],
-  value: []
-}
-
-export const imageStructure = [   //申请照片
+export const powerPlan = [    //供电方案
   {
-      type: 'add-image',
-      name: 'materialRequestFormImage',
-      title: '改造物资领料申请单照片',
-      max: 2, //最大允许选择的图片数
-      value: [],
-      disabled: true
-    }
+    type: 'input',
+    name: 'vpowerplanVoltage',
+    title: '66千伏变电站',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'vpowerplanLine',
+    title: '10千伏线路',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'vpowerplanRod',
+    title: '杆',
+    value: '',
+    unit: '号',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'vpowerplanOverhead',
+    title: '架空',
+    value: '',
+    unit: '米',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'vpowerplanCable',
+    title: '电缆',
+    value: '',
+    unit: '米',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'vpowerplanFrontwire',
+    title: '表前导线',
+    value: '',
+    unit: '米',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'vpowerplanFrontcable',
+    title: '表前电缆',
+    value: '',
+    unit: '米',
+    disabled: true
+  }
 ];
+
+export const changePlan = [    //改造方案
+  {
+    type: 'note-area',
+    name: 'vchangNow',
+    title: '现状规模',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'note-area',
+    name: 'vchangRemove',
+    title: '拆除规模',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'note-area',
+    name: 'vchangNew',
+    title: '新建规模',
+    value: '',
+    disabled: true
+  }
+];
+
+export const goods = [    //物资清单
+  {
+    type: 'input',
+    name: 'goodsClass',
+    title: '物资类别',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'goodsName',
+    title: '物资型号',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'goodsQty',
+    title: '物资数量',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input-unit',
+    name: 'goodsPrice',
+    title: '预算金额',
+    value: '',
+    unit: '万元',
+    disabled: true
+  }
+];
+
+export const picking = [    //领料清单
+  {
+    type: 'input',
+    name: 'pickingOrder',
+    title: '采购订单号',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'pickingNum',
+    title: '物料编号',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'pickingDescribe',
+    title: '物料描述',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'pickingUnit',
+    title: '单位',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'pickingQuantity',
+    title: '数量',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'pickingAddr',
+    title: '库存地点',
+    value: '',
+    disabled: true
+  }
+];
+
+export const images = [    //申请表照片
+  {
+    type: 'add-image',
+    name: '03',
+    title: '表单照片',
+    value: [],   //图片文件列表
+    disabled: true
+  }
+];
+
+export const staff = {    //创建任务
+  max: 3,    //最多选3人
+  value: []    //用于存放选择的员工账号
+};

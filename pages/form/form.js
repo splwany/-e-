@@ -1,3 +1,6 @@
+import Toast from "../../utils/Toast";
+
+
 export default {
 
   /**
@@ -8,8 +11,6 @@ export default {
     this.updateHeadTitle($page);    //更新小节标题为当前section
     this.initAnimation($page);
   },
-
- 
 
   /**
    * 更新headTitle文字为当前sectionName
@@ -146,41 +147,35 @@ export default {
   },
 
   /**
-   * 表单提交
-   * @param {表单内容} formValues 
-   * @param {传过来service的接口} fun 
+   * 询问是否确认提交
    */
-  onSubmit (formValues, fun) {
-    dd.confirm({
-      title: '提示',
-      content: '确定提交吗？',
-      confirmButtonText: '是',
-      cancelButtonText: '取消',
-      success: (res) => {
-        if (res.confirm) {
-          dd.showLoading({
-            content: '提交中'
-          });
-          const success = fun(formValues);
-          if(success) {
-            dd.showToast({
-              content: '提交成功',
-              duration: 1000,
-              type: 'success',
-              success: () => {
-                // dd.navigateBack();
-              }
+  confirmToSubmit () {
+    return new Promise((resolve, reject) => {
+      dd.confirm({
+        title: '提示',
+        content: '确定提交吗？',
+        confirmButtonText: '是',
+        cancelButtonText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            dd.showLoading({
+              content: '提交中'
             });
-          } else {
-            dd.showToast({
-              content: '提交失败',
-              duration: 1000,
-              type: 'success'
-            });
-          };
+            resolve();
+          }
         }
-      }
+      });
     });
   },
+
+  submit (formValues, submitFun) {
+    submitFun(formValues).then(() => {
+      Toast.successToast('提交成功', () => {
+        dd.navigateBack();
+      });
+    }).catch(() => {
+      Toast.failToast('提交失败');
+    });
+  }
 
 }

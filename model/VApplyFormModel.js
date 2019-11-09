@@ -31,6 +31,19 @@ let staticMethods = {
   createVApplyFromModel: function () {
     return Object.seal(Object.assign({}, vApplyFromModel));
   },
+  
+  /**
+  1）更新vApplyObj；
+  2）将任务阶段表taskPhaseId对应的置为完成；
+  3）在任务阶段表新增taskPhaseList
+   */
+  updateVApplyFormModel: function(vApplyModel, taskPhaseId, taskPhaseList){
+    return HelperUtil.httpReq(RequestUrls.VAPPLYFORM_UPDATE,{
+      'vApplyModel':vApplyModel,
+      'taskPhaseId':taskPhaseId,
+      'taskPhaseList':taskPhaseList
+    },'POST');
+  }
 }
 
 // 封装对象

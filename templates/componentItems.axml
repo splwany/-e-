@@ -2,15 +2,15 @@
 <template name="input">
   <view class="inpicker flex-row">
     <view class="title">{{title}}</view>
-    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" onInput="{{bindMethod}}" />
+    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" data-index="{{itemIndex}}" onInput="{{bindMethod}}" />
   </view>
 </template>
 
 <!-- 输入框（带单位）模板 -->
-<template name="input-unit">
+<template name="input_unit">
   <view class="inpicker flex-row">
     <view class="title">{{title}}</view>
-    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" onInput="{{bindMethod}}" />
+    <input class="content" name="{{name}}" value="{{value}}" password="{{password}}" placeholder="{{placeholder||'输入'}}" disabled="{{disabled}}" maxlength="{{maxlength}}" data-itemPath="{{itemPath}}" data-index="{{itemIndex}}" onInput="{{bindMethod}}" />
     <view class="right">{{unit}}</view>
   </view>
 </template>

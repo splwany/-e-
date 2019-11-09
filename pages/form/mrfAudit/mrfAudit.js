@@ -1,5 +1,10 @@
-import {curSection, sections, baseFormStructure, materialStructure, imageStructure} from "./config";
+import {curSection, sections, baseFormStructure, powerPlan, changePlan, goods, picking, images, staff} from "./config";
 import Form from "../form";
+import Toast from "../../../utils/Toast";
+import ApplyFormService from "../../../service/ApplyFormService";
+import DntGoodsApplyFormService from "../../../service/DntGoodsApplyFormService";
+
+const app = getApp();
 
 Page({
   /**
@@ -12,112 +17,100 @@ Page({
     sections: sections,    //section列表信息
     curSection: curSection,    //当前section
     submitBaseValues: baseFormStructure,    //页面填写的基础数据
-    submitMaterialValues: materialStructure,    //填写的物资领料单
-    submitImageValues: imageStructure,    //申请表照片
+    submitPowerPlan: powerPlan,    //供电方案
+    submitChangePlan: changePlan,    //改造方案
+    goodsList: [],    //物资数据
+    submitPickingValues: [],    //物料申请单
+    images: images,    //表单照片
+    staffList: staff    //创建任务数据
   },
   
   /**
    * 页面加载完成，当从缓存打开时，导入缓存信息
    */
   onLoad(query) {
-  
+    this.setData({
+      applyNo: query.applyNo,
+      taskType: query.taskType,
+      taskId: query.taskId,
+      staffAccount: query.staffAccount
+    });
     Form.formPageInit(this);
-
-    this._getValuesFromWeb(this.data.applyNo);    //发送applyNo获取申请单内容并给页面赋值
+    this._getValuesFromWeb(query.applyNo);    //发送applyNo获取申请单内容并给页面赋值
   },
-  _getValuesFromWeb (applyNo) { //我这里是随便写的 讨论了之后再改
-    // const materialRequestFormValues = service.getMaterialRequestForm(applyNo);    //获取的物资领料申请表内容
-    const materialRequestFormValues = {
-      baseValues: {
-        applyNo: '201910220003',
-        clientName: '张三',
-        applyUseaddr: ' 经济开发区兴城路1号',
-        applyReg: '低压非居民新装',
-        applyCapacity: '10',
-        applyLinkman: '李四',
-        applyLinkphone: '13800138000',
-        vApplyHuman: '王二',
-      },
-      powerSupplyValues: {
-        vPowerPlanVoltage: '66kVA变电站',
-        vPowerPlanLine: '10kVA线',
-        vPowerPlanSection: 'xx分歧',
-        vPowerPlanBranch: '',
-        vPowerPlanArea: 'yy配电台区',
-        vPowerPlanRod: 'B5号杆',
-      },
-      transformationValues: {
-        vChangNow: '原有型号 S9-100 kVA配电变压器一台，原有10千伏 JKLYJ-35 型号线路 x 千米，0.4千伏 xxx 型号线路 y 千米。',
-        vChangRemove: '需拆除变压器 66 kVA一台',
-        vChangNew: '新建型号_配电变压器_台；新建（改造）10千伏架空线路 x 千米，其中：导线采用 xxx 型 y 千米，导线采用 xxx 型 z 千米；新建（改造）0.4千伏架空线路 k 千米，其中：导线采用 xxx 型 m 千米，导线采用 xxx 型 n 千米，组立 xxx 型水泥杆 l 基，xxx 型水泥杆 h 基。',
-        vChangPrice: '66 万元',
-      },
-      materialValues: [
-        {
-          pickingOrder: '1000000',
-          pickingNum: '100',
-          pickingDescribe: '变压器',
-          pickingUnit: '台',
-          pickingQuantity: '1',
-          pickingAddr: '张三家',
-        },
-        {
-          pickingOrder: '1000001',
-          pickingNum: '101',
-          pickingDescribe: '电缆',
-          pickingUnit: '根',
-          pickingQuantity: '2',
-          pickingAddr: '李四家',
-        }
-      ],
-      imageValues: [
-        {
-          picType: 'xxx1Image',    //照片类型（还没讨论呀）
-          picUrl: ''    //照片url地址
-        },
-        {
-          picType: 'xxx2Image',
-          picUrl: ''
-        }
-      ]
-    };
-
-    const baseValues = materialRequestFormValues.baseValues;
-    const powerSupplyValues = materialRequestFormValues.powerSupplyValues;
-    const transformationValues = materialRequestFormValues.transformationValues;
-    const materialValues = materialRequestFormValues.materialValues;
-    const imageValues = materialRequestFormValues.imageValues;
-    //填入submitBaseValues
-    for(let section in this.data.submitBaseValues) {
-      for(let item of this.data.submitBaseValues[section]) {
-        item.value = baseValues[item.name];
-      }
-    }
-    //填入submitMaterialValues
-    for(let item of materialValues) {
-      const material = JSON.parse(JSON.stringify(this.data.submitMaterialValues.data));
-      material[0].value = item.purchaseOrderNo;
-      material[1].value = item.materialNo;
-      material[2].value = item.materialUnit;
-      material[3].value = item.materialNum;
-      material[4].value = item.warehouseLocal;
-      this.$spliceData({
-        'submitMaterialValues.value': [this.data.submitMaterialValues.value.length, 0, material]
+  _getValuesFromWeb (applyNo) {
+    let applyFormBaseInfo = {};
+    
+    ApplyFormService.getApplyForm(applyNo)
+      //获取申请表基础内容
+      .then(applyFormValues => {
+        applyFormBaseInfo = applyFormValues.baseInfo;
+        return DntGoodsApplyFormService.getDntApplyFormByApplyNo(applyNo);
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      })
+      //获取物资领料申请单内容
+      .then(formValues => {
+        Object.assign(formValues.baseInfo, applyFormBaseInfo);    //申请表基础内容合并进来
+        this._fillOutForm(formValues);
+      })
+      .catch(err => {
+        Toast.failToast('网络异常');
       });
+  },
+  _fillOutForm (formValues) {
+    let tmp = null;
+
+    //填入基本信息
+    tmp = this.data.submitBaseValues;
+    for(let item of tmp.baseInfo) item.value = formValues.baseInfo[item.name];
+    this.setData({
+      submitBaseValues: tmp
+    });
+
+    //填入供电方案
+    tmp = this.data.submitPowerPlan;
+    for(let item of tmp) item.value = formValues.powerPlan[item.name];
+    this.setData({
+      submitPowerPlan: tmp
+    });
+
+    //填入改造方案
+    tmp = this.data.submitChangePlan;
+    for(let item of tmp) item.value = formValues.changePlan[item.name];
+    this.setData({
+      submitChangePlan: tmp
+    });
+
+    //填入物料清单
+    let goodsList = [];
+    for(let good of formValues.goodsSelectList) {
+      tmp = JSON.parse(JSON.stringify(goods));
+      for(let item of tmp) item.value = good[item.name];
+      goodsList.push({value: tmp});
     }
-    //填入submitImageValues
-    for(let img of imageValues) {
-      for(let index in this.data.submitImageValues) {
-        const item = this.data.submitImageValues[index];
-        const length = item.value.length;
-        if(item.imageType === img.picType) {
-          this.$spliceData({
-            [`submitImageValues[${index}].value`]: [length, 0, img.picUrl]
-          });
-          break;
-        }
-      }
+    this.setData({
+      goodsList: goodsList
+    });
+
+    //填入领料清单
+    let pickingList = [];
+    for(let good of formValues.pickList) {
+      tmp = JSON.parse(JSON.stringify(picking));
+      for(let item of tmp) item.value = good[item.name];
+      pickingList.push(tmp);
     }
+    this.setData({
+      submitPickingValues: pickingList
+    });
+
+    //填入照片
+    tmp = this.data.images;
+    for(let image of tmp) image.value = formValues.imagesList[image.name];
+    this.setData({
+      images: tmp
+    });
   },
 
    /**
@@ -138,42 +131,39 @@ Page({
    * 切换section页面
    */
   changeSection (e) {
+    this.setData({
+      isPassed: e.target.dataset.passed
+    });
     Form.changeSection(this, e);
   },
-
-  /**
-   * 输入框输入文字时触发
-   */
-  bindKeyInput (e) {
-    Form.bindKeyInput(this, e);
-  },
-
-  /**
-   * 选项改变时触发
-   */
-  bindPickerChange (e) {
-    Form.bindPickerChange(this, e);
-  },
-
-  /**
-   * 日期选择
-   */
-  onDatePick (e) {
-    Form.onDatePick(this, e);
-  },
-
-  /**
-   * 点击图片添加按钮时触发
-   */
-  addImage (e) {
-    Form.addImage(this, e);
-  },
-
 
   /**
    * 点击提交按钮触发
    */
   onSubmit () {
-    Form.onSubmit(this, [submitBaseValues, submitTenkVAValues, submitZPFourkVAValues, submitRobsValues, submitMaterialValues]);
+    Form.confirmToSubmit().then(res => {
+      const applyNo = this.data.applyNo;
+      const staffList = this._formatStaffList(this.data.staffList);
+      const taskId = this.data.taskId;
+      const taskType = this.data.taskType;
+      const isPassed = this.data.isPassed;
+      
+      const formValues = {
+        applyNo: applyNo,
+        userList: staffList,
+        taskId: taskId,
+        taskType: taskType,
+        isPassed: isPassed
+      };
+
+      Form.submit(formValues, DntGoodsApplyFormService.submitDntGoodsApplyReview);    //表单提交
+    });
   },
+  _formatStaffList (values) {
+    let staffList = [app.globalData.myStaffAccount];
+    for(let staff of values.value) {
+      if(staff.staff.value) staffList.push(staff.staff.value);
+    }
+    return staffList;
+  }
 });

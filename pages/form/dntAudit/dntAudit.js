@@ -1,8 +1,9 @@
 import {curSection, sections, baseFormStructure, equipmentStructure, imageStructure} from "./config";
 import Form from "../form";
-import service from "/service/ApplyFormService";
 import ApplyFormModel from "/model/ApplyFormModel";
+import ApplyFormService from "/service/ApplyFormService";
 
+const app = getApp();
 
 Page({
 
@@ -21,7 +22,7 @@ Page({
     curSection: curSection,    //当前section
     submitBaseValues: baseFormStructure,    //页面填写的基础数据
     submitEquipmentValues: equipmentStructure,    //填写的设备数据
-    submitImageValues: imageStructure,    //上传的图片的数据
+    submitImageValues: imageStructure    //上传的图片的数据
   },
 
   /**
@@ -39,7 +40,7 @@ Page({
     this._getValuesFromWeb(query.applyNo);    //发送applyNo获取申请单内容并给页面赋值
   },
   _getValuesFromWeb: async function (applyNo) {
-    const applyFormValues = await service.getApplyForm(applyNo).then(res => {    //获取的申请单内容
+    const applyFormValues = await ApplyFormService.getApplyForm(applyNo).then(res => {    //获取的申请单内容
       return res;
     }).catch(err=>{
       console.log(err);
@@ -94,9 +95,7 @@ Page({
    */
   changeSection (e) {
     const passed = e.target.dataset.passed;
-    if(passed) {
-      this._setFailedReasonDisabledState(JSON.parse(passed));    // 如果点击了未通过，则设置状态为可输入状态
-    }
+    if(passed) this._setFailedReasonDisabledState(JSON.parse(passed));    // 如果点击了未通过，则设置状态为可输入状态
     Form.changeSection(this, e);
   },
 
@@ -111,21 +110,25 @@ Page({
    * 点击提交按钮触发
    */
   onSubmit (e) {
-    const passed = e.target.dataset.passed;
-    if(passed) this._setFailedReasonDisabledState(JSON.parse(passed));    //如果点了合格按钮来提交，则设置未通过原因的输入状态
-    
-    const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
-    const staffList = [this.data.staffAccount];
-    const taskId = this.data.taskId;
-    const taskType = this.data.taskType;
-    
-    Form.onSubmit({
-      submitBaseValues: submitBaseValues,
-      isPassed: passed,
-      userList: staffList,
-      taskId: taskId,
-      taskType: taskType
-    }, service.submitReview);
+    Form.confirmToSubmit().then(res => {
+      const passed = e.target.dataset.passed;
+      if(passed) this._setFailedReasonDisabledState(JSON.parse(passed));    //如果点了合格按钮来提交，则设置未通过原因的输入状态
+
+      const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
+      const staffList = [app.globalData.myStaffAccount, this.data.staffAccount];
+      const taskId = this.data.taskId;
+      const taskType = this.data.taskType;
+      
+      const formValues = {
+        submitBaseValues: submitBaseValues,
+        userList: staffList,
+        taskId: taskId,
+        taskType: taskType,
+        isPassed: passed
+      };
+
+      Form.submit(formValues, ApplyFormService.submitReview);    //表单提交
+    });
   },
   _formatBaseValues (values) {
     let obj = ApplyFormModel.createApplyFormModel();
@@ -147,7 +150,7 @@ Page({
   _setFailedReasonDisabledState (state) {    //设置未通过原因可输入状态
     if(state === true) {    //如果通过审核，要清空填写的未通过原因（如果手贱先未通过然后写了原因然后又改成通过）
       this.setData({
-        'submitBaseValues.failureReason[0].value': null
+        'submitBaseValues.failureReason[0].value': ''
       });
     }
     this.setData({

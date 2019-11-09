@@ -11,10 +11,10 @@ export default {
   getAllTask :function() {
     return TaskBaseModel.getAllTaskModel().then(result => {
       console.log('查询所有任务基础信息成功');
-      return result.data;
+      return Promise.resolve(result.data);
     }).catch(err=>{
       console.log('查询所有任务基础信息失败');
-      return err.message;
+      return Promise.reject(err.message);
     });
   },
 
@@ -28,10 +28,10 @@ export default {
   selectByTypeAndPhase :function(task_type, task_phase){
     return TaskBaseModel.getTaskBaseByTypeAndPhaseModel(task_type,task_phase).then(result => {
       console.log('根据任务类型和任务阶段查询任务基础信息成功');
-      return result.data;
+      return Promise.resolve(result.data);
     }).catch(err=>{
       console.log('根据任务类型和任务阶段查询任务基础信息失败');
-      return err.message;
+      return Promise.reject(err);
     });
   }
 

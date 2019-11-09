@@ -1,27 +1,45 @@
+import ModelTest from "./test/modelTest"
+
+const SYSTEM_MODE_TEST = false;
+
 App({
-  onLaunch(options) {
-    // 第一次打开
-    // options.query == {number:1}
-    console.info('App onLaunch');
-    // dd.getAuthCode({
-    //   success: res => {
-    //     const authCode = res.authCode;
-    //     dd.httpRequest({
-    //       url: `http://192.168.137.231:8080/login`,
-    //       method: 'POST',
-    //       data: {
-    //         authCode: authCode
-    //       },
-    //       dataType: 'json',
-    //       success: (res) => {
-    //         console.log(res);
-    //       }
-    //     });
-    //   }
-    // });
+
+  /**
+   * 全局数据存放此处
+   */
+  globalData: {
+    myStaffAccount: ''
   },
+
+  /**
+   * 小程序启动完毕后触发
+   * @param {启动参数} options 
+   */
+  onLaunch(options) {
+    
+    if(SYSTEM_MODE_TEST){
+      // 测试
+      ModelTest.test();
+    }
+    
+    // 模拟登录，正式运行需注释！
+    this.globalData.myStaffAccount = options.query.staffAccount;
+    // 第一次打开
+    if(this.globalData.myStaffAccount === '') {
+      dd.redirectTo({
+        url: '/pages/login/login'
+      });
+    }
+
+  },
+
+  /**
+   * 页面显示完毕后触发
+   * @param {启动参数} options 
+   */
   onShow(options) {
     // 从后台被 scheme 重新打开
     // options.query == {number:1}
-  },
+  }
+  
 });

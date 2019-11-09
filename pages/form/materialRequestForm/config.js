@@ -145,6 +145,45 @@ export const changePlan = {    //改造方案
   new: []
 };
 
+export const picking = [    //领料清单
+  {
+    type: 'input',
+    name: 'pickingOrder',
+    title: '采购订单号',
+    value: ''
+  },
+  {
+    type: 'input',
+    name: 'pickingNum',
+    title: '物料编号',
+    value: ''
+  },
+  {
+    type: 'input',
+    name: 'pickingDescribe',
+    title: '物料描述',
+    value: ''
+  },
+  {
+    type: 'input',
+    name: 'pickingUnit',
+    title: '单位',
+    value: ''
+  },
+  {
+    type: 'input',
+    name: 'pickingQuantity',
+    title: '数量',
+    value: ''
+  },
+  {
+    type: 'input',
+    name: 'pickingAddr',
+    title: '库存地点',
+    value: ''
+  }
+];
+
 export const images = [    //申请表照片
   {
     type: 'add-image',
@@ -154,3 +193,8 @@ export const images = [    //申请表照片
     value: []   //图片文件列表
   }
 ];
+
+export const staff = {    //创建任务
+  max: 1,    //最多选3人
+  value: []    //用于存放选择的员工账号
+};

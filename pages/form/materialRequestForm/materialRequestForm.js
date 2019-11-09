@@ -1,11 +1,16 @@
-import {curSection, sections, baseFormStructure, powerPlan, changePlan, images} from "./config";
+import {curSection, sections, baseFormStructure, powerPlan, changePlan, picking, images, staff} from "./config";
 import Form from "../form";
+import Toast from "../../../utils/Toast";
 import ApplyFormService from "../../../service/ApplyFormService";
+import DntGoodsApplyFormService from "../../../service/DntGoodsApplyFormService";
 import VApplyFormModel from "../../../model/VApplyFormModel";
 import PowerPlanModel from "../../../model/PowerPlanModel";
 import ChangePlanModel from "../../../model/ChangePlanModel";
 import PickModel from "../../../model/PickModel";
 import ImageModel from "../../../model/ImageModel";
+import TaskModel from "../../../model/TaskModel";
+
+const app = getApp();
 
 Page({
   /**
@@ -22,7 +27,7 @@ Page({
     submitChangePlan: changePlan,    //改造方案
     submitPickingValues: [],    //物料申请单
     images: images,    //表单照片
-    staffList: [],
+    staffList: staff,    //创建任务数据
     materialSelected: false,    //物料选择是否完毕
   },
   
@@ -34,25 +39,92 @@ Page({
       applyNo: query.applyNo,
       taskType: query.taskType,
       taskId: query.taskId,
-      curStaff: query.staffAccount
+      staffAccount: query.staffAccount
     });
     Form.formPageInit(this);
     this._getValuesFromWeb(query.applyNo);    //发送applyNo获取申请单内容并给页面赋值
   },
   _getValuesFromWeb: async function (applyNo) {
-    const applyFormValues = await ApplyFormService.getApplyForm(applyNo).then(res => {    //获取的申请单内容
-      return res;
-    }).catch(err=>{
-      console.log(err);
-    });
-    const baseValues = applyFormValues.apply;
-    let tmp = null;
+    const existFlag = await TaskModel.existCurFinishedTaskModel(applyNo, 3)
+      //判断数据库是否已存在记录
+      .then(result =>{
+        console.log('获取配网改造当前任务是否为修改提交判断位成功')
+        const existFlag = JSON.parse(JSON.stringify(result.data));
+        return existFlag;
+      })
+      .catch(err =>{
+        console.log('获取配网改造当前任务是否为修改提交判断位失败')
+        // return false;
+        return true;
+      });
     
-    //填入submitBaseValues
+    ApplyFormService.getApplyForm(applyNo)
+      //获取的申请单内容
+      .then(applyFormValues => {
+        return Promise.resolve(applyFormValues.apply);
+      })
+      .catch(err=>{
+        console.log('获取申请单基础信息失败');
+        return Promise.reject(err);
+      })
+      .then(applyFormBaseInfo => {
+        if(existFlag) {    //如果存在已有记录，则更改此表单
+          DntGoodsApplyFormService.getDntApplyFormByApplyNo(applyNo)
+            .then(formValues => {
+              Object.assign(formValues.baseInfo, applyFormBaseInfo);    //申请表基础内容合并进来
+              this._fillOutExistForm(formValues);
+            })
+            .catch(err => {
+              Toast.failToast('网络异常');
+            });
+        } else {    //如果是第一次填写表单
+          this._fillOutApplyForm(applyFormBaseInfo);
+        }
+      })
+      .catch(err => {
+        Toast.failToast('网络异常');
+      });
+  },
+  _fillOutExistForm (formValues) {    //将上次提交的内容填入submitBaseValues
+    let tmp = null;
+
+    //填入基本信息
     tmp = this.data.submitBaseValues;
+    for(let item of tmp.baseInfo) item.value = formValues.baseInfo[item.name];
+    this.setData({
+      submitBaseValues: tmp
+    });
+
+    //填入供电方案
+    tmp = this.data.submitPowerPlan;
+    for(let item of tmp) item.value = formValues.powerPlan[item.name];
+    this.setData({
+      submitPowerPlan: tmp
+    });
+
+    //填入领料清单
+    let pickingList = [];
+    for(let good of formValues.pickList) {
+      tmp = JSON.parse(JSON.stringify(picking));
+      for(let item of tmp) item.value = good[item.name];
+      pickingList.push(tmp);
+    }
+    this.setData({
+      submitPickingValues: pickingList
+    });
+
+    //填入照片
+    tmp = this.data.images;
+    for(let image of tmp) image.value = formValues.imagesList[image.name];
+    this.setData({
+      images: tmp
+    });
+  },
+  _fillOutApplyForm (values) {    //将申请单基础内容填入submitBaseValues
+    const tmp = this.data.submitBaseValues;
     for(let section in tmp) {
       for(let item of tmp[section]) {
-        let value = baseValues[item.name];
+        let value = values[item.name];
         value = value ? value : '';
         item.value = value;
       }
@@ -105,63 +177,55 @@ Page({
   },
 
   /**
-   * 供电方案改变时触发
-   */
-  onPowerPlanChange (e) {
-    const value = e.detail.value;
-    this.setData({
-      submitPowerPlan: value
-    });
-  },
-
-  /**
    * 点击挑选物料按钮
    */
   navigateToSelect () {
     dd.navigateTo({
-      url: '../materialSelection/materialSelection'
+      url: `../materialSelection/materialSelection`
     })
   },
 
   /**
    * 点击提交按钮触发
    */
-  onSubmit () {
-    const applyNo = this.data.applyNo;
-    const taskType = this.data.taskType;    //任务类型
-    const taskId = this.data.taskId;    //任务编号
-    const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues.baseInfo);
-    const submitPowerPlan = this._formatPowerPlan(this.data.submitPowerPlan);
-    const submitChangePlan = this._formatChangePlan(this.data.submitChangePlan);
-    const submitPickingValues = this._formatPickingValues(this.data.submitPickingValues);
-    const imagesList = this._formatImages(this.data.images);
-    const staffList = this._formatStaffList(this.data.staffList);
-    
-    const obj = {
-      applyNo: applyNo,
-      taskType: taskType,
-      taskId: taskId,
-      submitBaseValues: submitBaseValues,
-      submitPowerPlan: submitPowerPlan,
-      submitChangePlan: submitChangePlan,
-      submitPickingValues: submitPickingValues,
-      imagesList: imagesList,
-      userList: staffList
-    };
-    console.log(obj);
-    
-    // Form.onSubmit(submitValues, GoodsService.onSubmit);
+  onSubmit () {    
+    Form.confirmToSubmit().then(res => {
+      const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues.baseInfo);
+      const submitPowerPlan = this._formatPowerPlan(this.data.submitPowerPlan);
+      const submitChangePlan = this._formatChangePlan(this.data.submitChangePlan);
+      const submitPickingValues = this._formatPickingValues(this.data.submitPickingValues);
+      const imagesList = this._formatImages(this.data.images);
+      const staffList = this._formatStaffList(this.data.staffList);
+      const taskId = this.data.taskId;
+      const taskType = this.data.taskType;
+      const applyNo = this.data.applyNo;
+      
+      const formValues = {
+        applyNo: applyNo,
+        taskType: taskType,
+        taskId: taskId,
+        submitBaseValues: submitBaseValues,
+        submitPowerPlan: submitPowerPlan,
+        submitChangePlan: submitChangePlan,
+        submitGoodsList: this.data.goodsList,
+        submitPickingValues: submitPickingValues,
+        imagesList: imagesList,
+        userList: staffList
+      };
+
+      Form.submit(formValues, DntGoodsApplyFormService.submitDntGoodsApplyForm);    //表单提交
+    });
   },
   _formatBaseValues (values) {
     const obj = VApplyFormModel.createVApplyFromModel();
-    const tmp = {};
+    const tmp = {applyNo: this.data.applyNo};
     for(let item of values) tmp[item.name] = item.value;
     Object.assign(obj, tmp);
     return obj;
   },
   _formatPowerPlan (values) {
     const obj = PowerPlanModel.createPowerPlanModel();
-    const tmp = {};
+    const tmp = {applyNo: this.data.applyNo};
     for(let item of values) tmp[item.name] = item.value;
     Object.assign(obj, tmp);
     return obj;
@@ -195,6 +259,7 @@ Page({
 
     const obj = ChangePlanModel.createChangePlanModel();
     const tmp = {
+      applyNo: this.data.applyNo,
       vchangNow: now_str,
       vchangRemove: remove_str,
       vchangNew: new_str,
@@ -204,29 +269,22 @@ Page({
     return obj;
   },
   _formatPickingValues (values) {
-    const pickingList = [];
+    let pickingList = [];
     for(let card of values) {
       const obj = PickModel.createPickModel();
-      const tmp = {};
+      const tmp = {applyNo: this.data.applyNo};
       for(let item of card) tmp[item.name] = item.value;
       Object.assign(obj, tmp);
       pickingList.push(obj);
     }
     return pickingList;
   },
-  _formatStaffList (values) {
-    const staffList = [this.data.curStaff];
-    for(let item of values) {
-      const staffAccount = item.staff.value;
-      staffList.push(staffAccount);
-    }
-    return staffList;
-  },
   _formatImages (values) {
-    const imagesList = [];
+    let imagesList = [];
     for(let imageType of values) {
       const obj = ImageModel.createImageModel();
       const tmp = {
+        applyNo: this.data.applyNo,
         picType: imageType.name,
         picUrl: imageType.value
       };
@@ -234,5 +292,12 @@ Page({
       imagesList.push(obj);
     }
     return imagesList;
+  },
+  _formatStaffList (values) {
+    let staffList = [app.globalData.myStaffAccount];
+    for(let staff of values.value) {
+      if(staff.staff.value) staffList.push(staff.staff.value);
+    }
+    return staffList;
   }
 });

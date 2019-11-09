@@ -11,10 +11,10 @@ export default {
   getAllDepart() {
     return DepartModel.getAllDepartModel().then(result => {
       console.log('获取所有部门成功');
-      return result.data;
+      return Promise.resolve(result.data);
     }).catch(err =>{
       console.log('获取所有部门失败');
-      return err.message;
+      return Promise.reject(err);
     });
   },
 

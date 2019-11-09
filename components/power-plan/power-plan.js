@@ -1,4 +1,6 @@
-// import service from "/service/GoodsService";
+import StationService from "../../service/StationService";
+import PowerLineService from "../../service/PowerLineService";
+import Toast from "../../utils/Toast";
 
 
 Component({
@@ -12,24 +14,15 @@ Component({
   },
   didMount() {
     const bind = this.props.bind;
-    // const voltageList = service.getAllVoltage();    //获取变电站列表
-    const voltageList = [
-      {
-        stationNo: '123213',
-        stationName: '大城子变'
-      },
-      {
-        stationNo: '324325',
-        stationName: '乱七八糟变'
-      },
-      {
-        stationNo: '353453',
-        stationName: '各种变'
-      }
-    ];
-    this.$page.setData({
-      [`${bind}[0].array`]: voltageList
-    });
+    StationService.getAllStation()    //获取变电站列表
+      .then(voltageList => {
+        this.$page.setData({
+          [`${bind}[0].array`]: voltageList
+        });
+      })
+      .catch(err => {
+        Toast.failToast('网络异常');
+      })
   },
   didUpdate() {},
   didUnmount() {},
@@ -44,25 +37,16 @@ Component({
         [`${itemPath}.index`]: choosedIndex,
         [`${itemPath}.value`]: value
       }, ()=>{
-        // const lineList = service.getAllLine(array[choosedIndex].stationNo);    //根据变电站编号获取线路列表
-        const lineList = [
-          {
-            powerlineNo: '23423423',
-            powerlineName: '某某线'
-          },
-          {
-            powerlineNo: '23423344',
-            powerlineName: '叉叉线'
-          },
-          {
-            powerlineNo: '23343423',
-            powerlineName: '乱七八糟线'
-          }
-        ];
-        this.$page.setData({
-          [`${this.props.bind}[1].array`]: lineList,
-          [`${this.props.bind}[1].pickerDisabled`]: false
-        });
+        PowerLineService.selectByStationNo(array[choosedIndex].stationNo)    //根据变电站编号获取线路列表
+          .then(lineList => {
+            this.$page.setData({
+              [`${this.props.bind}[1].array`]: lineList,
+              [`${this.props.bind}[1].pickerDisabled`]: false
+            });
+          })
+          .catch(err => {
+            Toast.failToast('网络异常');
+          });
       });
     },
     bindPowerlineChange (e) {

@@ -55,9 +55,10 @@ export default {
   * @param {taskType}       任务类型：0小微 1低压 2高压
   * @param {taskphasePhase} 任务阶段数
   * @param {taskIsFinshed}  任务阶段是否完成标志
+  * @param {prestaffAccount} 该任务阶段前一个人
   * @date: 2019/10/28 17:22
   */
-  userListToTaskList(userList, applyForm, taskType, taskphasePhase, taskIsFinshed){
+  userListToTaskList(userList, applyForm, taskType, taskphasePhase, taskIsFinshed, prestaffAccount){
     let taskList = [];
     let requests = [];
     for (let user in userList) {
@@ -70,13 +71,14 @@ export default {
         task.staffAccount = userList[index] //用户账号
         task.taskName = result[index].taskName; //任务基础表名称
         task.taskNum = taskphasePhase; //任务基础表阶段
-        task.taskType = taskType;
+        task.taskType = taskType; //任务类型
+        task.prestaffAccount = prestaffAccount; //前一阶段人员
         task.taskphaseIsfinished = taskIsFinshed; // 任务阶段是否完成
         taskList.push(task)
       }
-      return taskList;
+      return Promise.resolve(taskList);
     }).catch(err => {
-      return err.message;
+      return Promise.reject(err.message);
     });
   },
 
@@ -86,9 +88,10 @@ export default {
   * @param {taskType}       任务类型：0小微 1低压 2高压
   * @param {taskphasePhase} 任务阶段数
   * @param {taskIsFinshed}  任务阶段是否完成标志
+  * @param {prestaffAccount} 该任务阶段前一个人
   * @date: 2019/11/01 14:18
   */
-  applySubmitUserListToTaskList(userList, taskType, taskphasePhase, taskIsFinshed){
+  applySubmitUserListToTaskList(userList, taskType, taskphasePhase, taskIsFinshed, prestaffAccount){
     let taskList = [];
     let requests = [];
     for (let user in userList) {
@@ -100,13 +103,14 @@ export default {
         task.staffAccount = userList[index] //用户账号
         task.taskName = result[index].taskName; //任务基础表名称
         task.taskNum = taskphasePhase; //任务基础表阶段
-        task.taskType = taskType;
+        task.taskType = taskType; //任务类型
+        task.prestaffAccount = prestaffAccount; //前一阶段人员
         task.taskphaseIsfinished = taskIsFinshed; // 任务阶段是否完成
         taskList.push(task)
       }
-      return taskList;
+      return Promise.resolve(taskList);
     }).catch(err => {
-      return err.message;
+      return Promise.reject(err.message);
     });
   }
 

@@ -1,9 +1,11 @@
-import {curSection, sections, baseFormStructure, equipmentStructure} from "./config";
-import util from "/utils/util";
+import {curSection, sections, baseFormStructure, equipmentStructure, images, staff} from "./config";
 import Form from "../form";
-import service from "/service/ApplyFormService";
-import ApplyFormModel from "/model/ApplyFormModel";
-import DeviceModel from "/model/DeviceModel";
+import ApplyFormService from "../../../service/ApplyFormService";
+import ApplyFormModel from "../../../model/ApplyFormModel";
+import DeviceModel from "../../../model/DeviceModel";
+
+
+const app = getApp();
 
 
 Page({
@@ -12,7 +14,6 @@ Page({
    * 页面数据
    */
   data: {
-    applyNo: baseFormStructure.applyNo,    //申请编号
     isTagsShow: false,    //顶部标题是否展开状态
     switchIcon: '/statics/icons/switch_arrow_down.png',    //顶部标题箭头按钮
     headTitle: '小节名称',    //标题显示的小节名称
@@ -20,13 +21,14 @@ Page({
     curSection: curSection,    //当前section
     submitBaseValues: baseFormStructure,    //页面填写的基础数据
     submitEquipmentValues: equipmentStructure,    //填写的设备数据
-    staffList: []    //任务默认结构,
+    images: images,    //图片数据
+    staffList: staff    //任务创建数据
   },
 
   /**
    * 页面加载完成
    */
-  onLoad(query) {
+  onLoad() {
     Form.formPageInit(this);
   },
 
@@ -59,7 +61,7 @@ Page({
   },
 
   /**
-   * 选项改变时触发
+   * 选项框选择改变时触发
    */
   bindPickerChange (e) {
     Form.bindPickerChange(this, e);
@@ -78,42 +80,38 @@ Page({
   addImage (e) {
     Form.addImage(this, e);
   },
-  
-  /**
-   * 设备更改触发
-   */
-  onEquipmentChange (e) {
-    const values = e.detail.values;
-    this.setData({
-      submitEquipmentValues: values
-    });
-  },
 
   /**
    * 点击提交按钮触发
    */
   onSubmit () {
-    const applyNo = util.makeApplyNo();
-    const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
-    submitBaseValues.applyNo = applyNo;
-    const submitEquipmentValues = this._formatEquipmentValues(this.data.submitEquipmentValues);
-    for(let item of submitEquipmentValues) {
-      item.applyNo = applyNo;
-    }
-    const staffList = this._formatStaffList(this.data.staffList);
-    const isLowValtage = this.data.submitBaseValues.baseInfo[3].index>3 ? true : false;    //是低压
-    const isDNR = this.data.submitBaseValues.baseInfo[5].index===0 ? true : false;    //是配网改造
-    const taskType = isLowValtage && isDNR ? 0 : (isLowValtage ? 1 : 2);    //任务类型
-    
-    Form.onSubmit({
-      submitBaseValues: submitBaseValues,
-      submitEquipmentValues: submitEquipmentValues,
-      userList: staffList,
-      taskType: taskType
-    }, service.submitApplyForm);
+
+    Form.confirmToSubmit().then(res => {
+
+      const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
+      const submitEquipmentValues = this._formatEquipmentValues(this.data.submitEquipmentValues);
+      const imagesList = this._formatImagesList(this.data.images);
+      const staffList = this._formatStaffList(this.data.staffList);
+      
+      const isLowValtage = this.data.submitBaseValues.baseInfo[2].index>3 ? true : false;    //是低压
+      const isDNR = this.data.submitBaseValues.baseInfo[4].index===0 ? true : false;    //是配网改造
+      const taskType = isLowValtage && isDNR ? 0 : (isLowValtage ? 1 : 2);    //任务类型
+      
+      const formValues = {
+        submitBaseValues: submitBaseValues,
+        submitEquipmentValues: submitEquipmentValues,
+        imagesList: imagesList,
+        userList: staffList,
+        taskType: taskType
+      };
+
+      Form.submit(formValues, ApplyFormService.submitApplyForm);    //表单提交
+      
+    });
+
   },
   _formatStaffList (values) {
-    let staffList = ['123456786575'];
+    let staffList = [app.globalData.myStaffAccount];
     for(let item of values) {
       if(item.staff.value) staffList.push(item.staff.value);
     }
@@ -127,7 +125,6 @@ Page({
     }
     for(let item of values.usePower) obj[item.name] = item.value;
     for(let item of values.applyCapa) obj[item.name] = item.value;
-    // for(let item of values.images) obj[item.name] = item.value;
     for(let item of values.note) obj[item.name] = item.value;
     return obj;
   },
@@ -141,6 +138,16 @@ Page({
       array.push(tmp);
     }
     return array;
+  },
+  _formatImagesList (values) {
+    let imagesList = [];
+    for(let image of values) {
+      imagesList.push({
+        picType: image.name,
+        picUrl: image.value
+      });
+    }
+    return imagesList;
   }
 
 });

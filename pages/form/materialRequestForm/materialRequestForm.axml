@@ -3,7 +3,7 @@
 <view class="main flex-column">
 
   <!-- 顶部折叠栏 -->
-  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
       <button class="button switch-btn" hover-class="none">
@@ -40,15 +40,15 @@
   <!-- 改造方案 -->
   <view class="section flex-column" a:if="{{curSection==='changePlan'}}">
     <scroll-view class="container" scroll-y>
-      <view class="part flex-column">
+      <view class="part flex-column drop-shadow">
         <view class="title">现状规模</view>
         <choose-goods bind="submitChangePlan.now" values="{{submitChangePlan.now}}"></choose-goods>
       </view>
-      <view class="part flex-column">
+      <view class="part flex-column drop-shadow">
         <view class="title">拆除规模</view>
         <choose-goods bind="submitChangePlan.remove" values="{{submitChangePlan.remove}}"></choose-goods>
       </view>
-      <view class="part flex-column">
+      <view class="part flex-column drop-shadow">
         <view class="title">新建规模</view>
         <choose-goods bind="submitChangePlan.new" values="{{submitChangePlan.new}}"></choose-goods>
       </view>
@@ -97,10 +97,10 @@
   <!-- 创建任务 -->
   <view class="section flex-column" a:if="{{curSection==='task'}}">
     <scroll-view class="container" scroll-y>
-      <choose-stuff staffList="{{staffList}}" max="1"></choose-stuff>
+      <choose-stuff bind="staffList" values="{{staffList}}"></choose-stuff>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button submit-btn" disabled="{{staffList.length===0}}" onTap="onSubmit">提交</button>
+      <button class="button submit-btn" disabled="{{staffList.value.length!==staffList.max}}" onTap="onSubmit">提交</button>
     </view>
   </view>
 

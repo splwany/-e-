@@ -13,8 +13,9 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表
     curSection: curSection,    //当前section
-    originValues: formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: formStructure    //页面填写的数据
+    submitValues: formStructure,    //页面填写的数据
+    PDP: {},    //path组件返回的接电点数据
+    POC: {},    //path组件返回的分界点数据
   },
 
   /**

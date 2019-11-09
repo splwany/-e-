@@ -1,4 +1,4 @@
-import Form from "/pages/form/form";
+import Form from "../../pages/form/form";
 
 
 Component({
@@ -8,8 +8,7 @@ Component({
   },
   props: {
     bind: '',
-    values: {},
-    onChange: {}
+    values: {}
   },
   didMount() {
 
@@ -22,12 +21,9 @@ Component({
      * 点击添加按钮
      */
     onAdd () {
-      let values = this.props.values;
-      values.value.splice(values.value.length, 0, values.data);
-      this.props.onChange({
-        detail: {
-          values: values
-        }
+      const values = this.props.values;
+      this.$page.$spliceData({
+        [`${this.props.bind}.value`]: [values.value.length, 0, values.data]
       });
     },
 
@@ -35,13 +31,9 @@ Component({
      * 点击删除按钮
      */
     onDelete (e) {
-      let values = this.props.values;
       const index = e.target.dataset.index;
-      values.value.splice(index, 1);
-      this.props.onChange({
-        detail: {
-          values: values
-        }
+      this.$page.$spliceData({
+        [`${this.props.bind}.value`]: [index, 1]
       });
     },
 

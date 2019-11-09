@@ -14,9 +14,14 @@ page {
   height: 100vh;
 }
 
-/* 外框阴影 */
-.shadow {
-  box-shadow: 0 5rpx 12rpx rgba(0,0,0,0.3);
+/* 盒子阴影 */
+.box-shadow {
+  box-shadow: 0 5rpx 10rpx rgba(0, 0, 0, 0.3);
+}
+
+/* 真实投影 */
+.drop-shadow {
+  filter: drop-shadow(0 6rpx 7rpx rgba(0,0,0,0.2));
 }
 
 /* flex纵向布局 */

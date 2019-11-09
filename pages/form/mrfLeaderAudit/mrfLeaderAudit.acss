@@ -1,1 +1,32 @@
 @import "../form.acss";
+
+/* 顶部标签按钮 */
+.head-tag .tags-area .tag-btn {
+  width: calc(50% - 10rpx);
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  font-size: unset;
+  color: white;
+  background-color: rgba(25, 31, 37, 0.2);
+  border-radius: 10rpx;
+  margin: 5rpx;
+}
+
+/* 数字签名图片 */
+.digital-sign {
+  position: relative;
+  width: calc(100% - 80rpx);
+  margin: 40rpx auto;
+  border-radius: 30rpx;
+  overflow: hidden;
+  filter: drop-shadow(0 7rpx 9rpx rgba(0, 0, 0, 0.15));
+}
+
+.digital-sign-note {
+  margin: 0 auto;
+  line-height: 70rpx;
+  font-size: 30rpx;
+  color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -4rpx 3rpx -3rpx rgba(0, 0, 0, 0.2);
+}

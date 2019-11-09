@@ -3,7 +3,7 @@
 <view class="main flex-column">
 
   <!-- 顶部折叠栏 -->
-  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
       <button class="button switch-btn" hover-class="none">

@@ -1,6 +1,7 @@
-import GoodsModel from "../../../model/GoodsModel";
-import service from "../../../service/GoodsService";
+import GoodsSelectModel from "../../../model/GoodsSelectModel";
+import GoodsService from "../../../service/GoodsService";
 import Form from "../form";
+import Toast from "../../../utils/Toast";
 
 Page({
   /**
@@ -17,32 +18,32 @@ Page({
    */
   onLoad (query) {
     this.$lastPage = Form.getPrePage();    //获取上一页面对象
-    const taskType = query.taskType;
-
-    const goodsClassList = ['类别1', '类别2', '类别3'];  
     this.setData({
-      sections: goodsClassList,
-      curSection: 0
-    });  
-    // service.getGoodsClassList(taskType).then(res => {
-    //   this.setData({
-    //     sections: res,
-    //     curSection: 0
-    //   });
-    // }).catch(err => {
-    //   console.log(err);
-    // });
-    const submitValues = [];
-    for(let item of goodsClassList) {
-      submitValues.push({
-        name: item,
-        value: []
-      })
-    }
-    this.setData({
-      submitValues: submitValues
+      applyNo: this.$lastPage.data.applyNo,
+      taskType: this.$lastPage.data.taskType
     });
-    this._pageInit();
+    
+    GoodsService.getGoodsClassList(taskType).then(goodsClassList => {
+      this.setData({
+        sections: goodsClassList,
+        curSection: 0
+      }, () => {
+        this._pageInit();
+      });
+      const submitValues = [];
+      for(let item of goodsClassList) {
+        submitValues.push({
+          name: item,
+          value: []
+        })
+      }
+      this.setData({
+        submitValues: submitValues
+      });
+    }).catch(err => {
+      console.log(err);
+      Toast.failToast('网络异常');
+    });
   },
 
   /**
@@ -79,23 +80,13 @@ Page({
   /**
    * 切换section页面
    */
-  changeSection: async function (e) {
+  changeSection (e) {
     const nextSection = e.target.dataset.nextSection;
     this.setData({
       curSection: nextSection
     }, () => {
       this._updateHeadTitle();
     });
-    let typeList = ['型号1', '型号2', '型号3', '型号4'];
-    // await service.getGoodsTypeList(nextSection).then(res => {
-    //   typeList = res;
-    // }).catch(err => {
-    //   console.log(err);
-    // });
-    this.setData({
-
-    });
-
   },
 
   /**
@@ -122,9 +113,7 @@ Page({
       price: price,
       materialSelected: true
     });
-    dd.navigateBack({
-      delta: 1
-    })
+    dd.navigateBack();
   },
   _getPrice () {
     const goodValues = this.data.submitValues;
@@ -136,20 +125,16 @@ Page({
         const price = good[0].array[good[0].index].goodsPrice;
         const count = good[1].value;
         totalPrice += price * count;
-        // const goodsModel = GoodsModel.createGoodsModel();
-        // Object.assign(goodsModel, {
-        //   goodsClass: goodsClass.name,
-        //   goodsName: good[0].value,
-        //   goodsPrice: price * count,
-        //   goodsQty: count
-        // });
-        // goodsList.push(goodsModel);
-        goodsList.push({
+
+        const obj = GoodsSelectModel.createGoodsSelectModel();
+        Object.assign(obj, {
+          applyNo: this.data.applyNo,
           goodsClass: goodsClass.name,
           goodsName: good[0].value,
           goodsPrice: price * count,
           goodsQty: count
         });
+        goodsList.push(obj);
       }
     }
 

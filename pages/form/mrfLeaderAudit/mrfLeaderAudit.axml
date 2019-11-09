@@ -1,12 +1,11 @@
-<import src="/templates/formItems"/>
-
 <view class="main flex-column">
 
   <!-- 顶部折叠栏 -->
-  <view class="head-tag shadow" animation="{{headTagAnimation}}">
-    <view class="head-title flex-row">
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
-      <button class="button switch-btn" hover-class="none">
+      <button a:if="{{needToChooseStaff}}" class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
       </button>
     </view>
     <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
@@ -14,16 +13,24 @@
     </view>
   </view>
 
-  <!-- 申请表照片 -->
-  <view class="section flex-column" a:if="{{curSection==='leadersign'}}">
-    <scroll-view class="container" scroll-y>
-      <block a:for="{{submitImageValues}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item}}"></template>        
-      </block>
-      <view>将使用您在系统保存的电子签名进行签字流程</view>
+  <!-- 数字签名 -->
+  <view class="section flex-column" a:if="{{curSection==='leaderSign'}}">
+    <scroll-view class="container flex-column" scroll-y>
+      <image class="digital-sign" mode="aspectFill" src="{{digitalSignUrl}}"/>
+      <view class="digital-sign-note">将使用此电子签名</view>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button submit-btn" onTap="onSubmit">确认签字</button>
+      <button disabled="{{!isLastLeader}}" class="button submit-btn" data-nextSection="task" onTap="onSign">确认签字</button>
     </view>
   </view>
 </view>
+
+  <!-- 创建任务 -->
+  <view class="section flex-column" a:if="{{curSection==='task'}}">
+    <scroll-view class="container" scroll-y>
+      <choose-stuff bind="staffList" values="{{staffList}}"></choose-stuff>
+    </scroll-view>
+    <view class="foot-btn-group flex-row">
+      <button class="button submit-btn" disabled="{{!isSigned || staffList.value.length!==staffList.max}}" onTap="onSubmit">提交</button>
+    </view>
+  </view>

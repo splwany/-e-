@@ -1,0 +1,15 @@
+<import src="/templates/componentItems"/>
+
+<view class="path flex-column">
+
+  <template a:if="{{type === 'high' && loaded}}" a:for="{{values.value}}" a:key="high_{{index}}" is="{{item.type}}" data="{{...item, rangeKey:`${item.rangeKey}`, itemIndex:index, itemPath:`values.value[${index}]`, bindMethod:`${item.type}`}}"></template>
+  <template a:if="{{type === 'low' && loaded}}" a:for="{{values.value.lowDefault1}}" a:key="low1_{{index}}" is="{{item.type}}" data="{{...item, rangeKey:`${item.rangeKey}`, itemIndex:index, itemPath:`values.value.lowDefault1[${index}]`, bindMethod:`${item.type}`}}"></template>
+
+  <view a:if="{{loaded}}" class="button-group flex-row">
+    <button a:if="{{values.level !== 0}}" class="button delete-btn" onTap="onDelete">删除</button>
+    <button class="button add-btn" onTap="onAdd">添加</button>
+  </view>
+
+  <template a:if="{{type === 'low' && loaded}}" a:for="{{values.value.lowDefault2}}" a:key="low2_{{index}}" is="{{item.type}}" data="{{...item, rangeKey:`${item.rangeKey}`, itemIndex:`${index}`, itemPath:`values.value.lowDefault2[${index}]`, bindMethod:`${item.type}`}}"></template>
+
+</view>

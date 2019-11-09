@@ -1,4 +1,5 @@
-// import service from "/service/Goods";
+import GoodsService from "../../service/GoodsService";
+import Toast from "../../utils/Toast";
 
 Component({
   mixins: [],
@@ -34,14 +35,19 @@ Component({
         'newItem[0].array': this.$page.data.goodsClassList
       });
     } else {
-      const goodsClassList = ['类别1', '类别2', '类别3'];    //从服务器获取类别列表
-      this.$page.setData({
-        goodsClassList: goodsClassList
-      }, ()=>{
-        this.setData({
-          'newItem[0].array': this.$page.data.goodsClassList
+      GoodsService.getGoodsClassList(0)    //获取配网改造物资类别表
+        .then(goodsClassList => {
+          this.$page.setData({
+            goodsClassList: goodsClassList
+          });
+          this.setData({
+            'newItem[0].array': goodsClassList
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          Toast.failToast('获取失败，请重试');
         });
-      });
     }
   },
   didUpdate() {},
@@ -70,27 +76,18 @@ Component({
       this.$page.setData({
         [`${itemPath}[0].index`]: choosedIndex,
         [`${itemPath}[0].value`]: value
-      }, ()=>{
-        // const typeList = service.getAllTypes(value);    //根据物资类别名称物资型号列表
-        const typeList = [
-          {
-            goodsName: '型号1',
-            goodsPrice: 10000
-          },
-          {
-            goodsName: '型号2',
-            goodsPrice: 5000
-          },
-          {
-            goodsName: '型号3',
-            goodsPrice: 20000
-          }
-        ];
-        this.$page.setData({
-          [`${this.props.bind}[${index}][1].array`]: typeList,
-          [`${this.props.bind}[${index}][1].pickerDisabled`]: false
-        });
       });
+      GoodsService.getGoodsTypeList(value)    //根据物资类别名称物资型号列表
+        .then(typeList => {
+          this.$page.setData({
+            [`${this.props.bind}[${index}][1].array`]: typeList,
+            [`${this.props.bind}[${index}][1].pickerDisabled`]: false
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          Toast.failToast('网络异常');
+        });
     },
     bindTypeChange (e) {
       const choosedIndex = e.detail.value;

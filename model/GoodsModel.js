@@ -35,8 +35,25 @@ let staticMethods = {
   },
 
   // 根据基础物资类别返回对应的基础物资集合
-  getGoodsTypeListModel: function(goodsClass){
-    return HelperUtil.httpReq(RequestUrls.GOODS_BY_TYPE + goodsClass);
+  getGoodsTypeListModel: function(goodsClass,typeList){
+    return HelperUtil.httpReq(RequestUrls.GOODS_BY_TYPE,{
+      'goodsClass':goodsClass,
+      'typeList':typeList
+    },'POST');
+  },
+
+  // 根据架空或电缆以及typeList查询对应的物资集合
+  /**
+    result.data={
+    '子类1'：[],
+    '子类2'：[],
+    }
+   */
+  getClassByTypeModel: function(classType,typeList){
+    return HelperUtil.httpReq(RequestUrls.GOODS_GET_OBJ_BY_CLASSTYPE,{
+      'classType':classType,
+      'typeList':typeList
+    },'POST')
   }
 
 }

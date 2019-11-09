@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "add-delete": "/components/add-delete/add-delete"
+    "choose-stuff": "/components/choose-stuff/choose-stuff"
   },
   "defaultTitle": "改造项目物资领料申请表领导签字",
   "pullRefresh": false

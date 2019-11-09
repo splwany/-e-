@@ -1,3 +1,6 @@
+import GoodsService from "../../service/GoodsService";
+import Toast from "../../utils/Toast";
+
 Component({
   mixins: [],
   data: {
@@ -10,23 +13,15 @@ Component({
   },
   didMount() {
     if(this.props.values.array) return;
+
     // 数据库返回typeList
-    const typeList = [
-      {
-        goodsName: '型号1',
-        goodsPrice: 100.50
-      },
-      {
-        goodsName: '型号2',
-        goodsPrice: 200.65
-      },
-      {
-        goodsName: '型号3',
-        goodsPrice: 300.80
-      }
-    ];
-    this.$page.setData({
-      [`${this.props.bind}.array`]: typeList
+    GoodsService.getGoodsTypeList(this.props.values.name).then(typeList => {
+      this.$page.setData({
+        [`${this.props.bind}.array`]: typeList
+      });
+    }).catch(err => {
+      console.log(err);
+      Toast.failToast('网络异常');
     });
   },
   didUpdate() {},

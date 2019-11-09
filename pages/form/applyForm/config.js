@@ -1,8 +1,3 @@
-import util from "/utils/util";
-
-
-export const curSection = 'baseInfo';
-
 export const sections = {   //section列表信息
   baseInfo: {
     name: '基本信息'
@@ -27,14 +22,10 @@ export const sections = {   //section列表信息
   }
 };
 
+export const curSection = 'baseInfo';    //指定初始section
+
 export const baseFormStructure = {   //每个section的表单信息集合
   baseInfo: [   //基本信息
-    {
-      type: 'time-picker',
-      name: 'applyDate',
-      title: '申请时间',
-      value: util.getToday()
-    },
     {
       type: 'input',
       name: 'clientName',
@@ -137,22 +128,6 @@ export const baseFormStructure = {   //每个section的表单信息集合
       unit: 'kVA'
     }
   ],
-  images: [   //相关照片
-    {
-      type: 'add-image',
-      name: 'applyPhotos',
-      title: '勘察照片',
-      max: 5,   //最大允许选择的图片数
-      value: []   //图片文件列表
-    },
-    {
-      type: 'add-image',
-      name: 'applyFormImage',
-      title: '用电申请单照片',
-      max: 2,
-      value: []
-    }
-  ],
   note: [   //备注
     {
       type: 'note-area',
@@ -190,4 +165,26 @@ export const equipmentStructure = {   //用电设备
     }
   ],
   value: []
+};
+
+export const images = [    //表单图片
+  {
+    type: 'add-image',
+    name: '01',    //数据库中对应的图片类型
+    title: '勘察照片',
+    max: 5,   //最大允许选择的图片数
+    value: []   //图片临时url列表
+  },
+  {
+    type: 'add-image',
+    name: '02',
+    title: '用电申请单照片',
+    max: 2,
+    value: []
+  }
+];
+
+export const staff = {    //创建任务
+  max: 1,    //最多选3人
+  value: []    //用于存放选择的员工账号
 };

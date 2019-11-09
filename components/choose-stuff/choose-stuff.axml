@@ -1,6 +1,6 @@
 <view class="choose-stuff flex-column">
   
-  <view class="item flex-column" a:for="{{staffList}}" a:key="{{index}}">
+  <view class="item flex-column" a:for="{{values.value}}" a:key="{{index}}">
     <picker value="{{item.department.index}}" range="{{item.department.array}}" range-key="departName" data-index="{{index}}" onChange="onDepartChange">
       <view class="row flex-row">
         <view class="row-title">部门</view>
@@ -20,6 +20,6 @@
     <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">删除</button>
   </view>
 
-  <button a:if="{{canAdd}}" class="button add-btn" onTap="onAdd">添加</button>
+  <button a:if="{{values.canAdd}}" class="button add-btn" onTap="onAdd">添加</button>
 
 </view>

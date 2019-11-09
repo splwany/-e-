@@ -28,10 +28,27 @@ export default {
    * @param {图片URL缓存集合} imagesUrlList 
    */
   uploadImageList:function(ImageObjList, imagesUrlList){
-    return ImageModel.saveImageModel(ImageObjList, imagesUrlList).then(result =>{
-      console.log('上传图片失败');
+    if(ImageObjList.length == 0){
+      return Promise.resolve();
+    }else{
+      return ImageModel.saveImageModel(ImageObjList, imagesUrlList).then(result =>{
+        return Promise.resolve(result);
+      }).catch(err =>{
+        return Promise.reject(err);
+      })
+    }
+  },
+
+  /**
+   * @description: 根据图片编号和图片类型获取图片URL
+   * @param {图片编号} picNo 
+   * @param {图片类型} picType 
+   */
+  getImageUrl:function(picNo, picType){
+    return ImageModel.getImageUrlModel(picNo, picType).then(result =>{
+      return Promise.resolve(result.data);
     }).catch(err =>{
-      return err.message;
+      return Promise.reject(err);
     })
   }
 

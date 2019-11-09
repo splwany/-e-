@@ -5,7 +5,7 @@
 <view class="main flex-column">
 
   <!-- 顶部折叠栏 -->
-  <view class="head-tag shadow" animation="{{headTagAnimation}}">
+  <view class="head-tag box-shadow box-shadow" animation="{{headTagAnimation}}">
     <view class="head-title flex-row" onTap="switchTags">
       <view class="section-name">{{headTitle}}</view>
       <button class="button switch-btn" hover-class="none">
@@ -96,7 +96,7 @@
       </block>
     </scroll-view>
     <view class="foot-btn-group">
-      <button class="button submit-btn" onTap="onSubmit">提交</button>
+      <button disabled="{{submitBaseValues.failureReason[0].value===''}}" class="button submit-btn" onTap="onSubmit">提交</button>
     </view>
   </view>
 </view>
