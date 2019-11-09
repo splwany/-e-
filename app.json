@@ -5,7 +5,13 @@
     "pages/form/highReplyForm/highReplyForm",
     "pages/file/file",
     "pages/search/search",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/form/materialRequestForm/materialRequestForm",
+    "pages/form/materialSelection/materialSelection",
+    "pages/form/dntAudit/dntAudit",
+    "pages/form/mrfAudit/mrfAudit",
+    "pages/form/mrfLeaderAudit/mrfLeaderAudit",
+    "pages/login/login"
   ],
   "window": {
     "defaultTitle": "喀左业扩报装e处理平台",

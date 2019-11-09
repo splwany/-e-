@@ -1,6 +1,5 @@
 import {curSection, sections, formStructure} from "./config";
 import Form from "../form";
-import manager from "/service/pageManager/HighReplyFormManager";
 
 
 Page({
@@ -14,8 +13,9 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表
     curSection: curSection,    //当前section
-    originValues: formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: formStructure    //页面填写的数据
+    submitValues: formStructure,    //页面填写的数据
+    PDP: {},    //path组件返回的接电点数据
+    POC: {},    //path组件返回的分界点数据
   },
 
   /**
@@ -23,16 +23,15 @@ Page({
    */
   onLoad(query) {
     Form.formPageInit(this);
-    if(query.openType == 1) {
-      console.log('正在从缓存读取数据');
-    }
+    //从服务器读取表单数据
+    
   },
 
   /**
    * 页面关闭，缓存信息
    */
   onUnload() {
-
+    
   },
   
   /**
@@ -81,8 +80,10 @@ Page({
    * 点击提交按钮触发
    */
   onSubmit () {
+    //要询问是否确定提交
     const submitValues = this._formatData(this.data.submitValues);
     manager.submit(submitValues);
+    dd.navigateBack();
   },
   _formatData (fromValues) {   //表单数据格式化为可用格式
 

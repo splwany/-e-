@@ -1,0 +1,64 @@
+.choose-material {
+  position: relative;
+  margin-top: 20rpx;
+}
+
+.choose-material .items-box {
+  position: relative;
+  margin-bottom: 2rpx;
+}
+
+.choose-material .items-box .delete-btn {
+  width: 60rpx;
+  height: 200rpx;
+  margin: auto 20rpx;
+  background-color: transparent;
+}
+
+.choose-material .add-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin: 20rpx auto;
+  background-color: white;
+  box-shadow: 0 5rpx 10rpx rgba(0, 0, 0, 0.2);
+}
+
+.choose-material .items-box .items-view {
+  flex: 1;
+  margin-left: 20rpx;
+  box-shadow: 0 5rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* input及picker样式 */
+.choose-material .items-box .items-view .inpicker {
+  width: 100%;
+  height: 100rpx;
+  margin: 0;
+  background-color: white;
+}
+.choose-material .items-box .items-view .inpicker .title {
+  line-height: 100rpx;
+  margin: 0 20rpx;
+}
+.choose-material .items-box .items-view .inpicker .content {
+  flex: 1;
+  width: calc(100% - 20rpx);
+  height: 100%;
+  text-align: right;
+  padding: 0 20rpx;
+  color: var(--mainThemeColor);
+  background-color: transparent;
+}
+.choose-material .items-box .items-view .inpicker .right {
+  height: 100%;
+  line-height: 100rpx;
+  margin-right: 20rpx;
+}
+.choose-material .items-box .items-view .inpicker .right.button {
+  width: 100rpx;
+  margin-right: 0;
+}
+.choose-material .items-box .items-view .inpicker .right.button image {
+  transform: scale(0.7);
+}

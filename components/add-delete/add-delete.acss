@@ -1,0 +1,30 @@
+@import "/pages/form/form.acss";
+
+
+/* 可增可删模板样式 */
+.add-delete {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: transparent;
+}
+.add-delete .item {
+  margin-bottom: 20rpx;
+}
+.add-delete .item > view {
+  margin: 0;
+}
+
+/* 删除按钮样式 */
+.add-delete .delete-btn {
+  width: 100%;
+  height: 100rpx;
+  background-color: #f25643;
+}
+
+/* 添加按钮样式 */
+.add-delete .add-btn {
+  width: 100%;
+  height: 100rpx;
+  color: black;
+  background-color: var(--grayButtonColor);
+}

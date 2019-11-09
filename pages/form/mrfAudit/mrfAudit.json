@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "material-apply": "/components/material-apply/material-apply",
+    "choose-stuff": "/components/choose-stuff/choose-stuff"
+  },
+  "defaultTitle": "改造项目物资领料申请表审核",
+  "pullRefresh": false
+}

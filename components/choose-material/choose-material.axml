@@ -1,0 +1,18 @@
+<import src="/templates/componentItems"/>
+
+<view class="choose-material flex-column">
+
+  <view class="items-box flex-row" a:for="{{values.value}}" a:key="{{index}}">
+    <view class="items-view flex-column">
+      <template is="picker" data="{{...item[0], itemPath:`${bind}.value[${index}]`, itemIndex:index, rangeKey:'goodsName', bindMethod:'bindTypeChange'}}"></template>
+      <template is="input" data="{{...item[1], itemPath:`${bind}.value[${index}]`, bindMethod:'bindKeyInput'}}"></template>
+    </view>
+    <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">
+      <image class="icon" mode="aspectFit" src="/statics/icons/circle_delete_btn.png"/>
+    </button>
+  </view>
+  <button class="button add-btn" data-length="{{values.value.length}}" onTap="onAdd">
+    <image class="icon" mode="aspectFit" src="/statics/icons/simple_add_btn.png"/>
+  </button>
+
+</view>

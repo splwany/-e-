@@ -1,6 +1,11 @@
-import {curSection, sections, formStructure} from "./config";
+import {curSection, sections, baseFormStructure, equipmentStructure, images, staff} from "./config";
 import Form from "../form";
-import manager from "/service/pageManager/ApplyFormManager";
+import ApplyFormService from "../../../service/ApplyFormService";
+import ApplyFormModel from "../../../model/ApplyFormModel";
+import DeviceModel from "../../../model/DeviceModel";
+
+
+const app = getApp();
 
 
 Page({
@@ -14,18 +19,17 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表信息
     curSection: curSection,    //当前section
-    originValues: formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: formStructure,    //页面填写的数据
+    submitBaseValues: baseFormStructure,    //页面填写的基础数据
+    submitEquipmentValues: equipmentStructure,    //填写的设备数据
+    images: images,    //图片数据
+    staffList: staff    //任务创建数据
   },
 
   /**
-   * 页面加载完成，当从缓存打开时，导入缓存信息
+   * 页面加载完成
    */
-  onLoad(query) {
+  onLoad() {
     Form.formPageInit(this);
-    if(query.openType == 1) {
-      console.log('正在从缓存读取数据');
-    }
   },
 
   /**
@@ -57,7 +61,7 @@ Page({
   },
 
   /**
-   * 选项改变时触发
+   * 选项框选择改变时触发
    */
   bindPickerChange (e) {
     Form.bindPickerChange(this, e);
@@ -71,108 +75,79 @@ Page({
   },
 
   /**
-   * 点击添加用电设备时触发
-   */
-  addNewElecEquipment () {
-    this.$spliceData({
-      [`submitValues.equipment[0].value`]: [this.data.submitValues.equipment[0].value.length, 0, this.data.submitValues.equipment[0].data]
-    });
-  },
-
-  /**
-   * 点击删除用电设备时触发
-   */
-  deleteElecEquipment (e) {
-    const index = e.target.dataset.index;
-    this.$spliceData({
-      [`submitValues.equipment[0].value`]: [index, 1]
-    });
-  },
-
-  /**
    * 点击图片添加按钮时触发
    */
   addImage (e) {
     Form.addImage(this, e);
   },
-  
+
   /**
    * 点击提交按钮触发
    */
   onSubmit () {
-    const submitValues = this._formatData(this.data.submitValues);
-    manager.submit(submitValues);
+
+    Form.confirmToSubmit().then(res => {
+
+      const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
+      const submitEquipmentValues = this._formatEquipmentValues(this.data.submitEquipmentValues);
+      const imagesList = this._formatImagesList(this.data.images);
+      const staffList = this._formatStaffList(this.data.staffList);
+      
+      const isLowValtage = this.data.submitBaseValues.baseInfo[2].index>3 ? true : false;    //是低压
+      const isDNR = this.data.submitBaseValues.baseInfo[4].index===0 ? true : false;    //是配网改造
+      const taskType = isLowValtage && isDNR ? 0 : (isLowValtage ? 1 : 2);    //任务类型
+      
+      const formValues = {
+        submitBaseValues: submitBaseValues,
+        submitEquipmentValues: submitEquipmentValues,
+        imagesList: imagesList,
+        userList: staffList,
+        taskType: taskType
+      };
+
+      Form.submit(formValues, ApplyFormService.submitApplyForm);    //表单提交
+      
+    });
+
   },
-  _formatData (fromValues) {    //格式化提交数据
-    let baseInfo = [];
-    for(let item of fromValues.baseInfo) {
-      baseInfo.push({
-        name: item.name,
-        value: item.value
-      });
+  _formatStaffList (values) {
+    let staffList = [app.globalData.myStaffAccount];
+    for(let item of values) {
+      if(item.staff.value) staffList.push(item.staff.value);
     }
-    let usePower = [];
-    for(let item of fromValues.usePower) {
-      usePower.push({
-        name: item.name,
-        value: item.value
-      });
+    return staffList;
+  },
+  _formatBaseValues (values) {
+    let obj = ApplyFormModel.createApplyFormModel();
+    for(let item of values.baseInfo) {
+      if(item.name=='isDNR') continue;
+      obj[item.name] = item.value;
     }
-    let applyCapa = [];
-    for(let item of fromValues.applyCapa) {
-      applyCapa.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let equipment = [];
-    for(let item of fromValues.equipment) {
-      let list = [];
-      for(let element of item.value) {
-        let tmp = {};
-        for(let i of element) {
-          tmp[i.name] = i.value;
-        }
-        list.push(tmp);
+    for(let item of values.usePower) obj[item.name] = item.value;
+    for(let item of values.applyCapa) obj[item.name] = item.value;
+    for(let item of values.note) obj[item.name] = item.value;
+    return obj;
+  },
+  _formatEquipmentValues (values) {
+    let array = [];
+    for(let item of values.value) {
+      let tmp = DeviceModel.createDeviceModel();
+      for(let i in item) {
+        tmp[item[i].name] = item[i].value
       }
-      equipment.push({
-        applyNo: baseInfo[0].value,
-        name: item.name,
-        value: list
-      });
+      array.push(tmp);
     }
-    let images = [];
-    for(let item of fromValues.images) {
-      images.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-    let note = [];
-    for(let item of fromValues.note) {
-      note.push({
-        name: item.name,
-        value: item.value
-      });
-    }
-
-    const toValues = {
-      baseInfo: baseInfo,
-      usePower: usePower,
-      applyCapa: applyCapa,
-      equipment: equipment,
-      images: images,
-      note: note
-    };
-
-    return toValues;
+    return array;
   },
-
-  /**
-   * 点击重置按钮触发
-   */
-  onReset () {
-    Form.onReset(this);    
+  _formatImagesList (values) {
+    let imagesList = [];
+    for(let image of values) {
+      imagesList.push({
+        picType: image.name,
+        picUrl: image.value
+      });
+    }
+    return imagesList;
   }
 
 });

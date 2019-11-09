@@ -1,0 +1,23 @@
+<import src="/templates/componentItems"/>
+
+<view class="material-apply">
+  <view class="row-scroll-view-box">
+    <scroll-view scroll-x>
+
+      <view class="apply-item" a:for="{{values}}" a:key="{{index}}">
+        <view>
+          <scroll-view scroll-y>
+            <template is="{{subItem.type}}" a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex" a:key="{{subIndex}}" data="{{...subItem, itemPath:`${bind}[${index}][${subIndex}]`, bindMethod:'bindKeyInput'}}"></template>
+          </scroll-view>
+        </view>
+        <button a:if="{{!disabled}}" class="button card-delete-btn" data-index="{{index}}" onTap="onDelete">
+          <image class="icon" mode="aspectFit" src="/statics/icons/circle_delete_btn_full.png"/>
+        </button>
+      </view>
+      <button a:if="{{!disabled}}" class="button card-add-btn" onTap="onAdd">
+        <image class="icon" mode="aspectFit" src="/statics/icons/card_add_btn.png"/>
+      </button>
+
+    </scroll-view>
+  </view>
+</view>

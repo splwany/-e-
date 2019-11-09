@@ -1,0 +1,11 @@
+<import src="/templates/componentItems"/>
+
+<view class="power-plan flex-column">
+  <template is="picker" data="{{...values[0], itemPath:`${bind}[0]`, bindMethod:'bindStationChange'}}"></template>
+  <template is="picker" data="{{...values[1], itemPath:`${bind}[1]`, bindMethod:'bindPowerlineChange'}}"></template>
+  <template is="input-unit" data="{{...values[2], itemPath:`${bind}[2]`, bindMethod:'bindKeyInput'}}"></template>
+  <template is="input-unit" data="{{...values[3], itemPath:`${bind}[3]`, bindMethod:'bindKeyInput'}}"></template>
+  <template is="input-unit" data="{{...values[4], itemPath:`${bind}[4]`, bindMethod:'bindKeyInput'}}"></template>
+  <template is="input-unit" data="{{...values[5], itemPath:`${bind}[5]`, bindMethod:'bindKeyInput'}}"></template>
+  <template is="input-unit" data="{{...values[6], itemPath:`${bind}[6]`, bindMethod:'bindKeyInput'}}"></template>
+</view>

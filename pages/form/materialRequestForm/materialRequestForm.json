@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "power-plan": "/components/power-plan/power-plan",
+    "choose-goods": "/components/choose-goods/choose-goods",
+    "choose-stuff": "/components/choose-stuff/choose-stuff",
+    "material-apply": "/components/material-apply/material-apply"
+  },
+  "defaultTitle": "配网改造项目物资领料申请表",
+  "pullRefresh": false
+}

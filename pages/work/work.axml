@@ -1,7 +1,13 @@
+<!-- 待办工单页 -->
+
 <import src="/templates/cards"/>
 
 <view class="main flex-column">
 
-  <template is="work-list-card" a:for="{{workList}}" a:key="{{index}}" data="{{...item}}"/>
+  <scroll-view scroll-y>
+    <template is="work-list-card" a:for="{{workList}}" a:key="{{index}}" data="{{...item}}"/>
+  </scroll-view>
+
+  <button class="button add-btn box-shadow" hover-class="add-btn-hover" onTap="addApplyForm"></button>
 
 </view>
