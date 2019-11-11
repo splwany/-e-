@@ -17,6 +17,14 @@ export default [
   {
     name: 'type',
     type: 'picker',
+    title: '导线类别',
+    array: [],
+    rangeKey: 'goodsClass',
+    index: -1
+  },
+  {
+    name: 'model',
+    type: 'picker',
     title: '导线型号',
     array: [],
     rangeKey: 'goodsName',

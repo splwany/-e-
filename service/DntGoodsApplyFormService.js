@@ -212,13 +212,39 @@ export default {
     })
   },
 
+
+  /**
+   * @description: 打印配网申请表后，到朝阳市审核签字
+   * @param{配网打印签字信息} submitValues
+   * @date: 2019/11/11 10:24
+   */
+  signFinish:function(submitValues){
+    const firstUser = submitValues.userList.shift();
+    let applyNoObject = {"applyNo": submitValues.applyNo}
+    return util.userListToTaskList(submitValues.userList, applyNoObject, 0, 7, false, firstUser)
+    .then(taskPhaseList =>{
+      return TaskModel.achCurAndFinNewModel(submitValues.taskPhaseId, taskPhaseList);
+    })
+    .catch(err =>{
+      return Promise.reject(err);
+    })
+    .then(result =>{
+      console.log('打印配网申请表后，到朝阳市审核签字成功')
+      return Promise.resolve();
+    })
+    .catch(err =>{
+      console.log('打印配网申请表后，到朝阳市审核签字,服务器异常')
+      return Promise.reject(err);
+    })
+  },
+
   /**
    * @description: 完成配网领料
    * @param {领料信息} submitValues 
    */
   achGetGoods:function(submitValues){
     const firstUser = submitValues.userList.shift();
-    return util.userListToTaskList(submitValues.userList, submitValues.vApplyObj, 0, 7, false, firstUser)
+    return util.userListToTaskList(submitValues.userList, submitValues.vApplyObj, 0, 8, false, firstUser)
     .then(taskPhaseList =>{
       return VApplyFormModel.updateVApplyFormModel(submitValues.vApplyObj, submitValues.taskPhaseId, taskPhaseList);
     })

@@ -21,12 +21,8 @@ Component({
         loaded: true
       });
     } else {    // 如果页面没有变电站数据和线路数据，则获取变电站数据和线路数据
-      dd.showLoading({
-        content: '请稍后...'
-      });
       StationService.getAllStation()    //获取所有变电站数据
         .then(stationList => {
-          dd.hideLoading();
           if (this.props.type === 'high') {
             this.setData({
               'values.success': true,
@@ -188,12 +184,8 @@ Component({
      * 填入10千伏线路列表
      */
     _fillOutPowerLineList (stationNo) {
-      dd.showLoading({
-        content: '请稍后...'
-      });
       PowerLineService.selectByStationNo(stationNo)    //获取10千伏线路列表
         .then(powerlineList => {
-          dd.hideLoading();
           if (this.props.type === 'high') {
             this.setData({
               'values.value[1].array': powerlineList
@@ -205,6 +197,7 @@ Component({
           }
         })
         .catch(err => {
+         
           Toast.failToast('获取线路失败');
           this._fillOutFakePowerLineList();
         });

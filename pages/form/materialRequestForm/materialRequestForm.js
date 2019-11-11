@@ -95,13 +95,6 @@ Page({
       submitBaseValues: tmp
     });
 
-    //填入供电方案
-    tmp = this.data.submitPowerPlan;
-    for(let item of tmp) item.value = formValues.powerPlan[item.name];
-    this.setData({
-      submitPowerPlan: tmp
-    });
-
     //填入领料清单
     let pickingList = [];
     for(let good of formValues.pickList) {
@@ -226,7 +219,8 @@ Page({
   _formatPowerPlan (values) {
     const obj = PowerPlanModel.createPowerPlanModel();
     const tmp = {applyNo: this.data.applyNo};
-    for(let item of values) tmp[item.name] = item.value;
+    for(let item of values) tmp[item.name] = item.value ? item.value : null;
+    Object.assign(tmp, this.data.powerPlanPath);
     Object.assign(obj, tmp);
     return obj;
   },

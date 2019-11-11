@@ -1,4 +1,5 @@
 import staffService from "/service/StaffService";
+import Toast from "../../utils/Toast";
 
 const app = getApp();
 
@@ -53,6 +54,8 @@ Page({
       dd.redirectTo({
         url: '../work/work'
       })
-    }).catch()
+    }).catch(err => {
+      Toast.failToast(err);
+    })
   },
 });

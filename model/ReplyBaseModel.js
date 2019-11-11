@@ -8,9 +8,11 @@ import HelperUtil from "../utils/HelperUtil"
 // 属性
 let replyBaseModel = {
   "replybaseNo": null,
-  "replybaseId": null,
   "applyNo": null,
   "clientNo": null,
+  "clientName": null,
+  "replaybaseClientContact": null,
+  "replaybaseClientPhone": null,
   "replybaseLinkman": null,
   "replybasePhone": null,
   "replybaseNewvolumn": null,
@@ -21,15 +23,7 @@ let replyBaseModel = {
   "replybaseDate": null,
   "replybasePowertype": null,
   "replybaseEleprop": null,
-  "replybaseLine": null,
-  "replybaseLinetype": null,
-  "replybaseLinepath": null,
-  "replybaseCabletype": null,
-  "replybaseCablepath": null,
-  "replybaseLineprice": null,
-  "replybaseCableprice": null,
-  "replybaseAcptype": null,
-  "replybaseAcpprotect": null,
+  "replybaseSupPower": null,
   "replybaseCalloc": null,
   "replybaseCaltype": null,
   "replybaseCalline": null,
@@ -39,9 +33,8 @@ let replyBaseModel = {
   "replybaseCalexe": null,
   "replybaseCalpeak": null,
   "replybaseCalrate": null,
-  "replybaseCalbasic": null,
-  "replybaseCalfactor": null,
-  "replybaseCalset": null
+  "replybaseOverhead": null,
+  "replybaseCable": null
 };
 
 // 行为方法

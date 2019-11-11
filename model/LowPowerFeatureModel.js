@@ -8,7 +8,7 @@ import HelperUtil from "../utils/HelperUtil"
 // 属性
 let lowPowerFeatureModel = {
   "replybaseNo": null,
-  "lowpowerfeatureVoltage": null,
+  "lowpowerfeatureInMode": null,
   "lowpowerfeatureMetering": null
 };
 

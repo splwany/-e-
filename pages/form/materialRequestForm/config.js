@@ -86,30 +86,6 @@ export const baseFormStructure = {   //每个section的表单信息集合
 
 export const powerPlan = [    //供电方案
   {
-    type: 'picker',
-    name: 'vpowerplanVoltage',
-    title: '66千伏变电站',
-    array: [],
-    rangeKey: 'stationName',
-    index: -1
-  },
-  {
-    type: 'picker',
-    name: 'vpowerplanLine',
-    title: '10千伏线路',
-    array: [],
-    index: -1,
-    rangeKey: 'powerlineName',
-    pickerDisabled: true
-  },
-  {
-    type: 'input-unit',
-    name: 'vpowerplanRod',
-    title: '杆',
-    value: '',
-    unit: '号'
-  },
-  {
     type: 'input-unit',
     name: 'vpowerplanOverhead',
     title: '架空',

@@ -85,21 +85,35 @@ Component({
       const itemIndex = e.target.dataset.index;
       const type = this.props.type === 'high' ? 2 : 1;
 
-      if(itemIndex === 0) {    //如果改变的是变电站选项，则获取对应的线路列表并填入数据
-        dd.showLoading({
-          content: '请稍后...'
-        });
+      if(itemIndex === 0) {    //如果改变的是变电站选项，则获取对应的导线类别列表并填入数据
         const goodsClass = array[index].goodsClass;
         GoodsService.getClassByType(goodsClass, type)
-          .then(typeList => {
-            dd.hideLoading();
+          .then(listObj => {
+            const typeList = [];
+            for(let key in listObj) typeList.push({goodsClass: key});
             this.setData({
-              [`${itemPath}[1].array`]: typeList
+              [`${itemPath}[1].array`]: typeList,
+              [`${itemPath}[1].tmp`]: listObj,
+              [`${itemPath}[1].index`]: -1,
+              [`${itemPath}[1].value`]: '',
+              [`${itemPath}[2].array`]: [],
+              [`${itemPath}[2].index`]: -1,
+              [`${itemPath}[2].value`]: ''
             });
           })
           .catch(err => {
             Toast.failToast('获取型号失败');
           });
+      }
+      if(itemIndex === 1) {    //根据导线类别显示型号列表
+        const type = array[index].goodsClass;
+        const i = itemPath.match(/\d+/g);
+        const modelList = this.data.values.value[i][1]['tmp'][type];
+        this.setData({
+          [`${itemPath}[2].array`]: modelList,
+          [`${itemPath}[2].index`]: -1,
+          [`${itemPath}[2].value`]: ''
+        });
       }
       this.setData({
         [`${itemPath}[${itemIndex}].index`]: index,
@@ -112,10 +126,10 @@ Component({
       let cable = '';
       for(let item of value) {
         const type = item[0].index    //导线类型：0是架空, 1是电缆
-        const goodsName = item[1].value;    //导线型号
-        if(goodsName) continue;    //如果导线型号为undefined，则此条作废不添加
-        const length = item[2].value;    //导线长度
-        const unit = item[2].unit;    //长度单位
+        const goodsName = item[2].value;    //导线型号
+        if(!goodsName) continue;    //如果导线型号为undefined，则此条作废不添加
+        const length = item[3].value;    //导线长度
+        const unit = item[3].unit;    //长度单位
         const str = `${length}${unit}(${goodsName})；`;    //组合字符串
         if(type === 0) overhead += str;    //架空字符串拼接
         if(type === 1) cable += str;    //电缆字符串拼接

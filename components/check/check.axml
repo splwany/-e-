@@ -1,0 +1,9 @@
+<view class="check flex-column">
+  <view class="title">{{values.title}}</view>
+  <view a:for="{{values.array}}" class="check-item flex-row" data-index="{{index}}" onTap="onCheckTap">
+    <view class="box">
+      <image a:if="{{item.checked}}" class="icon" mode="aspectFill" src="/statics/icons/checked.png"/>
+    </view>
+    <view class="content">{{item.value}}</view>
+  </view>
+</view>

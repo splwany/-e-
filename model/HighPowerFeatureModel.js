@@ -8,13 +8,13 @@ import HelperUtil from "../utils/HelperUtil"
 // 属性
 let highPowerFeatureModel = {
   "replyBaseNo": null,
-  "electricPointType": null,
-  "electricPointProtected": null,
-  "meteringDevicePosition": null,
-  "basicElectricityCharge": null,
-  "endPosition": null,
-  "powerFactorStandard": null,
-  "loadClass": null
+  "highpowerBuildType": null,
+  "highpowerProtectMode": null,
+  "highpowerBaseCost": null,
+  "highpowerEndPosition": null,
+  "highpowerFactor": null,
+  "highpowerApportion": null,
+  "highpowerLoadLevel": null
 };
 
 // 行为方法

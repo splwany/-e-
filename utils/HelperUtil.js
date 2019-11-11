@@ -11,12 +11,21 @@ let staticMethods = {
     }
   },
 
-  // 获取header 对象
+  // 获取header 对象22
   getHeaderObj: function(){
-    return {
-          "Content-Type": "application/json",
-          "token":HelperUtil.getToken()
-        };
+    let token = HelperUtil.getToken();
+    let headers = {};
+    if(token === ""){
+      headers = {
+        "Content-Type": "application/json",
+      };
+    }else{
+      headers = {
+        "Content-Type": "application/json",
+        "token":token
+      };
+    }
+    return headers;
   },
 
   // 对httpReq 进行再次封装
@@ -26,6 +35,9 @@ let staticMethods = {
       datas =  JSON.stringify(data);
     }
     return new Promise(function(resolve, reject) {
+      dd.showLoading({
+        content: '请稍后...'
+      });
       dd.httpRequest({
         headers: HelperUtil.getHeaderObj(),
         url: url,
@@ -33,8 +45,9 @@ let staticMethods = {
         dataType: 'json',
         data:datas,
         success: (res) => {
+          dd.hideLoading();
           let result = {};
-          if(res.headers['token'] !== null){
+          if(res.headers.hasOwnProperty("token")){
             result = {
               message:null,
               data:res.headers['token']
@@ -51,7 +64,9 @@ let staticMethods = {
             reject(result);
           }
         },
-        fail: () => {
+        fail: (err) => {
+          console.log(err);
+          dd.hideLoading();
           let result = {
             message:"服务器异常！",
             data:null

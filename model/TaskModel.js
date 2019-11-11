@@ -16,7 +16,8 @@ let taskModel = {
   "taskphaseStartdate": null,
   "taskphaseDatelimit": null,
   "taskphaseIsfinished": null,
-  "prestaffAccount":null
+  "prestaffAccount":null,
+  "taskphaseNotification":null
 };
 
 // 行为方法
@@ -77,7 +78,7 @@ let staticMethods = {
   },
 
   // 判断applyNo第taskNum阶段未完成的数目是否大于1；
-  confirmSignModel:function(applyNo, taskNum, staffAccount, taskPhaseList){
+  confirmSignModel:function(applyNo, taskNum, staffAccount, taskPhaseList = []){
     return HelperUtil.httpReq(RequestUrls.TASK_CONFIRM_SIGN,{
       'applyNo':applyNo,
       'taskNum': taskNum,

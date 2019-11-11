@@ -27,9 +27,9 @@ export default {
   login:function(staffAccount, staffPassword){
     return StaffModel.loginModel(staffAccount, staffPassword).then(result => {
       console.log('登录成功');
-      return result.data;
+      return Promise.resolve(result.data);
     }).catch(err =>{
-      return err.message;
+      return Promise.reject(err.message);
     });
   },
   

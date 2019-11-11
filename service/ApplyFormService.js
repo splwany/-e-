@@ -126,7 +126,7 @@ export default {
     if (submitValues.isPassed) {
       nextStep = 3
     } else {
-      if(submitValues.taskType == 0){nextStep = 11}   //配网
+      if(submitValues.taskType == 0){nextStep = 12}   //配网
       else if(submitValues.taskType == 1){nextStep = 5}//低压
       else{nextStep = 10}//高压
     }

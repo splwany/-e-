@@ -13,7 +13,7 @@ export default {
     const firstUser = submitValues.userList.shift();
     let nextStep = 0
     if(submitValues.taskType == 0){
-      nextStep = 8
+      nextStep = 9
     }else if(submitValues.taskType == 1){
       nextStep = 3  //待确定
     }else{

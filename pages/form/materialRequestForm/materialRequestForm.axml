@@ -30,7 +30,8 @@
   <!-- 供电方案 -->
   <view class="section flex-column" a:if="{{curSection==='powerPlan'}}">
     <scroll-view class="container" scroll-y>
-      <power-plan bind="submitPowerPlan" values="{{submitPowerPlan}}"></power-plan>
+      <path bind="powerPlanPath" type="low"></path>
+      <template a:for="{{submitPowerPlan}}" a:key="{{index}}" is="{{item.type}}" data="{{...item, itemPath:`submitPowerPlan[${index}]`}}"></template>
     </scroll-view>
     <view class="foot-btn-group">
       <button class="button next-btn" data-nextSection="changePlan" onTap="changeSection">下一步</button>

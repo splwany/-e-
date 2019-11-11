@@ -125,6 +125,32 @@ export default {
   },
 
   /**
+   * 开关事件
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数}} e 
+   */
+  bindSwitchChange ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const value = e.detail.value;
+    $page.setData({
+      [`${itemPath}.value`]: value
+    });
+  },
+
+  /**
+   * 多选事件
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数} e 
+   */
+  bindCheckChange ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const value = e.detail.value;
+    $page.setData({
+      [`${itemPath}`]: value
+    });
+  },
+
+  /**
    * 添加图片
    * @param {调用此函数的页面对象} $page 
    * @param {模板传递的事件参数} e 

@@ -16,6 +16,7 @@ Page({
     submitValues: formStructure,    //页面填写的数据
     PDP: {},    //path组件返回的接电点数据
     POC: {},    //path组件返回的分界点数据
+    ioLine: {},    //io-line组件返回的进出线路数据
   },
 
   /**
@@ -52,6 +53,7 @@ Page({
    * 输入框输入文字时触发
    */
   bindKeyInput (e) {
+    console.log(e);
     Form.bindKeyInput(this, e);
   },
 
@@ -60,6 +62,20 @@ Page({
    */
   bindPickerChange (e) {
     Form.bindPickerChange(this, e);
+  },
+
+  /**
+   * 开关切换时触发
+   */
+  bindSwitchChange (e) {
+    Form.bindSwitchChange(this, e);
+  },
+
+  /**
+   * 多选改变时触发
+   */
+  bindCheckChange (e) {
+    Form.bindCheckChange(this, e);
   },
 
   /**

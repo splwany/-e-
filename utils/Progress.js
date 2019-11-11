@@ -27,13 +27,12 @@ var progress = {
     'DNT_SELECTGOODS_REVIEW':4, //小微配网物资领料申请表审核
     'DNT_LEADER_SIGN':5,        //小微配网领导签字
     'DNT_PRINTANDSIGN':6,       //小微打印预览
-    'DNT_STARTR_EPORT':7,        //小微开工报告单
-    'DNT_ACHIEVE_REPORT':8,     //小微竣工报告单提交
-    //7
-    //8
-    'DNT_ACCEPTANCE':9,          //小微竣工验收
-    'DNT_ASSEMBLE0':10,           //小微装表接电
-    'DNT_ACHIEVE_PROJECT':11      //小微配网归档
+    'DNT_GET_GOODS':7,          //小微配网领料
+    'DNT_STARTR_EPORT':8,        //小微开工报告单
+    'DNT_ACHIEVE_REPORT':9,     //小微竣工报告单提交
+    'DNT_ACCEPTANCE':10,          //小微竣工验收
+    'DNT_ASSEMBLE0':11,           //小微装表接电
+    'DNT_ACHIEVE_PROJECT':12      //小微配网归档
   },
 }
 

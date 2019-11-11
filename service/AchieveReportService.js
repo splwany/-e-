@@ -13,7 +13,7 @@ export default {
     const firstUser = submitValues.userList.shift();
     let nextStep = 0
     if(submitValues.taskType == 0){
-      nextStep = 9
+      nextStep = 10
     }else if(submitValues.taskType == 1){
       nextStep = 4 //待确定
     }else{
@@ -66,7 +66,7 @@ export default {
   acceptance:function(submitValues){
     let nextStep = 0;
     if(submitValues.taskType == 0){
-      nextStep = 10;
+      nextStep = 11;
     }else if(submitValues.taskType == 1){
       nextStep = 4; //待确定
     }else{
@@ -100,7 +100,7 @@ export default {
   assemble:function(submitValues){
     let nextStep = 0;
     if(submitValues.taskType == 0){
-      nextStep = 11;
+      nextStep = 12;
     }else if(submitValues.taskType == 1){
       nextStep = 5; //待确定
     }else{

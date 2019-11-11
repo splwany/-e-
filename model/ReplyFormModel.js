@@ -9,10 +9,9 @@ import HelperUtil from "../utils/HelperUtil"
 // 高压答复单Model
 let highReplyFormModel = {
  'replyBaseModel':null,
- 'replyPowerPlanModel':null,
- 'replyPropertyModel':null,
+ 'highPowerInsectionModel':null,
+ 'highReplyPropertyModel':null,
  'highPowerFeatureModel':null,
- 'replyBranchModel':null,
  'userList':null,
  'taskPhaseId':null,
  'taskPhaseType':null
@@ -20,10 +19,9 @@ let highReplyFormModel = {
 // 低压答复单Mdoel
 let lowReplyFormModel = {
  'replyBaseModel':null,
- 'replyPowerPlanModel':null,
- 'replyPropertyModel':null,
  'lowPowerFeatureModel':null,
- 'replyBranchModel':null,
+ 'lowPowerInsectionModel':null,
+ 'lowReplyPropertyModel':null,
  'userList':null,
  'taskPhaseId':null,
  'taskPhaseType':null

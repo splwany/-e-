@@ -86,7 +86,7 @@ Page({
    */
   onSubmit () {
 
-    Form.confirmToSubmit().then(res => {
+    Form.confirmToSubmit().then(() => {
 
       const submitBaseValues = this._formatBaseValues(this.data.submitBaseValues);
       const submitEquipmentValues = this._formatEquipmentValues(this.data.submitEquipmentValues);
@@ -112,7 +112,7 @@ Page({
   },
   _formatStaffList (values) {
     let staffList = [app.globalData.myStaffAccount];
-    for(let item of values) {
+    for(let item of values.value) {
       if(item.staff.value) staffList.push(item.staff.value);
     }
     return staffList;

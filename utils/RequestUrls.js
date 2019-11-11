@@ -48,7 +48,7 @@ var urls = {
   'REPLY_FORM_HIGH_SUBMIT':ROOT_URL + "reply/submitHighReplyFormModel/",
   'REPLY_FORM_LOW_SUBMIT':ROOT_URL + "reply/submitLowReplyFormModel/",
   // 变电站
-  'STATION_CRUD':ROOT_URL + "basicData/getStation/",
+  'STATION_CRUD':ROOT_URL + "station/",
   // 电缆列表 10kv线表
   'POWER_LINE_GET_BY_STATIONNO': ROOT_URL + "powerline/selectByStationNoModel/",
   // 开工报告表

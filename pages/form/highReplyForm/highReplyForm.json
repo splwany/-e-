@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "path": "/components/path/path",
-    "io-line": "/components/io-line/io-line"
+    "io-line": "/components/io-line/io-line",
+    "check": "/components/check/check"
   },
   "defaultTitle": "供电方案答复单（高压）",
   "pullRefresh": false

@@ -31,9 +31,6 @@ Page({
       staffAccount: query.staffAccount
     });
     Form.formPageInit(this);
-    dd.showLoading({
-      content: '加载中'
-    });
     StaffService.getSignImage(app.globalData.myStaffAccount)    //获取签名图片的url
       .then(url => {
         this.setData({
@@ -45,7 +42,7 @@ Page({
         this.setData({
           isLastLeader: isLastLeader
         });
-        dd.hideLoading();
+        ;
       })
       .catch(err => {
         console.log(err);
