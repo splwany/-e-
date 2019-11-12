@@ -9,7 +9,7 @@ Page({
    * 页面数据
    */
   data: {
-    account: "WZFZX0001",
+    account: "YWB0001",
     password: "1",
   },
 
