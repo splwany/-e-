@@ -23,7 +23,7 @@ App({
     }
     
     // 模拟登录，正式运行需注释！
-    if(options.query.staffAccount) this.globalData.myStaffAccount = options.query.staffAccount;
+    // if(options.query.staffAccount) this.globalData.myStaffAccount = options.query.staffAccount;
     // 第一次打开
     if(this.globalData.myStaffAccount === '') {
       dd.redirectTo({

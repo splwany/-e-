@@ -7,8 +7,8 @@ import VApplyFormModel from "../../../model/VApplyFormModel";
 import PowerPlanModel from "../../../model/PowerPlanModel";
 import ChangePlanModel from "../../../model/ChangePlanModel";
 import PickModel from "../../../model/PickModel";
-import ImageModel from "../../../model/ImageModel";
 import TaskModel from "../../../model/TaskModel";
+import DntGoodsApplyFormModel from "../../../model/DntGoodsApplyFormModel";
 
 const app = getApp();
 
@@ -57,6 +57,10 @@ Page({
         // return false;
         return true;
       });
+    
+    this.setData({
+      isUpdate: existFlag
+    });
     
     ApplyFormService.getApplyForm(applyNo)
       //获取的申请单内容
@@ -191,19 +195,24 @@ Page({
       const staffList = this._formatStaffList(this.data.staffList);
       const taskId = this.data.taskId;
       const taskType = this.data.taskType;
-      const applyNo = this.data.applyNo;
+
+      const submitObj = DntGoodsApplyFormModel.createDntGoodsApplyFormModel();
+      const tmp = {
+        baseInfo: submitBaseValues,
+        powerPlan: submitPowerPlan,
+        changePlan: submitChangePlan,
+        goodsSelectList: this.data.goodsList,
+        pickList: submitPickingValues,
+        imagesList: imagesList
+      };
+      Object.assign(submitObj, tmp);
       
       const formValues = {
-        applyNo: applyNo,
         taskType: taskType,
         taskId: taskId,
-        submitBaseValues: submitBaseValues,
-        submitPowerPlan: submitPowerPlan,
-        submitChangePlan: submitChangePlan,
-        submitGoodsList: this.data.goodsList,
-        submitPickingValues: submitPickingValues,
-        imagesList: imagesList,
-        userList: staffList
+        userList: staffList,
+        isUpdate: this.data.isUpdate,
+        submitForm: submitObj
       };
 
       Form.submit(formValues, DntGoodsApplyFormService.submitDntGoodsApplyForm);    //表单提交
@@ -212,19 +221,26 @@ Page({
   _formatBaseValues (values) {
     const obj = VApplyFormModel.createVApplyFromModel();
     const tmp = {applyNo: this.data.applyNo};
-    for(let item of values) tmp[item.name] = item.value;
+    for(let {name, value} of values) tmp[name] = value;
     Object.assign(obj, tmp);
     return obj;
   },
   _formatPowerPlan (values) {
     const obj = PowerPlanModel.createPowerPlanModel();
     const tmp = {applyNo: this.data.applyNo};
-    for(let item of values) tmp[item.name] = item.value ? item.value : null;
-    Object.assign(tmp, this.data.powerPlanPath);
+    for(let {name, value} of values) tmp[name] = value ? value : null;
+    const powerPlanPath = this.data.powerPlanPath;
+    Object.assign(tmp, {
+      vpowerplanVoltage: powerPlanPath.station,
+      vpowerplanLine1: powerPlanPath.powerline,
+      vpowerplanExtra: powerPlanPath.extra,
+      vpowerplanArea: powerPlanPath.area,
+      vpowerplanLine2: powerPlanPath.lowPowerline
+    });
     Object.assign(obj, tmp);
     return obj;
   },
-  _formatChangePlan (values) {
+  _formatChangePlan ({now:_now, remove:_remove, new:_new}) {
     function makeStr (_value) {
       let str = '';
       for(let item of _value) {
@@ -246,18 +262,18 @@ Page({
       return totalPrice;
     }
 
-    const now_str = makeStr(values.now);
-    const remove_str = makeStr(values.remove);
-    const new_str = makeStr(values.new);
-    const price = makePrice(values.new);
+    const vchangNow = makeStr(_now);
+    const vchangRemove = makeStr(_remove);
+    const vchangNew = makeStr(_new);
+    const vchangPrice = makePrice(_new);
 
     const obj = ChangePlanModel.createChangePlanModel();
     const tmp = {
       applyNo: this.data.applyNo,
-      vchangNow: now_str,
-      vchangRemove: remove_str,
-      vchangNew: new_str,
-      vchangPrice: price
+      vchangNow,
+      vchangRemove,
+      vchangNew,
+      vchangPrice
     };
     Object.assign(obj, tmp);
     return obj;
@@ -267,7 +283,7 @@ Page({
     for(let card of values) {
       const obj = PickModel.createPickModel();
       const tmp = {applyNo: this.data.applyNo};
-      for(let item of card) tmp[item.name] = item.value;
+      for(let {name, value} of card) tmp[name] = value;
       Object.assign(obj, tmp);
       pickingList.push(obj);
     }
@@ -275,15 +291,13 @@ Page({
   },
   _formatImages (values) {
     let imagesList = [];
-    for(let imageType of values) {
-      const obj = ImageModel.createImageModel();
+    for(let {name:picType, value:picUrl} of values) {
       const tmp = {
         applyNo: this.data.applyNo,
-        picType: imageType.name,
-        picUrl: imageType.value
+        picType,
+        picUrl
       };
-      Object.assign(obj, tmp);
-      imagesList.push(obj);
+      imagesList.push(tmp);
     }
     return imagesList;
   },

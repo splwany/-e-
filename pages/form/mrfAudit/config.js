@@ -97,17 +97,30 @@ export const powerPlan = [    //供电方案
   },
   {
     type: 'input',
-    name: 'vpowerplanLine',
+    name: 'vpowerplanLine1',
     title: '10千伏线路',
     value: '',
     disabled: true
   },
   {
-    type: 'input-unit',
-    name: 'vpowerplanRod',
-    title: '杆',
+    type: 'input',
+    name: 'vpowerplanExtra',
+    title: '其他',
     value: '',
-    unit: '号',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'vpowerplanArea',
+    title: '台区',
+    value: '',
+    disabled: true
+  },
+  {
+    type: 'input',
+    name: 'vpowerplanLine2',
+    title: '0.4千伏线路',
+    value: '',
     disabled: true
   },
   {

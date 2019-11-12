@@ -35,7 +35,7 @@ export const sections = {   //section列表信息
 
 export const curSection = 'baseInfo';
 
-export const formStructure = {   //每个section的表单信息集合
+export const baseFormStructure = {   //每个section的表单信息集合
   baseInfo: [   //基本信息
     {
       type: 'input',
@@ -46,45 +46,52 @@ export const formStructure = {   //每个section的表单信息集合
     },
     {
       type: 'input',
-      name: 'custumNo',
+      name: 'clientNo',
       title: '客户编号',
       value: '',
       disabled: true
     },
     {
       type: 'input',
-      name: 'address',
+      name: 'applyUseaddr',
       title: '用电地址',
       value: ''
     },
     {
       type: 'picker',
-      name: 'regCate',
+      name: 'replybaseService',
       title: '业务类型',
       array: ['高压新装', '高压增容', '高压装表临时用电', '小区新装'],
-      index: -1
+      index: -1,
+      value: '',
     },
     {
       type: 'input',
-      name: 'usePerson',
+      name: 'highpowerLoadLevel',
+      title: '负荷特性分级',
+      value: '三级负荷特性',
+    },
+    {
+      type: 'input',
+      name: 'applyLinkman',
       title: '用电方联系人',
       value: ''
     },
     {
       type: 'input',
-      name: 'useTel',
+      name: 'applyLinkphone',
       title: '用电方联系电话',
       value: ''
     },
     {
       type: 'input',
-      name: 'givePerson',
+      name: 'replybaseLinkman',
       title: '供电方联系人',
       value: ''
     },
     {
       type: 'input',
-      name: 'giveTel',
+      name: 'replybasePhone',
       title: '供电方联系电话',
       value: ''
     },
@@ -93,12 +100,18 @@ export const formStructure = {   //每个section的表单信息集合
       name: 'applyDate',
       title: '申请日期',
       disabled: true
+    },
+    {
+      type: 'time-picker',
+      name: 'replybaseDate',
+      title: '答复日期',
+      value: '',
     }
   ],
   powerCapa: [
     {
       type: 'input-unit',
-      name: 'newInstall',
+      name: 'replybaseNewvolumn',
       title: '新装',
       value: '',
       placeholder: '0',
@@ -106,7 +119,7 @@ export const formStructure = {   //每个section的表单信息集合
     },
     {
       type: 'input-unit',
-      name: 'total',
+      name: 'replybaseAddvolumn',
       title: '合计',
       value: '',
       placeholder: '0',
@@ -116,14 +129,15 @@ export const formStructure = {   //每个section的表单信息集合
   connectionInfo: [
     {
       type: 'picker',
-      name: 'supplyWay',
+      name: 'replybasePowertype',
       title: '供电方式',
       array: ['单电源', '双电源', '多电源'],
-      index: -1
+      value:'',
+      index: -1,
     },
     {
       type: 'picker',
-      name: 'powerType',
+      name: 'replybaseEleprop',
       title: '电源性质',
       array: ['主供', '备用'],
       index: -1
@@ -131,7 +145,8 @@ export const formStructure = {   //每个section的表单信息集合
   ],
   powerScheme: [
     {
-      name: 'poweredPointBuild',
+      type: 'picker',
+      name: 'highpowerBuildType',
       title: '受电点建设类型',
       array: [
         {value: '双杆式配电变压器台'}, 
@@ -142,7 +157,8 @@ export const formStructure = {   //每个section的表单信息集合
       ]
     },
     {
-      name: 'poweredPointProtect',
+      type: 'picker',
+      name: 'highpowerProtectMode',
       title: '受电点保护方式',
       array: [
         {value: '10kV跌落式熔断器'}, 
@@ -155,43 +171,45 @@ export const formStructure = {   //每个section的表单信息集合
   metering: [
     {
       type: 'picker',
-      name: 'measurementPlace',
-      title:'高压计量装置位置',
+      name: 'meteringDevicePosition',
+      title:'计量装置位置',
       array:['计量柜（箱）','环网柜','箱变'],
-      index:-1
+      index:-1,
+      value:'',
     },
     {
       type: 'picker',
-      name: 'connectWay',
+      name: 'replybaseCalline',
       title:'接线方式',
       array:['三相四线制','三相三线制'],
-      index:-1
+      index:-1,
+      value:'',
     },
     {
       type: 'picker',
-      name: 'measrementVoltage',
+      name: 'replybaseCalvoltage',
       title:'计量点电压',
       array:['0.4kV','10kV'],
-      index:-1
+      index:-1,
+      value:'',
     },
     {
       type: 'picker',
-      name: 'currentTransformer',
+      name: 'replybaseCalele',
       title:'电流互感器变比',
       array:['无','10/5','20/5','25/5','30/5','35/5','40/5','50/5','100/5','500/5','1000/5'],
       index: 0,
-      value: '无',
-      disabled: false
+      value:'无',
     },
     {
       type: 'input',
-      name: 'accuracyLevel',
+      name: 'replybaseCalacc',
       title: '准确度等级',
       value: '0.5S'
     },
     {
       type: 'picker',
-      name: 'priceType',
+      name: 'replybaseCalexe',
       title:'电价类别',
       array:['居民生活用电','工商及其他','农业生产','农业排灌'],
       index:-1
@@ -210,20 +228,28 @@ export const formStructure = {   //每个section的表单信息集合
     },
     {
       type: 'switch',
-      name: 'basicRates',
+      name: 'highpowerBaseCost',
       title:'基本电费',
       value: true
     },
     {
       type: 'picker',
-      name: 'powerFactor',
+      name: 'highpowerEndPosition',
+      title:'终端位置',
+      array:['计量柜（箱）','环网柜','箱变'],
+      index:-1,
+      value:'',
+    },
+    {
+      type: 'picker',
+      name: 'highpowerFactor',
       title:'功率因数考核标准',
       array:['0.90','0.85','0.80'],
       index:-1
     },
     {
       type: 'picker',
-      name: 'lossAllocation',
+      name: 'highpowerApportion',
       title:'损耗分摊办法',
       array:['高供低计计算变损，计算线损','高供高计不计算变损，计算线损'],
       index:-1
