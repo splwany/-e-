@@ -1,8 +1,8 @@
 <template name="work-list-card">
-  <view class="work-list-card flex-column shadow" data-formNo="{{formNo}}" data-formType="{{formType}}" onTap="openForm">
-    <view class="project-name">{{projectName}}</view>
-    <view class="form-name">{{formName}}</view>
-    <view class="date">{{date}}</view>
-    <view class="step">{{step}}</view>
+  <view class="work-list-card flex-column drop-shadow" data-applyNo="{{applyNo}}" data-taskId="{{taskphaseId}}" data-staffAccount="{{prestaffAccount}}" data-taskType="{{taskType}}" data-taskNum="{{taskNum}}" onTap="openForm">
+    <view class="client-name">{{clientName||'户名未填写'}}</view>
+    <view class="task-name">{{taskName||'任务名称未定义'}}</view>
+    <view class="date">{{taskphaseStartdate.substr(0,10)||'2000-01-01'}}</view>
+    <view class="step">{{taskNum||'0'}}</view>
   </view>
 </template>

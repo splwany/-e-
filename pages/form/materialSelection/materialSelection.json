@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "choose-material": "/components/choose-material/choose-material"
+  },
+  "defaultTitle": "挑选物料",
+  "pullRefresh": false
+}

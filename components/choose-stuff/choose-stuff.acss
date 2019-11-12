@@ -1,0 +1,28 @@
+.choose-stuff .item {
+  margin: 20rpx 0 0;
+}
+
+.choose-stuff .item .row {
+  width: 100%;
+  height: 100rpx;
+  background-color: white;
+}
+
+.choose-stuff .item .row .row-title {
+  line-height: 100rpx;
+  margin: 0 20rpx;
+}
+
+.choose-stuff .item .row .row-extra {
+  flex: 1;
+  height: 100%;
+}
+
+.choose-stuff .item .row .row-extra input {
+  width: calc(100% - 20rpx);
+  height: 100%;
+  margin: auto 0;
+  padding: 0;
+  text-align: right;
+  background-color: transparent;
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "add-delete": "/components/add-delete/add-delete",
+    "choose-stuff": "/components/choose-stuff/choose-stuff"
+  },
+  "defaultTitle": "配网改造认定审核",
+  "pullRefresh": false
+}

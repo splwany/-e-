@@ -6,7 +6,7 @@
   color: white;
   background-color: var(--mainThemeColor);
   overflow: hidden;
-  z-index: 1;
+  z-index: 100;
 }
 
 /* 顶部标题栏 */
@@ -16,7 +16,7 @@
   height: 100rpx;
   font-weight: bold;
   background-color: var(--mainThemeColor);
-  z-index: 1;
+  z-index: 100;
 }
 
 /* 顶部标题栏标题 */
@@ -58,6 +58,7 @@
 
 /* 小节页面 */
 .section {
+  position: relative;
   flex: 1;
   width: 100%;
 }
@@ -72,33 +73,64 @@
 .inpicker {
   width: 100%;
   height: 100rpx;
-  margin: 20rpx 0;
+  margin: 20rpx 0 0;
   background-color: white;
 }
 .inpicker .title {
-  line-height: 100rpx;
+  align-self: center;
+  font-size: 35rpx;
   margin: 0 20rpx;
 }
 .inpicker .content {
   flex: 1;
-  width: calc(100% - 20rpx);
-  height: 100%;
+  width: calc(100% - 10rpx);
+  align-self: center;
   text-align: right;
-  padding: 0 20rpx;
+  font-size: 35rpx;
+  padding: 0 20rpx 0 0;
+  color: var(--mainThemeColor);
+  background-color: transparent;
+}
+.inpicker .picker-content {
+  flex: 1;
+  width: calc(100% - 0rpx);
+  align-self: center;
+  text-align: right;
+  font-size: 35rpx;
+  padding: 0;
   color: var(--mainThemeColor);
   background-color: transparent;
 }
 .inpicker .right {
-  height: 100%;
-  line-height: 100rpx;
+  align-self: center;
+  font-size: 35rpx;
   margin-right: 20rpx;
 }
 .inpicker .right.button {
   width: 100rpx;
+  height: 100%;
   margin-right: 0;
 }
 .inpicker .right.button image {
   transform: scale(0.7);
+}
+
+/* 开关样式 */
+.switch {
+  width: 100%;
+  height: 100rpx;
+  margin: 20rpx 0 0;
+  background-color: white;
+}
+.switch .title {
+  flex: 1;
+  align-self: center;
+  font-size: 35rpx;
+  margin: 0 20rpx;
+}
+.switch .switch-btn {
+  align-self: center;
+  margin-right: 20rpx;
 }
 
 /* 日期选择样式 */
@@ -109,15 +141,17 @@
   background-color: white;
 }
 .time-picker .title {
-  line-height: 100rpx;
+  align-self: center;
+  font-size: 35rpx;
   margin: 0 20rpx;
 }
 .time-picker .content {
   flex: 1;
-  width: calc(100% - 20rpx);
-  height: 100%;
+  width: 100%;
+  align-self: center;
+  font-size: 35rpx;
   text-align: right;
-  padding: 0 20rpx;
+  padding: 0;
   color: var(--mainThemeColor);
   background-color: transparent;
 }
@@ -127,19 +161,6 @@
 }
 .time-picker .right image {
   transform: scale(0.7);
-}
-
-/* 用电设备样式 */
-.elec-equipment {
-  width: 100%;
-  margin: 20rpx 0;
-  background-color: transparent;
-}
-.elec-equipment .item {
-  margin-bottom: 20rpx;
-}
-.elec-equipment .item .inpicker {
-  margin: 0;
 }
 
 /* 删除按钮样式 */
@@ -202,6 +223,16 @@
   box-shadow: inset 0 0rpx 20rpx rgba(0,0,0,0.4);
 }
 
+/* 任意模板集合样式 */
+.multi-item {
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: transparent;
+}
+.multi-item > view {
+  margin: 0;
+}
+
 /* 横向滚动区外框 */
 .row-scroll-view-box {
   width: 100%;
@@ -223,19 +254,22 @@
   flex-direction: row;
   justify-content: space-around;
 }
-
-/* 底部按钮 */
-.next-btn, .submit-btn, .reset-btn {
+/* 底部全宽按钮 */
+.next-btn, .submit-btn {
   width: 100%;
   height: 100%;
   color: white;
-  font-size: 40rpx;
-  line-height: 100rpx;
   background-color: var(--mainThemeColor);
 }
-
-/* 重置按钮 */
-.reset-btn {
-  color: rgba(25, 31, 37, 0.56);
-  background-color: rgba(25, 31, 37, 0.15);
+/* 底部半宽按钮 */
+.reject-btn, .pass-btn {
+  width: 50%;
+  height: 100%;
+  color: white;
+  background-color: var(--mainThemeColor);
+}
+/* 审核未通过按钮 */
+.reject-btn {
+  color: black;
+  background-color: var(--grayButtonColor);
 }

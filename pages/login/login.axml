@@ -1,0 +1,24 @@
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+  <!-- 基本信息 -->
+  <view class="section flex-column">
+      <block>
+        <view class="inpicker flex-row">
+          <view class="title">用户名</view>
+          <input class="content" name="account" value={{account}} onInput="bindAccountInput" />
+        </view>
+      </block>
+      <block>
+        <view class="inpicker flex-row">
+          <view class="title">密码</view>
+          <input class="content" password name="password" value={{password}} onInput="bindPasswordInput" />
+        </view>
+      </block>
+      <block>
+        <view class="inpicker flex-row">
+          <button class="button login-btn" onTap="login">登录</button>
+        </view>
+      </block>
+  </view>
+</view>

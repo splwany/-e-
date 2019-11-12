@@ -1,4 +1,7 @@
-export default {//这次改了weixin分支并提交
+import Toast from "../../utils/Toast";
+
+
+export default {
 
   /**
    * 页面启动初始化
@@ -6,10 +9,38 @@ export default {//这次改了weixin分支并提交
    */
   formPageInit ($page) {
     this.updateHeadTitle($page);    //更新小节标题为当前section
+    this.initAnimation($page);
+  },
+
+  /**
+   * 更新headTitle文字为当前sectionName
+   * @param {调用此函数的页面对象} $page 
+   */
+  updateHeadTitle ($page) {
+    $page.setData({
+      headTitle: $page.data.sections[$page.data.curSection].name
+    });
+  },
+
+  /**
+   * 初始化动画
+   * @param {调用此函数的页面对象} $page 
+   */
+  initAnimation ($page) {
     $page.animation = dd.createAnimation({    //创建动画对象
       duration: 300,
       timeFunction: 'ease-in-out'
     });
+  },
+
+  /**
+   * 获取上一页面对象
+   */
+  getPrePage () {
+    const pageStack = getCurrentPages();    //获取页面栈
+    const pageCount = pageStack.length;
+    const $lastPage = pageStack[pageCount-2];    //获取上一个页面
+    return $lastPage;
   },
 
   switchTags ($page) {
@@ -21,7 +52,6 @@ export default {//这次改了weixin分支并提交
         headTagsAreaAnimation = $page.animation.opacity(0).translateY('0rpx').step().export();
         switchIcon = '/statics/icons/switch_arrow_down.png';
       } else {
-        console.log(height);
         headTagAnimation = $page.animation.height(`calc(105rpx + ${height}px)`).step().export();
         headTagsAreaAnimation = $page.animation.opacity(100).translateY('50rpx').step().export();
         switchIcon = '/statics/icons/switch_arrow_up.png';
@@ -49,16 +79,6 @@ export default {//这次改了weixin分支并提交
   },
 
   /**
-   * 更新headTitle文字为当前sectionName
-   * @param {调用此函数的页面对象} $page 
-   */
-  updateHeadTitle ($page) {
-    $page.setData({
-      headTitle: $page.data.sections[$page.data.curSection].name
-    });
-  },
-
-  /**
    * 输入框事件
    * @param {调用此函数的页面对象} $page 
    * @param {模板传递的事件参数} e 
@@ -66,7 +86,7 @@ export default {//这次改了weixin分支并提交
   bindKeyInput ($page, e) {
     const itemPath = e.target.dataset.itemPath;
     $page.setData({
-      [`submitValues${itemPath}.value`]:e.detail.value
+      [`${itemPath}.value`]:e.detail.value
     });
   },
 
@@ -83,7 +103,7 @@ export default {//这次改了weixin分支并提交
       currentDate: currentDate,
       success: res => {
         $page.setData({
-          [`submitValues${itemPath}.value`]: res.date
+          [`${itemPath}.value`]: res.date
         });
       }
     });
@@ -99,8 +119,34 @@ export default {//这次改了weixin分支并提交
     const array = e.target.dataset.array;
     const index = e.detail.value;
     $page.setData({
-      [`submitValues${itemPath}.index`]: index,
-      [`submitValues${itemPath}.value`]: array[index]
+      [`${itemPath}.index`]: index,
+      [`${itemPath}.value`]: array[index]
+    });
+  },
+
+  /**
+   * 开关事件
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数}} e 
+   */
+  bindSwitchChange ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const value = e.detail.value;
+    $page.setData({
+      [`${itemPath}.value`]: value
+    });
+  },
+
+  /**
+   * 多选事件
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数} e 
+   */
+  bindCheckChange ($page, e) {
+    const itemPath = e.target.dataset.itemPath;
+    const value = e.detail.value;
+    $page.setData({
+      [`${itemPath}`]: value
     });
   },
 
@@ -117,7 +163,7 @@ export default {//这次改了weixin分支并提交
         const itemPath = e.target.dataset.itemPath;
         const filePaths = res.filePaths;
         $page.setData({
-          [`submitValues${itemPath}.value`]: filePaths
+          [`${itemPath}.value`]: filePaths
         });
       },
       fail: (res) => {
@@ -127,59 +173,35 @@ export default {//这次改了weixin分支并提交
   },
 
   /**
-   * 表单提交
-   * @param {调用此函数的页面对象} $page 
+   * 询问是否确认提交
    */
-  onSubmit ($page, submit) {
-    dd.confirm({
-      title: '提示',
-      content: '确定提交吗？',
-      confirmButtonText: '是',
-      cancelButtonText: '取消',
-      success: (res) => {
-        if (res.confirm) {
-          dd.showLoading({
-            content: '提交中'
-          });
-          const success = submit();
-          if (success) {
-            dd.showToast({
-              content: '提交成功',
-              duration: 1000,
-              type: 'success',
-              success: () => {
-                dd.navigateBack();
-              }
+  confirmToSubmit () {
+    return new Promise((resolve, reject) => {
+      dd.confirm({
+        title: '提示',
+        content: '确定提交吗？',
+        confirmButtonText: '是',
+        cancelButtonText: '取消',
+        success: (res) => {
+          if (res.confirm) {
+            dd.showLoading({
+              content: '提交中'
             });
+            resolve();
           }
         }
-      }
+      });
     });
   },
 
-  /**
-   * 表单重置
-   * @param {调用此函数的页面对象} $page 
-   */
-  onReset ($page) {
-    dd.confirm({
-      title: '警告',
-      content: '确定重置表单吗？',
-      confirmButtonText: '是',
-      cancelButtonText: '点错了',
-      success: res => {
-        if(res.confirm) {
-          $page.setData({
-            submitValues: $page.data.originValues
-          }, ()=>{
-            dd.showToast({
-              type: 'success',
-              content: '重置成功'
-            });
-          });
-        }
-      }
+  submit (formValues, submitFun) {
+    submitFun(formValues).then(() => {
+      Toast.successToast('提交成功', () => {
+        dd.navigateBack();
+      });
+    }).catch(() => {
+      Toast.failToast('提交失败');
     });
-  },
+  }
 
 }

@@ -1,0 +1,25 @@
+<view class="choose-stuff flex-column">
+  
+  <view class="item flex-column" a:for="{{values.value}}" a:key="{{index}}">
+    <picker value="{{item.department.index}}" range="{{item.department.array}}" range-key="departName" data-index="{{index}}" onChange="onDepartChange">
+      <view class="row flex-row">
+        <view class="row-title">部门</view>
+        <view class="row-extra">
+          <input placeholder="请选择" value="{{item.department.array[item.department.index].departName}}" disabled="true"/>
+        </view>
+      </view>
+    </picker>
+    <picker value="{{item.staff.index}}" disabled="{{item.staff.pickerDisabled}}" range="{{item.staff.array}}" range-key="staffName" data-index="{{index}}" onChange="onStuffChange">
+      <view class="row flex-row">
+        <view class="row-title">人员</view>
+        <view class="row-extra">
+          <input placeholder="请选择" value="{{item.staff.array[item.staff.index].staffName}}" disabled="true"/>
+        </view>
+      </view>
+    </picker>
+    <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">删除</button>
+  </view>
+
+  <button a:if="{{values.canAdd}}" class="button add-btn" onTap="onAdd">添加</button>
+
+</view>

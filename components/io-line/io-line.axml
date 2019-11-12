@@ -1,0 +1,12 @@
+<import src="/templates/componentItems"/>
+
+<view class="io-line flex-column">
+
+  <view a:for="{{values.value}}" a:key="{{index}}" class="multi-item flex-column">
+    <template a:for="{{item}}" a:for-item="subItem" a:for-index="subIndex" a:key="{{subIndex}}" is="{{subItem.type}}" data="{{...subItem, rangeKey:`${subItem.rangeKey}`, itemIndex:subIndex, itemPath:`values.value[${index}]`, bindMethod:`${subItem.type}`}}"></template>
+    <button class="button delete-btn" data-index="{{index}}" onTap="onDelete">删除</button>
+  </view>
+
+  <button class="button add-btn" onTap="onAdd">添加</button>
+
+</view>

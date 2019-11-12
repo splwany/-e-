@@ -1,0 +1,41 @@
+@import "../form.acss";
+
+/* 改造方案页样式 */
+.part {
+  width: 100%;
+  font-size: 35rpx;
+  margin-top: 20rpx;
+  background-color: white;
+}
+.part > .title {
+  line-height: 100rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.navigate-btn {
+  width: calc(100% - 40rpx);
+  margin: 20rpx;
+  background-color: var(--grayButtonColor);
+  border-radius: 10rpx;
+}
+
+.price-view {
+  width: calc(100% - 40rpx);
+  margin: 20rpx;
+  background-color: white;
+  border-radius: 10rpx;
+  box-shadow: 0 5rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.price-view .title {
+  margin-left: 20rpx;
+  line-height: 100rpx;
+}
+
+.price-view .content {
+  flex: 1;
+  margin-right: 20rpx;
+  text-align: right;
+  line-height: 100rpx;
+}

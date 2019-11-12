@@ -1,6 +1,5 @@
 import {curSection, sections, formStructure} from "./config";
 import Form from "../form";
-import manager from "/service/pageManager/HighReplyFormManager";
 
 
 Page({
@@ -14,8 +13,10 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表
     curSection: curSection,    //当前section
-    originValues: formStructure,   //页面数据初始值，给重置功能使用
-    submitValues: formStructure    //页面填写的数据
+    submitValues: formStructure,    //页面填写的数据
+    PDP: {},    //path组件返回的接电点数据
+    POC: {},    //path组件返回的分界点数据
+    ioLine: {},    //io-line组件返回的进出线路数据
   },
 
   /**
@@ -52,6 +53,7 @@ Page({
    * 输入框输入文字时触发
    */
   bindKeyInput (e) {
+    console.log(e);
     Form.bindKeyInput(this, e);
   },
 
@@ -60,6 +62,20 @@ Page({
    */
   bindPickerChange (e) {
     Form.bindPickerChange(this, e);
+  },
+
+  /**
+   * 开关切换时触发
+   */
+  bindSwitchChange (e) {
+    Form.bindSwitchChange(this, e);
+  },
+
+  /**
+   * 多选改变时触发
+   */
+  bindCheckChange (e) {
+    Form.bindCheckChange(this, e);
   },
 
   /**
