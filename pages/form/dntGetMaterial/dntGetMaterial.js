@@ -1,4 +1,4 @@
-import {curSection, sections} from "./config";
+import {curSection, sections, submitStructure, staff} from "./config";
 import Form from "../form";
 import Toast from "../../../utils/Toast";
 import DntGoodsApplyFormService from "../../../service/DntGoodsApplyFormService";
@@ -12,6 +12,9 @@ Page({
     headTitle: '小节名称',    //标题显示的小节名称
     sections: sections,    //section列表信息
     curSection: curSection,    //当前section
+    submitValues: submitStructure,    //表单结构
+    isFinished: false,    //是否领料完成
+    staffList: staff
   },
   
   /**
@@ -35,23 +38,23 @@ Page({
   },
 
   /**
-   * 点击下载按钮时触发
+   * 头部标签展开/折叠
    */
-  downloadDoc () {
-    DntGoodsApplyFormService.downLoadDntApplyForm(this.data.applyNo)
-      .then(downloadUrl => {
-        console.log(downloadUrl);
-        dd.setClipboard({
-          text: downloadUrl,
-          success: () => {
-            Toast.successToast('链接已复制，请到浏览器打开');
-          }
-        });
-      })
-      .catch(err => {
-        Toast.failToast('获取下载链接失败');
-        console.log(err);
+  switchTags () {
+    Form.switchTags(this);
+  },
+
+  /**
+   * 切换section页面
+   */
+  changeSection (e) {
+    if(e.target.dataset.finished) {
+      console.log(e.target.dataset.finished);
+      this.setData({
+        isFinished: e.target.dataset.finished
       });
+    }
+    Form.changeSection(this, e);
   },
 
   /**
@@ -60,7 +63,7 @@ Page({
   onSubmit () {
     Form.confirmToSubmit().then(res => {
       const applyNo = this.data.applyNo;
-      const staffList = [app.globalData.myStaffAccount];
+      const staffList = this._formatStaffList(this.data.staffList);
       const taskId = this.data.taskId;
       const taskType = this.data.taskType;
       
@@ -74,4 +77,10 @@ Page({
       Form.submit(formValues, DntGoodsApplyFormService.signFinish);    //表单提交
     });
   },
+  _formatStaffList (values) {
+    let staffList = [app.globalData.myStaffAccount];
+    for(let {staff:{value:staffAcount}} of values.value)
+      if(staffAcount) staffList.push(staffAcount);
+    return staffList;
+  }
 });

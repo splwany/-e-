@@ -1,0 +1,42 @@
+<!-- 配网改造领料 -->
+
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 领料内容 -->
+  <view class="section flex-column" a:if="{{curSection==='getMaterial'}}">
+    <scroll-view class="container flex-column" scroll-y>
+      <block a:for="{{submitValues}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues[${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="task" data-finished="true" onTap="changeSection">领料完成</button>
+    </view>
+  </view>
+
+  <!-- 创建任务 -->
+  <view class="section flex-column" a:if="{{curSection==='task'}}">
+    <scroll-view class="container" scroll-y>
+      <choose-stuff bind="staffList" values="{{staffList}}"></choose-stuff>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" disabled="{{staffList.value.length!==staffList.max || !isFinished}}" onTap="onSubmit">提交</button>
+    </view>
+  </view>
+
+</view>
