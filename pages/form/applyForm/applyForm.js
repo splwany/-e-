@@ -112,41 +112,30 @@ Page({
   },
   _formatStaffList (values) {
     let staffList = [app.globalData.myStaffAccount];
-    for(let item of values.value) {
-      if(item.staff.value) staffList.push(item.staff.value);
-    }
+    for(let {staff:{value:staffAccount}} of values.value)
+      if(staffAccount) staffList.push(staffAccount);
     return staffList;
   },
   _formatBaseValues (values) {
     let obj = ApplyFormModel.createApplyFormModel();
-    for(let item of values.baseInfo) {
-      if(item.name=='isDNR') continue;
-      obj[item.name] = item.value;
-    }
-    for(let item of values.usePower) obj[item.name] = item.value;
-    for(let item of values.applyCapa) obj[item.name] = item.value;
-    for(let item of values.note) obj[item.name] = item.value;
+    for(let key of Object.keys(values))
+      for(let {name, value} of values[key])
+        obj[name] = value;
     return obj;
   },
   _formatEquipmentValues (values) {
     let array = [];
     for(let item of values.value) {
       let tmp = DeviceModel.createDeviceModel();
-      for(let i in item) {
-        tmp[item[i].name] = item[i].value
-      }
+      for(let i in item) tmp[item[i].name] = item[i].value;
       array.push(tmp);
     }
     return array;
   },
   _formatImagesList (values) {
     let imagesList = [];
-    for(let image of values) {
-      imagesList.push({
-        picType: image.name,
-        picUrl: image.value
-      });
-    }
+    for(let {name:picType, value:picUrl} of values)
+      imagesList.push({picType, picUrl});
     return imagesList;
   }
 

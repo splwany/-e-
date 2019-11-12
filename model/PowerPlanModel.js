@@ -10,16 +10,15 @@ let powerPlanModel = {
   "applyNo": null,
   "vapplyNo": null,
   "vpowerplanArea": null,
-  "vpowerplanBranch": null,
+  "vpowerplanExtra": null,
   "vpowerplanId": null,
-  "vpowerplanLine": null,
-  "vpowerplanRod": null,
-  "vpowerplanSection": null,
+  "vpowerplanLine1": null,
+  "vpowerplanLine2": null,
   "vpowerplanVoltage": null,
-  "vPowerPlanOverhead":null,
-  "vPowerPlanCable":null,
-  "vPowerPlanFrontwire":null,
-  "vPowerPlanFrontcable":null
+  "vpowerplanOverhead":null,
+  "vpowerplanCable":null,
+  "vpowerplanFrontwire":null,
+  "vpowerplanFrontcable":null
 };
 
 // 行为方法

@@ -38,5 +38,5 @@ export default {
     ],
     imagesList: [],
     taskType: 0,
-    userList: ["YJB0001"]
+    userList: ["YWB0001", "YJB0001"]
 };

@@ -23,7 +23,7 @@ Page({
       taskType: this.$lastPage.data.taskType
     });
     
-    GoodsService.getGoodsClassList(taskType).then(goodsClassList => {
+    GoodsService.getGoodsClassList(this.data.taskType).then(goodsClassList => {
       this.setData({
         sections: goodsClassList,
         curSection: 0

@@ -1,0 +1,29 @@
+<!-- 配网改造领料单签字 -->
+
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 下载文档及签字 -->
+  <view class="section flex-column" a:if="{{curSection==='downloadAndSign'}}">
+    <scroll-view class="container flex-column" scroll-y>
+      <view class="button download-btn drop-shadow" onTap="downloadDoc">
+        <image class="icon" mode="aspectFill" src="/statics/icons/download.png"/>
+      </view>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onSubmit">签字完成</button>
+    </view>
+  </view>
+
+</view>

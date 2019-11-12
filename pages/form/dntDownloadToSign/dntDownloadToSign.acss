@@ -1,0 +1,14 @@
+@import "../form.acss";
+
+.download-btn {
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  margin: auto;
+  background-color: #e5e5e5;
+}
+
+.download-btn .icon {
+  transform: scale(0.4);
+  filter: drop-shadow(0 7rpx 6rpx rgba(0, 0, 0, 0.4));
+}

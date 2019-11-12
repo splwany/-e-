@@ -11,7 +11,8 @@
     "pages/form/dntAudit/dntAudit",
     "pages/form/mrfAudit/mrfAudit",
     "pages/form/mrfLeaderAudit/mrfLeaderAudit",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/form/dntDownloadToSign/dntDownloadToSign"
   ],
   "window": {
     "defaultTitle": "喀左业扩报装e处理平台",

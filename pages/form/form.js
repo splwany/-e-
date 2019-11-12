@@ -195,6 +195,7 @@ export default {
   },
 
   submit (formValues, submitFun) {
+    console.log(JSON.stringify(formValues));
     submitFun(formValues).then(() => {
       Toast.successToast('提交成功', () => {
         dd.navigateBack();

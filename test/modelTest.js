@@ -9,7 +9,14 @@ let staticMethods = {
     // 根据申请编号下载领料申请单
     // DntGoodsApplyFormModel.downLoadDntApplyFormFile("102");
     // ApplyFormModel.getApplyFormByIdModel("201911040057");
-    DntGoodsApplyFormModel.getDntApplyFormByApplyNoModel("201911050002");
+    DntGoodsApplyFormModel.getDntApplyFormByApplyNoModel("201911050002")
+      .then(res => {
+        console.log('getDntApplyFormByApplyNoModel测试成功');
+      })
+      .catch(err => {
+        console.log('getDntApplyFormByApplyNoModel测试失败');
+        console.log(err);
+      });
   }
 }
 

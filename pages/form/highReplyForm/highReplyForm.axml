@@ -17,8 +17,8 @@
   <!-- 基本信息 -->
   <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.baseInfo}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['baseInfo'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['baseInfo'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -28,8 +28,8 @@
   <!-- 供电容量 -->
   <view class="section flex-column" a:if="{{curSection==='powerCapa'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.powerCapa}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['powerCapa'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.powerCapa}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['powerCapa'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -39,8 +39,8 @@
   <!-- 接入信息 -->
   <view class="section flex-column" a:if="{{curSection==='connectionInfo'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.connectionInfo}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['connectionInfo'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.connectionInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['connectionInfo'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -77,8 +77,8 @@
   <!-- 受电方案 -->
   <view class="section flex-column" a:if="{{curSection==='powerScheme'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.powerScheme}}" a:key="{{index}}">
-        <check value="{{item}}" itemPath="{{`submitValues['powerScheme'][${index}]`}}" onChange="bindCheckChange"></check>
+      <block a:for="{{submitBaseValues.powerScheme}}" a:key="{{index}}">
+        <check value="{{item}}" itemPath="{{`submitBaseValues['powerScheme'][${index}]`}}" onChange="bindCheckChange"></check>
       </block>
     </scroll-view>
     <view class="foot-btn-group">
@@ -88,8 +88,8 @@
   <!-- 计量计费 -->
   <view class="section flex-column" a:if="{{curSection==='metering'}}">
     <scroll-view class="container" scroll-y>
-      <block a:for="{{submitValues.metering}}" a:key="{{index}}">
-        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['metering'][${index}]`}}"></template>
+      <block a:for="{{submitBaseValues.metering}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitBaseValues['metering'][${index}]`}}"></template>
       </block>
     </scroll-view>
     <view class="foot-btn-group">

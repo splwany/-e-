@@ -121,9 +121,8 @@ Page({
   },
   _formatStaffList (values) {
     let staffList = [app.globalData.myStaffAccount];
-    for(let staff of values.value) {
-      if(staff.staff.value) staffList.push(staff.staff.value);
-    }
+    for(let {staff:{value:staffAccount}} of values.value)
+      if(staffAccount) staffList.push(staffAccount);
     return staffList;
   }
 });
