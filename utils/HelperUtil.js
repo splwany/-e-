@@ -65,7 +65,6 @@ let staticMethods = {
           }
         },
         fail: (err) => {
-          console.log(err);
           dd.hideLoading();
           let result = {
             message:"服务器异常！",
@@ -91,7 +90,7 @@ let staticMethods = {
             message:res.data.msg,
             data:res.data.data
           }
-          if (res.status == 200) {
+          if (res.statusCode === 200) {
             resolve(result);
           } else {
             reject(result);

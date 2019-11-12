@@ -11,10 +11,7 @@ let highReplyPropertyModel = {
   "replybaseNo": null,
   "highpropertyVoltage": null,
   "highpropertyLine": null,
-  "highpropertySection": null,
-  "highpropertyBranch": null,
-  "highpropertySubBranch": null,
-  "highpropertyPole": null
+  "highpropertyExtra": null
 };
 
 // 行为方法

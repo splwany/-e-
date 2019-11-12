@@ -1,5 +1,6 @@
 import ModelTest from "./test/modelTest"
-
+import highReplyFormServiceTest from  './test/serviceTest/highReplyFormServiceTest'
+import dntServiceTest from './test/serviceTest/dntServiceTest'
 const SYSTEM_MODE_TEST = false;
 
 App({
@@ -19,17 +20,31 @@ App({
     
     if(SYSTEM_MODE_TEST){
       // 测试
-      ModelTest.test();
+      dntServiceTest.test();
     }
     
     // 模拟登录，正式运行需注释！
     // if(options.query.staffAccount) this.globalData.myStaffAccount = options.query.staffAccount;
-    // 第一次打开
-    if(this.globalData.myStaffAccount === '') {
-      dd.redirectTo({
-        url: '/pages/login/login'
-      });
-    }
+
+    // 从缓存读取token以及该用户所有信息存到globalData中
+    dd.getStorage({
+      key: 'userInfo',
+      success: (userInfo) => {
+        this.globalData.userInfo = userInfo;
+      }
+    });
+    dd.getStorage({
+      key: 'myStaffAccount',
+      success: ({data: myStaffAccount}) => {
+        if (myStaffAccount) this.globalData.myStaffAccount = myStaffAccount;
+        else {
+          // 第一次打开
+          dd.redirectTo({
+            url: '/pages/login/login'
+          });
+        }
+      }
+    });
 
   },
 

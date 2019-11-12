@@ -58,7 +58,7 @@
     </view>
     <view class="row-scroll-view-box">
       <scroll-view scroll-x>
-        <image class="prev-image" a:for="{{value}}" a:key="{{index}}" mode="aspectFill" src="{{item}}"/>
+        <image class="prev-image" a:for="{{value}}" a:key="{{index}}" mode="aspectFill" src="{{item}}" data-index="{{index}}" data-urls="{{value}}" onTap="previewImage"/>
       </scroll-view>
     </view>
   </view>

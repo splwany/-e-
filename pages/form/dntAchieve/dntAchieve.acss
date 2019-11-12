@@ -1,0 +1,6 @@
+@import "../form.acss";
+
+/* 顶部标签按钮 */
+.head-tag .tags-area .tag-btn {
+  width: 240rpx;
+}

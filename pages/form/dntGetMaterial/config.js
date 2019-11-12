@@ -9,7 +9,7 @@ export const sections = {    //section列表信息
   }
 };
 
-export const  submitSructure = [    //领料表单结构
+export const submitStructure = [    //领料表单结构
   {
     type: 'input',
     name: 'vapplyNo',

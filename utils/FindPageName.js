@@ -6,6 +6,9 @@ const findPageName = [
     5: 'mrfLeaderAudit',    //配网改造物资领料申请表领导签字
     6: 'dntDownloadToSign',    //配网改造打印物资领料单并签字
     7: 'dntGetMaterial',    //配网改造领料
+    8: 'dntStart',    //配网改造开工
+    9: 'dntAchieve',    //配网改造竣工
+    10: 'dntCheck',    //配网改造验收
   },
   {    //低压
     2: 'lowReplyForm'    //低压答复单

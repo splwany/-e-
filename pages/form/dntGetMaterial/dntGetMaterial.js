@@ -21,6 +21,12 @@ Page({
    * 页面加载完成，当从缓存打开时，导入缓存信息
    */
   onLoad(query) {
+    DntGoodsApplyFormService.getDntApplyFormByApplyNo(query.applyNo)    //获取配网信息
+      .then(({baseInfo}) => {
+        this.setData({
+          baseInfo: baseInfo
+        });
+      });
     this.setData({
       applyNo: query.applyNo,
       taskType: query.taskType,
@@ -58,17 +64,28 @@ Page({
   },
 
   /**
+   * 输入框输入文字时触发
+   */
+  bindKeyInput (e) {
+    Form.bindKeyInput(this, e);
+  },
+
+  /**
    * 点击提交按钮触发
    */
   onSubmit () {
     Form.confirmToSubmit().then(res => {
       const applyNo = this.data.applyNo;
-      const staffList = this._formatStaffList(this.data.staffList);
       const taskId = this.data.taskId;
       const taskType = this.data.taskType;
+      const staffList = this._formatStaffList(this.data.staffList);
+      const submitValues = this._formatSubmitValues(this.data.submitValues);
       
+      const obj = this.data.baseInfo;
+      Object.assign(obj, submitValues);
+
       const formValues = {
-        applyNo: applyNo,
+        vApplyObj: obj,
         userList: staffList,
         taskPhaseId: taskId,
         taskType: taskType
@@ -76,6 +93,11 @@ Page({
 
       Form.submit(formValues, DntGoodsApplyFormService.signFinish);    //表单提交
     });
+  },
+  _formatSubmitValues (values) {
+    const obj = {};
+    for(let {name, value} of values) tmp[name] = value;
+    return obj;
   },
   _formatStaffList (values) {
     let staffList = [app.globalData.myStaffAccount];

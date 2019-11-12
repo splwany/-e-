@@ -82,6 +82,13 @@ Page({
   },
 
   /**
+   * 点击图片预览
+   */
+  previewImage (e) {
+    Form.previewImage(e);
+  },
+
+  /**
    * 点击提交按钮触发
    */
   onSubmit () {
@@ -118,9 +125,11 @@ Page({
   },
   _formatBaseValues (values) {
     let obj = ApplyFormModel.createApplyFormModel();
+    const tmp = {};
     for(let key of Object.keys(values))
       for(let {name, value} of values[key])
-        obj[name] = value;
+        tmp[name] = value;
+    Object.assign(obj, tmp);
     return obj;
   },
   _formatEquipmentValues (values) {

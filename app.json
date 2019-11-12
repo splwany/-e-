@@ -13,7 +13,12 @@
     "pages/form/mrfLeaderAudit/mrfLeaderAudit",
     "pages/login/login",
     "pages/form/dntDownloadToSign/dntDownloadToSign",
-    "pages/form/dntGetMaterial/dntGetMaterial"
+    "pages/form/dntGetMaterial/dntGetMaterial",
+    "pages/form/dntStart/dntStart",
+    "pages/form/dntAchieve/dntAchieve",
+    "pages/form/dntCheck/dntCheck",
+    "pages/form/hrfPreview/hrfPreview",
+    "pages/form/hrfSketch/hrfSketch"
   ],
   "window": {
     "defaultTitle": "喀左业扩报装e处理平台",

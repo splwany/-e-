@@ -56,6 +56,22 @@ export default {
       console.log('开工报告提交，上传相关图片失败')
       return Promise.reject(err);
     })
+  },
+
+
+  /**
+   * @description: 根据申请编号返回开工单
+   * @param {申请编号} applyNo 
+   * @date: 2019/11/12 20:17
+   */
+  getStartsReport:function(applyNo){
+    return StartsReportModel.getStartsReportModel(applyNo).then(result =>{
+      console.log('根据申请编号返回开工单成功')
+      return Promise.resolve(result.data);
+    }).catch(err =>{
+      console.log('根据申请编号返回开工单失败')
+      return Promise.reject(err)
+    })
   }
 
 }

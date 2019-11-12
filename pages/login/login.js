@@ -9,7 +9,7 @@ Page({
    * 页面数据
    */
   data: {
-    account: "WZFZX0001",
+    account: "YJB0001",
     password: "1",
   },
 
@@ -51,6 +51,10 @@ Page({
         data: res
       })
       app.globalData.myStaffAccount = this.data.account;
+      dd.setStorage({
+        key: 'myStaffAccount',
+        data: this.data.account
+      });
       dd.redirectTo({
         url: '../work/work'
       })

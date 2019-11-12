@@ -173,6 +173,20 @@ export default {
   },
 
   /**
+   * 点击图片预览
+   * @param {调用此函数的页面对象} $page 
+   * @param {模板传递的事件参数} e 
+   */
+  previewImage (e) {
+    const index = e.target.dataset.index;
+    const urls = e.target.dataset.urls;
+    dd.previewImage({
+      current: index,
+      urls: urls
+    });
+  },
+
+  /**
    * 询问是否确认提交
    */
   confirmToSubmit () {

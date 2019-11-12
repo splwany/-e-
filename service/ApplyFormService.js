@@ -110,8 +110,8 @@ export default {
         return Promise.resolve(res);
       })
       .catch(err => {
-        ApplyFormModel.deleteApplyFormModel(applyNo);
         console.log('添加申请表单及对应图片信息失败');
+        ApplyFormModel.deleteApplyFormModel(applyNo);
         return Promise.reject(err);
       });
   },

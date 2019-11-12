@@ -1,0 +1,56 @@
+<!-- 配网改造竣工 -->
+
+<import src="/templates/formItems"/>
+
+<view class="main flex-column">
+
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag drop-shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  
+  <!-- 基础信息 -->
+  <view class="section flex-column" a:if="{{curSection==='baseInfo'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.baseInfo}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['baseInfo'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="extra" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 说明 -->
+  <view class="section flex-column" a:if="{{curSection==='note'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.note}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['note'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button next-btn" data-nextSection="images" onTap="changeSection">下一步</button>
+    </view>
+  </view>
+
+  <!-- 照片 -->
+  <view class="section flex-column" a:if="{{curSection==='images'}}">
+    <scroll-view class="container" scroll-y>
+      <block a:for="{{submitValues.images}}" a:key="{{index}}">
+        <template is="{{item.type}}" data="{{...item, itemPath:`submitValues['images'][${index}]`}}"></template>        
+      </block>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onSubmit">提交</button>
+    </view>
+  </view>
+
+</view>

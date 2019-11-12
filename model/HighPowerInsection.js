@@ -11,10 +11,7 @@ let highPowerInsectionModel = {
   "replybaseNo": null,
   "highreplyinsectionVoltage": null,
   "highreplyinsectionLine": null,
-  "highreplyinsectionSection": null,
-  "highreplyinsectionBranch": null,
-  "highreplyinsectionBranchPole": null,
-  "highreplyinsectionPole": null
+  "highreplyinsectionExtra": null
 };
 
 // 行为方法

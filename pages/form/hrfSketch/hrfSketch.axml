@@ -1,0 +1,9 @@
+<import src="/templates/formItems"/>
+<view class="main flex-column">
+  <scroll-view class="container" scroll-y>
+    <image mode="widthFix" src="{{src}}"/>
+  </scroll-view>
+  <view class="foot-btn-group">
+    <button class="button submit-btn" onTap="onNext">下一步</button>
+  </view>
+</view>

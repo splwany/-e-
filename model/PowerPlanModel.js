@@ -7,18 +7,18 @@ import HelperUtil from "../utils/HelperUtil"
 
 // 属性
 let powerPlanModel = {
-  "applyNo": null,
-  "vapplyNo": null,
-  "vpowerplanArea": null,
-  "vpowerplanExtra": null,
-  "vpowerplanId": null,
-  "vpowerplanLine1": null,
-  "vpowerplanLine2": null,
-  "vpowerplanVoltage": null,
-  "vpowerplanOverhead":null,
-  "vpowerplanCable":null,
-  "vpowerplanFrontwire":null,
-  "vpowerplanFrontcable":null
+	"vpowerplanId": null,
+	"vapplyNo": null,
+	"applyNo": null,
+	"vpowerplanVoltage": null,
+	"vpowerplanLine1": null,
+	"vpowerplanExtra": null,
+	"vpowerplanArea": null,
+	"vpowerplanLine2": null,
+	"vpowerplanOverhead": null,
+	"vpowerplanCable": null,
+	"vpowerplanFrontwire": null,
+	"vpowerplanFrontcable": null
 };
 
 // 行为方法

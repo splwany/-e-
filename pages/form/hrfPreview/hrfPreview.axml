@@ -1,0 +1,42 @@
+<import src="/templates/formItems"/>
+<view class="main flex-column">
+  <!-- 顶部折叠栏 -->
+  <view class="head-tag box-shadow" animation="{{headTagAnimation}}">
+    <view class="head-title flex-row" onTap="switchTags">
+      <view class="section-name">{{headTitle}}</view>
+      <button class="button switch-btn" hover-class="none">
+        <image class="icon" mode="scaleToFill" src="{{switchIcon}}"/>
+      </button>
+    </view>
+    <view class="tags-area flex-row flex-wrap" animation="{{headTagsAreaAnimation}}">
+      <view class="button tag-btn" a:for="{{sections}}" a:key="{{index}}" data-nextSection="{{index}}" onTap="changeSection">{{item.name}}</view>
+    </view>
+  </view>
+  <!-- 答复单 -->
+  <view class="section flex-column" a:if="{{curSection==='highReplyform'}}">
+    <scroll-view class="container" scroll-y>
+      
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onInformTheLeader">告知领导</button>      
+    </view>
+  </view>
+  <!-- 方案草图 -->
+  <view class="section flex-column" a:if="{{curSection==='sketch'}}">
+    <scroll-view class="container" scroll-y>
+      <image mode="widthFix" src="{{src}}"/>
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onInformTheLeader">告知领导</button>      
+    </view>
+  </view>
+  <!-- 预算清单 -->
+  <view class="section flex-column" a:if="{{curSection==='estimate'}}">
+    <scroll-view class="container" scroll-y>
+      
+    </scroll-view>
+    <view class="foot-btn-group">
+      <button class="button submit-btn" onTap="onInformTheLeader">告知领导</button>      
+    </view>
+  </view>
+</view>

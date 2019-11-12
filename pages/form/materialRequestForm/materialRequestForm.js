@@ -174,6 +174,13 @@ Page({
   },
 
   /**
+   * 点击图片预览
+   */
+  previewImage (e) {
+    Form.previewImage(e);
+  },
+
+  /**
    * 点击挑选物料按钮
    */
   navigateToSelect () {

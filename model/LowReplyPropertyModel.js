@@ -11,7 +11,7 @@ let lowReplyPropertyModel = {
   "replybaseNo": null,
   "lowpropertyVoltage": null,
   "lowpropertyLine1": null,
-  "lowpropertyExtrra": null,
+  "lowpropertyExtra": null,
   "lowpropertyArea": null,
   "lowpropertyLine2": null
 };

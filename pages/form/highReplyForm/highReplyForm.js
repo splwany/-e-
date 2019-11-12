@@ -1,5 +1,6 @@
 import {curSection, sections, baseFormStructure, IOLineStructure} from "./config";
 import Form from "../form";
+import Toast from "../../../utils/Toast";
 import ReplyBaseModel from "../../../model/ReplyBaseModel";
 import HighPowerFeatureModel from "../../../model/HighPowerFeatureModel";
 import HighPowerInsectionModel from "../../../model/HighPowerInsection";
@@ -139,6 +140,13 @@ Page({
   addImage (e) {
     Form.addImage(this, e);
   },
+
+  /**
+   * 点击图片预览
+   */
+  previewImage (e) {
+    Form.previewImage(e);
+  },
   
   /**
    * 点击提交按钮触发
@@ -146,14 +154,24 @@ Page({
   onSubmit () {
     //要询问是否确定提交
     Form.confirmToSubmit().then(res => {
+      // dd.redirectTo({
+      //   url: '../hrfSketch/hrfSketch'
+      // });
       const replyBase = this._formatReplyBaseModelData(this.data.submitBaseValues.baseInfo, this.data.submitBaseValues.powerCapa, this.data.submitBaseValues.connectionInfo, this.data.submitBaseValues.metering);
       const highPowerFeature = this._formatHighPowerFeatureModelData(this.data.submitBaseValues.baseInfo, this.data.submitBaseValues.powerScheme, this.data.submitBaseValues.metering);
       const highPowerInsection = this._formatHighPowerInsectionData(this.data.POC);
       const highReplyProperty = this._formatHighReplyPropertyData(this.data.PDP);
       const userList = this._formatStaffList(this.data.staffAccount);
       const formValues = this._formatData(replyBase, highPowerInsection, highReplyProperty, highPowerFeature, userList, this.data.taskId, this.data.taskType);
-      console.log(JSON.stringify(formValues));
-      // Form.submit(formValues, HighReplyFormService.submitHighReplyForm);    //表单提交
+      HighReplyFormService.submitHighReplyForm(formValues).then(() => {    //表单提交
+        Toast.successToast('提交成功', () => {
+          dd.redirectTo({
+            url: '../hrfSketch/hrfSketch',
+          });
+        });
+      }).catch(() => {
+        Toast.failToast('提交失败');
+      });
     });
   },
   _formatReplyBaseModelData (baseInfo, powerCapa, connectionInfo, metering) {   //供电方案基础表
@@ -179,7 +197,7 @@ Page({
         replyBaseModel[item.name] = value;
       }
     }
-    for(let item of connectionInfo){
+    for(let item of metering){
       if(replyBaseModel[item.name] !== undefined){
         let value = item.value;
         value = value ? value : '';
@@ -190,16 +208,16 @@ Page({
   },
   _formatHighPowerInsectionData (POC) {   //供电电源接电点表
     let highPowerInsectionModel = HighPowerInsectionModel.createHighPowerInsectionModel();
-    highPowerInsectionModel.highReplyInsectionVoltage = POC.station;
-    highPowerInsectionModel.highReplyInsectionLine = POC.powerline;
-    highPowerInsectionModel.highReplyInsectionExtra = POC.extra;
+    highPowerInsectionModel.highreplyinsectionVoltage = POC.station;
+    highPowerInsectionModel.highreplyinsectionLine = POC.powerline;
+    highPowerInsectionModel.highreplyinsectionExtra = POC.extra;
     return highPowerInsectionModel
   },
   _formatHighReplyPropertyData (PDP) {   //产权分界点
     let highReplyPropertyModel = HighReplyPropertyModel.createHighReplyPropertyModel();
-    highReplyPropertyModel.highPropertyVoltage = PDP.station;
-    highReplyPropertyModel.highPropertyLine = PDP.powerline;
-    highReplyPropertyModel.highPropertyExtra = PDP.extra;
+    highReplyPropertyModel.highpropertyVoltage = PDP.station;
+    highReplyPropertyModel.highpropertyLine = PDP.powerline;
+    highReplyPropertyModel.highpropertyExtra = PDP.extra;
     return highReplyPropertyModel
   },
 

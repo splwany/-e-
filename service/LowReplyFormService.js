@@ -10,7 +10,7 @@ export default {
    */
   submitLowReplyForm:function(submitValues){
     const firstUser = submitValues.userList.shift();
-    return util.userListToTaskList(submitValues.userList, submitValues.ReplyBaseModel, submitValues.taskPhaseType, 3, false, firstUser)
+    return util.userListToTaskList(submitValues.userList, submitValues.replyBaseModel, submitValues.taskPhaseType, 3, false, firstUser)
     .then(taskPhaseList =>{
       return ReplyFormModel.submitLowReplyFormModel(submitValues,taskPhaseList);
     })

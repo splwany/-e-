@@ -19,8 +19,9 @@ Page({
    * 页面显示后运行
    */
   onShow() {
-    console.log(app.globalData.myStaffAccount);
-    this.onPullDownRefresh();    //下拉刷新
+    setTimeout(() => {
+      this.onPullDownRefresh()    //500毫秒后执行刷新动作
+    }, 500);
   },
 
   /**
@@ -38,12 +39,10 @@ Page({
     TaskService.getAwaitTaskByUserId(app.globalData.myStaffAccount)    //从服务器读取列表
       .then(workList => {    //成功，返回数据
         dd.stopPullDownRefresh();
-        Toast.successToast('刷新成功');
         return workList;
       })
       .catch(() => {    //失败，使用预定义数据
         dd.stopPullDownRefresh();
-        Toast.failToast('刷新失败，使用预设数据');
         const workList = [
           { taskphaseId: '0', prestaffAccount: 'YKFZX0001', staffAccount: 'YKFZX0001', applyNo: '201910210002', clientName: '喀左一号项目', taskName: '用电答复单（高压）', taskphaseStartdate: '2019年10月21日', taskType: '2', taskNum: '2' },
           { taskphaseId: '1', prestaffAccount: 'YWB0001', staffAccount: 'YJB0001', applyNo: '201910210003', clientName: '配网改造一号项目', taskName: '配网改造认定审核', taskphaseStartdate: '2019年10月21日', taskType: '0', taskNum: '2' },
