@@ -55,7 +55,8 @@ Component({
       this.$page.$spliceData({
         [`${this.props.bind}.value`]: [index, 1]
       }, () => {
-        if(count < this.props.values.max) {
+        if(count-1 < this.props.values.max) {
+          console.log('进来了');
           this.$page.setData({
             [`${this.props.bind}.canAdd`]: true
           });

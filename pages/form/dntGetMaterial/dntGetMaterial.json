@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "choose-stuff": "/components/choose-stuff/choose-stuff"
+  },
+  "defaultTitle": "配网改造领料",
+  "pullRefresh": false
+}
